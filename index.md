@@ -38,7 +38,7 @@ The past three years this infrastructure was put to test more than 3000 times, e
 generating an independent sandbox environment. While it was built on Amazon AMIs, it served 
 its purpose brilliantly. Only when microservices came about, it started to show its rigidness.
 
-Now i'm excited to spend time with my other love, **Containerized** applications. I'm excited to see how containers will supercharge the 
+Now i'm excited to spend time with my other love - **Containerized** applications - and see how containers will supercharge the 
 release process what already worked amazingly in action.
 
 I'm always up for a chat when it comes to CI/CD pipelines, try me: **<a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>**
