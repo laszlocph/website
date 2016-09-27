@@ -7,12 +7,12 @@ of Engineering @ FalconIO.
 
 ---
  
-## What am i up to these days?
+## What am I up to these days?
 
 After being employed for more than ten years, i'm venturing out to help companies levelling up their teams. 
 
-Throughout my carreer i saw all too many times how teams suffer without firm leadership. Oftentimes it's simply the result of lack of 
-time, sometimes the lack of seniority, but in all cases it's amazing to see how even a little strategic attention works magic
+Throughout my career i saw all too many times how teams suffer without firm leadership. Sometimes it's caused by lack of time, sometimes 
+lack of seniority, but in all cases it's amazing to see how even a little strategic attention works magic
  on productivity. An engaged engineer is a productive engineer.
  
  
@@ -38,8 +38,8 @@ The past three years this infrastructure was put to test more than 3000 times, e
 generating an independent sandbox environment. While it was built on Amazon AMIs, it served 
 its purpose brilliantly. Only when microservices came about, it started to show its rigidness.
 
-Now i'm excited to spend time with my other love - **Containerized** applications - and see how containers will supercharge the 
-release process what already worked amazingly in action.
+Now i'm excited to spend time with my other love - **Containerized** applications - and see how containers will supercharge this already 
+proven way of releasing software.
 
 I'm always up for a chat when it comes to CI/CD pipelines, try me: **<a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>**
 
