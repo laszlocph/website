@@ -6,6 +6,12 @@ I'm **Laszlo Fogas**, freelance software consultant, **Engineering leadership** 
 of Engineering @ FalconIO.
 
 ---
+* Schedule a meeting at [https://calendly.com/laszlocph](https://calendly.com/laszlocph)
+* Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
+* These days i'm sitting in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
+
+---
+
  
 ## What am I up to these days?
 
