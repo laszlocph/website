@@ -9,6 +9,8 @@ layout: default
 In this article I show a Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version 
 controlled. The end result is a container with code ready to deploy.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OV05bg30FoQ" frameborder="0" allowfullscreen></iframe>
+
 ---
 
 
