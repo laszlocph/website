@@ -21,9 +21,9 @@ Docker is not something for 2017, it's really for the here and now. Since i'm a 
 Wednesday, i should start sharing, shouldn't i?
 
 ## The power of releasing often
-Last Firday, i left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that i don't reflect way 
+Last Friday, i left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that i don't reflect way 
 too much in general anyway... But this article is not one of *those*. What should concern you though is that after making an 
-inventory of what worked well in that five years, one thing shines like thousand stars.
+inventory of what worked well in that five years, one thing stood out.
 
 The investment we put early on into our automated **CI and Sandbox environment** payed off brilliantly. It allowed developers to provision 
 their own sandbox environment with handpicked set of branches from all components, and to release their own feature in separation to all 
@@ -47,12 +47,12 @@ Why these? Because these give even more control to the developer. The build envi
 and factors out completely the need to talk to an operations engineer. While i have a sweet spot for operations engineers, they really 
 shouldn't be bothered with *a certain a Ruby gem that is needed on the CI server*. 
 
-**The separartion of roles and responsibilities become more clear between dev and ops** this way, the ops people should move from being 
+**The separation of roles and responsibilities become more clear between dev and ops** this way, the ops people should move from being 
 gatekeepers  (having root access to install *that Ruby gem*), to enablers. They make sure that plenty of computing power is provisioned 
 to the CI environment, and.. well, that's all.
 
 ## An opinionated take
-As i see it, the only blocker to get started with Docker, is the paralysing effect of choice. There is simply too many good options to 
+As i see it, the only blocker to get started with Docker, is the paralyzing effect of choice. There is simply too many good options to 
 choose from. If there are 10 components with 3 good choices for each, you do the math why it's a **thousands choices** you have to 
 make to reach nirvana.
  
@@ -92,7 +92,7 @@ credentials in the startup log.
 Let me explain the arguments of the *docker run* command.
 
 The first *-v* option provides a **persistent volume** for Jenkins to store the job definitions and workspaces. You could mount here a 
-specific location yoursef, but i recommend not to hassle with plathora of file permission problems it brings, but let Docker create you this volume at first run.
+specific location yourself, but i recommend not to hassle with plethora of file permission problems it brings, but let Docker create you this volume at first run.
 
 The other *-v* options are more interesting. We are mounting the local Docker socket and Docker executable into the container. While this
 may seem hackish, it is actually the least intrusive way to allow a Docker container to start new containers. These new containers will 
