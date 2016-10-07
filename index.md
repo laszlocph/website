@@ -17,7 +17,7 @@ of Engineering @ FalconIO.
  
 ## What am I up to these days?
 
-After being employed for more than ten years, i'm venturing out to help companies levelling up their teams. 
+After being employed for more than ten years, i'm venturing out to help companies leveling up their teams. 
 
 Throughout my career i saw all too many times how teams suffer without firm leadership. Sometimes it's caused by lack of time, sometimes 
 lack of seniority, but in all cases it's amazing to see how even a little strategic attention works magic
@@ -30,7 +30,7 @@ lack of seniority, but in all cases it's amazing to see how even a little strate
  * if you are unsure that introducing process is the right next step
  * if you experience slowdown in your team's output
  * if your engineers *just don't get it*
- * or if you are just interested what was it like to be part of FalconIO's growth from 3 to 200 employees.
+ * or if you are interested what was it like to be part of FalconIO's growth from 3 to 200 employees.
 
 I'm best reached at: **<a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>**
     
