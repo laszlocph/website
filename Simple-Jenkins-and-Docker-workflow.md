@@ -14,14 +14,14 @@ controlled. The end result is a container with code ready to deploy.
 ---
 
 
-The Docker ecosystem gave me that final push i needed to get started with my consulting carrier. While I could function as a 
-**startup veteran**, **interim CTO** or **engineering management consultant** i realized that there is something very profound in the 
+The Docker ecosystem gave me that final push I needed to get started with my consulting carrier. While I could function as a 
+**startup veteran**, **interim CTO** or **engineering management consultant** I realized that there is something very profound in the 
 maturity of the Docker world i should double down on. I was amazed by how converged and mature the ecosystem is and the adoption of 
 Docker is not something for 2017, it's really for the here and now. Since I'm a freelance consultant since this Monday, and it is already 
-Wednesday, i should start sharing, shouldn't I?
+Wednesday, I should start sharing, shouldn't I?
 
 ## The power of releasing often
-Last Friday, i left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that i don't reflect way 
+Last Friday, I left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that I don't reflect way 
 too much in general anyway... But this article is not one of *those*. What should concern you though is that after making an 
 inventory of what worked well in that five years, one thing stood out.
 
@@ -44,7 +44,7 @@ The other requirements are:
 * and to version that build environment together with the source code
 
 Why these? Because these give even more control to the developer. The build environment will be the same locally and on the CI server, 
-and factors out completely the need to talk to an operations engineer. While i have a sweet spot for operations engineers, they really 
+and factors out completely the need to talk to an operations engineer. While I have a sweet spot for operations engineers, they really 
 shouldn't be bothered with *a certain a Ruby gem that is needed on the CI server*. 
 
 **The separation of roles and responsibilities become more clear between dev and ops** this way, the ops people should move from being 
@@ -52,7 +52,7 @@ gatekeepers  (having root access to install *that Ruby gem*), to enablers. They 
 to the CI environment, and.. well, that's all.
 
 ## An opinionated take
-As i see it, the only blocker to get started with Docker, is the paralyzing effect of choice. There is simply too many good options to 
+As I see it, the only blocker to get started with Docker, is the paralyzing effect of choice. There is simply too many good options to 
 choose from. If there are 10 components with 3 good choices for each, you do the math why it's a **thousands choices** you have to 
 make to reach nirvana.
  
@@ -64,7 +64,7 @@ In this article - and the many ones that will follow - I give an opinionated tak
 
 This choice may seem a bit old school in the abundance of services like [drone.io](http://drone.io), [circle.ci](http://circle.ci), 
 [concourse.ci](http://concourse.ci), [this.ci](nope), [that.ci](neither this one) (you pick which one of these are actually a CI 
-solution), you can't go around the ubiquity of Jenkins, the fact that i know it, and the promise of 2.0 being a drop-in replacement of previous versions.
+solution), you can't go around the ubiquity of Jenkins, the fact that I know it, and the promise of 2.0 being a drop-in replacement of previous versions.
 
 In version 2.0 it introduces the Jenkinsfile: a [Groovy based DSL](https://jenkins.io/doc/pipeline/) to describe the build pipeline, ticking the box on one of my 
 requirements. The other two boxes can also be ticked by integrating Docker into the Jenkins workflow, albeit with some plumbing. I'm going to showcase the necessary plumbing in this article.
@@ -92,7 +92,7 @@ credentials in the startup log.
 Let me explain the arguments of the *docker run* command.
 
 The first *-v* option provides a **persistent volume** for Jenkins to store the job definitions and workspaces. You could mount here a 
-specific location yourself, but i recommend not to hassle with plethora of file permission problems it brings, but let Docker create you this volume at first run.
+specific location yourself, but I recommend not to hassle with plethora of file permission problems it brings, but let Docker create you this volume at first run.
 
 The other *-v* options are more interesting. We are mounting the local Docker socket and Docker executable into the container. While this
 may seem hackish, it is actually the least intrusive way to allow a Docker container to start new containers. These new containers will 
@@ -155,7 +155,7 @@ Wait, what?
 
 ## Interacting with the Build container
 
-The key in this pipeline is the second step where i start up the **Build container** and run the app specific build script with 
+The key in this pipeline is the second step where I start up the **Build container** and run the app specific build script with 
 the *docker exec* command. 
 
 Remember, all the Build container does is sleeping. It does that to be around even after the build script finished
