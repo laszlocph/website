@@ -11,7 +11,9 @@ of Engineering @ FalconIO.
 * These days i'm sitting in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
 ---
+**NEW** <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkis 2.0 and Docker workflow</a>
 
+---
  
 ## What am I up to these days?
 

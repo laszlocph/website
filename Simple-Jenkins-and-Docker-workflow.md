@@ -17,8 +17,8 @@ controlled. The end result is a container with code ready to deploy.
 The Docker ecosystem gave me that final push i needed to get started with my consulting carrier. While I could function as a 
 **startup veteran**, **interim CTO** or **engineering management consultant** i realized that there is something very profound in the 
 maturity of the Docker world i should double down on. I was amazed by how converged and mature the ecosystem is and the adoption of 
-Docker is not something for 2017, it's really for the here and now. Since i'm a freelance consultant since this Monday, and it is already 
-Wednesday, i should start sharing, shouldn't i?
+Docker is not something for 2017, it's really for the here and now. Since I'm a freelance consultant since this Monday, and it is already 
+Wednesday, i should start sharing, shouldn't I?
 
 ## The power of releasing often
 Last Friday, i left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that i don't reflect way 
