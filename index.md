@@ -44,9 +44,9 @@ coordination needs in the software release.
 
 The past three years this infrastructure was put to test more than 3000 times, each time 
 generating an independent sandbox environment. While it was built on Amazon AMIs, it served 
-its purpose brilliantly. Only when microservices came about, it started to show its rigidness.
+its purpose brilliantly and only reached its limits recently when we started to introduce microservices at scale.
 
-Now i'm excited to spend time with my other love - **Containerized** applications - and see how containers will supercharge this already 
+Now i'm excited to spend time with my other love - **containerized** applications - and see how containers will supercharge this already 
 proven way of releasing software.
 
 I'm always up for a chat when it comes to CI/CD pipelines, try me: **<a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>**
