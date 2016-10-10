@@ -14,46 +14,44 @@ controlled. The end result is a container with code ready to deploy.
 ---
 
 
-The Docker ecosystem gave me that final push I needed to get started with my consulting carrier. While I could function as a 
+The Docker ecosystem gave me that final push I needed to get started with my consulting career. While I could function as a 
 **startup veteran**, **interim CTO** or **engineering management consultant** I realized that there is something very profound in the 
-maturity of the Docker world i should double down on. I was amazed by how converged and mature the ecosystem is and the adoption of 
-Docker is not something for 2017, it's really for the here and now. Since I'm a freelance consultant since this Monday, and it is already 
+maturity of the Docker world i should double down on. I was amazed by how converged and mature the ecosystem is and adopting Docker
+is not something for 2017, it's for the here and now. Since I'm a freelance consultant since this Monday, and it is already 
 Wednesday, I should start sharing, shouldn't I?
 
 ## The power of releasing often
-Last Friday, I left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that I don't reflect way 
-too much in general anyway... But this article is not one of *those*. What should concern you though is that after making an 
+Last Friday, I left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that I don't reflect much in general anyway... But this article is not one of *those*. What should concern you though is that after making an 
 inventory of what worked well in that five years, one thing stood out.
 
-The investment we put early on into our automated **CI and Sandbox environment** payed off brilliantly. It allowed developers to provision 
+The investment we put early on into our automated **CI and Sandbox environment** payed off big time. It allowed developers to provision 
 their own sandbox environment with handpicked set of branches from all components, and to release their own feature in separation to all 
-others. And that's clever. Clever, since **there is nothing that engineers like more than shipping**, seeing the impact they make, getting
- true feedback of their work is a motivator like nothing else.
+others. And that's clever. Clever, since **there is nothing engineers like more than shipping**, seeing the impact they have, getting feedback on their work is a motivator like nothing else.
 
-Now, I'm excited to have a more modern take on that workflow utilizing Docker and modern CI tools, because a lot happened since we launched 
-our homegrown VM based tooling.
+Now, I'm excited to have a more modern take on that workflow utilizing Docker and modern CI tools. A lot happened since we launched 
+our homegrown VM based tooling. 
 
 ## Modern requirements
 One requirement stands still: the ability to provision an environment with handpicked components and branches, be that locally, or on a 
 QA environment.
 
-The other requirements are:
+My other requirements are:
 
-* the ability to have the build pipeline versioned in the source code repository
-* the ability to build in an independent environment
-* and to version that build environment together with the source code
+* ability to have the build pipeline versioned in the source code repository
+* ability to build in an independent environment
+* and versioning that build environment together with the source code
 
-Why these? Because these give even more control to the developer. The build environment will be the same locally and on the CI server, 
-and factors out completely the need to talk to an operations engineer. While I have a sweet spot for operations engineers, they really 
+Why these? Because they give more control to the developer. The environment will be the same locally and on the CI server, 
+and factors out the need to talk with an operations engineer. While I have a sweet spot for operations engineers, they really 
 shouldn't be bothered with *a certain a Ruby gem that is needed on the CI server*. 
 
-**The separation of roles and responsibilities become more clear between dev and ops** this way, the ops people should move from being 
+**The separation of roles and responsibilities become more clear between dev and ops** this way, the ops people can move from being 
 gatekeepers  (having root access to install *that Ruby gem*), to enablers. They make sure that plenty of computing power is provisioned 
 to the CI environment, and.. well, that's all.
 
 ## An opinionated take
-As I see it, the only blocker to get started with Docker, is the paralyzing effect of choice. There is simply too many good options to 
-choose from. If there are 10 components with 3 good choices for each, you do the math why it's a **thousands choices** you have to 
+As I see it, the only blocker to get started with Docker, is the paralyzing amount of choice. There is simply too many good options to 
+choose from. If there are 10 components with 3 good choices for each, you do the math why there's a **thousands choices** you have to 
 make to reach nirvana.
  
 In this article - and the many ones that will follow - I give an opinionated take of a working solution. While my choices are often hard
@@ -64,7 +62,7 @@ In this article - and the many ones that will follow - I give an opinionated tak
 
 This choice may seem a bit old school in the abundance of services like [drone.io](http://drone.io), [circle.ci](http://circle.ci), 
 [concourse.ci](http://concourse.ci), [this.ci](nope), [that.ci](neither this one) (you pick which one of these are actually a CI 
-solution), you can't go around the ubiquity of Jenkins, the fact that I know it, and the promise of 2.0 being a drop-in replacement of previous versions.
+solution), you can't ignore the ubiquity of Jenkins. For me, the fact that I know it, and the promise of 2.0 being a drop-in replacement of previous versions makes it a simple choice.
 
 In version 2.0 it introduces the Jenkinsfile: a [Groovy based DSL](https://jenkins.io/doc/pipeline/) to describe the build pipeline, ticking the box on one of my 
 requirements. The other two boxes can also be ticked by integrating Docker into the Jenkins workflow, albeit with some plumbing. I'm going to showcase the necessary plumbing in this article.
@@ -96,7 +94,7 @@ specific location yourself, but I recommend not to hassle with plethora of file 
 
 The other *-v* options are more interesting. We are mounting the local Docker socket and Docker executable into the container. While this
 may seem hackish, it is actually the least intrusive way to allow a Docker container to start new containers. These new containers will 
-run on the **host's Docker daemon**, making them effectively **siblings of the Jenkins container**. 
+run on the **host's Docker daemon**, making them **siblings of the Jenkins container**. 
  
 For alternatives, reasoning and consequences see [this](https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/) and 
 [this](http://container-solutions.com/running-docker-in-jenkins-in-docker/) article. Trust me, having read those you will find 
@@ -127,7 +125,7 @@ docker run -it --rm --network=host laszlocph/spring-boot-dummy
 </pre>
 
 The *Dockerfile* in the root is the build environment. While for Java projects dependencies might not collide, Python and 
-other projects would benefit greatly from an independent build environment.
+other projects benefit greatly from an independent build environments.
 
 <pre>
 FROM anapsix/alpine-java:8_jdk
@@ -137,7 +135,7 @@ ADD . .
 CMD sleep 1h
 </pre>
 
-All needed dependencies for our simple Java app are provided in the SDK or fetched by Gradle, so the only thing we have to do to 
+All needed dependencies for our simple Java app are provided in the SDK or are fetched by Gradle, so the only thing we have to do to 
 compile our project is taking a small Java SDK image and adding all our files to the image. Then we let it sleep for an hour. 
 
 Wait, what? 
@@ -147,9 +145,9 @@ Wait, what?
 ## Jenkinsfile
 
 [My example pipeline](https://github.com/laszlocph/spring-boot-dummy/blob/master/Jenkinsfile) contains three stages:
-* the first one to prepare the Build container image
-* the second to run the actual build inside that container
-* the last one to take the artifact and build the production container image.
+* the first one to prepares the Build container image
+* the second runs the actual build inside that container
+* the last one takes the artifact and build the production container image.
 
 ![Pipeline](pipeline.png)
 
