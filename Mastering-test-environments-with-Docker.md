@@ -9,6 +9,8 @@ layout: default
 **tldr**
 In this article I show how to work with Docker Compose to have tailored local or QA environments 
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Uu0v-ZDlYDI" frameborder="0" allowfullscreen></iframe>
+
  ---
 
 In the [first part](Simple-Jenkins-and-Docker-workflow) of the series I addressed three out of four requirements
