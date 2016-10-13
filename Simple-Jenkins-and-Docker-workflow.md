@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## A simple Jenkis 2.0 and Docker workflow
+## A simple Jenkins 2.0 and Docker workflow
 
 ---
 **tldr**
