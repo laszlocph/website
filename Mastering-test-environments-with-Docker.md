@@ -37,7 +37,7 @@ We also got a new item on the side bar to reindex branches on demand. It is able
 ![Multi-branch support](branch-indexing.png)
 
 I made one more modification to the pipeline to make it practically useful. In this new final step I **push the built Docker container image to a [registry](https://hub.docker.com/r/laszlocph/spring-boot-dummy/tags/)**. 
-With this step the container became available to other processes for verification and deployment.
+With this step the container becomes available to other processes for verification and deployment.
 
 ## Define stacks
 At this point components are built continuously on every branch. As a next step I describe their interrelatedness with [Docker Compose](https://docs.docker.com/compose/) and handle them as a logical unit to bring up local and later remote environments.
@@ -66,7 +66,7 @@ Above I defined three services,
 * *boot* is the well known Spring Boot application from part one.
 * *redis* is just a vanilla Redis container
 
-Running this stack is nothing more than executing the **docker-compose up** command. We don't have to fiddle with individual *docker run* commands as
+Running this stack takes nothing more than executing the **docker-compose up** command. We don't have to fiddle with individual *docker run* commands as
 it will start all containers in the right order, with the right volumes and exposed ports just as they are described in the docker-compose file. 
 
 Furthermore it defines a Docker network, so the services are able to communicate with each other in separation to other network traffic. 
@@ -138,13 +138,15 @@ Imagine when a new colleague joins the team and she has a local environment up a
 
 ## Running a stack remotely
 
-First, let's create a remote environment with an other Docker tool. Docker Machine allows me to provision easily a VM with Docker Engine installed be that locally with VirtualBox or remotely on Amazon AWS or Azure.
+First, let's create a remote environment with an other Docker tool. Docker Machine allows me to provision easily a VM with Docker Engine installed, be that locally with VirtualBox or remotely on Amazon AWS or Azure.
 
 <pre>
 docker-machine create --driver virtualbox composeHost
 </pre>
 
-Docker Machine - just like Vagrant - pulls in an image and launches a VM in Virtualbox and also provides convenience methods to operate the VM. Notable commands are
+Docker Machine - just like Vagrant - pulls in an image and launches a VM in Virtualbox and also provides convenience methods to operate the VM. 
+
+Notable commands are:
 
 * docker-machine ls
 * docker-machine ssh <VM name>
@@ -158,7 +160,7 @@ eval $(docker-machine env composeHost)
 </pre>
 
 **From this moment on, every docker command I run is not executed locally, but on the remote host.** 
-This may look magical, but what's happening in the background is that it sets a few environment variables that is regarded by the docker executable.
+This may look magical, but what happens in the background is that it sets a few environment variables that is regarded by the docker executable.
 
 <pre>
 laszlo@~: docker-machine env composeHost
@@ -167,10 +169,10 @@ export DOCKER_HOST="tcp://192.168.99.100:2376"
 export DOCKER_CERT_PATH="/home/laszlo/.docker/machine/machines/composeHost"
 export DOCKER_MACHINE_NAME="composeHost"
 # Run this command to configure your shell: 
-# eval $(docker-machine env composeHost2)
+# eval $(docker-machine env composeHost)
 </pre>
 
-While the above clarifies what is happening, the outcome is still magical as the docker-compose command too will operate on the remote machine since it relies on standard docker commands. 
+While the above clarifies what happens, the outcome is still magical as the docker-compose command will also operate on the remote machine as it relies on standard docker commands. 
 **Providing the same interface for local and remote work for no additional cost.**
 
 Once I'm done with the remote work, or got confused which server I'm on, I can easily set the environment back to local by calling
@@ -225,7 +227,7 @@ It is a bit cumbersome to set up, uses 3rd party components to keep the cluster 
 It also introduces the *service* higher level abstraction that allows easy rolling updates, and more intelligent network routing. 
 Sadly Docker Compose can not be pointed at this new clustering solution yet, I'm sure though this will be implemented in coming versions. Especially as Compose has an [experimental feature](https://docs.docker.com/compose/bundles/) already doing just that.
 
-There are plenty of next steps ahead of me, clustering is a big topic. My goal is to find a nice way to run production stacks with similar ease as the workflow above. Also I will peak into competing platforms and investigate connecting topics.
+There are plenty of next steps ahead of me, clustering is a big topic. My goal is to find a nice way to run production stacks with similar ease as the workflow above. I will also peak into competing platforms and investigate connecting topics.
 
 Onwards!
 
