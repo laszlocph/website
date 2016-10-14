@@ -7,7 +7,7 @@ layout: default
 ---
 
 **tldr**
-In this article I show how to work with Docker Compose to have tailored local or QA environments 
+In this article I show how to use Docker Compose to pick and choose services and branches for any local or QA environment. I also showcase the branch aware build pipeline introduced in Jenkins 2.0.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Uu0v-ZDlYDI" frameborder="0" allowfullscreen></iframe>
 
