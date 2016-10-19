@@ -2,13 +2,13 @@
 layout: default
 ---
 
-I'm **Laszlo Fogas**, freelance software consultant, **Engineering leadership** and **Devops** expert. Former early employee & Director 
-of Engineering @ FalconIO.
+Hi, I'm **Laszlo Fogas**, freelance software consultant. I help teams of 5 mature their engineering practices and become scalable technical organizations. 
+
+I offer workshops and hands-on work to level-up engineering, release and testing practices so you don’t lose productivity during the scaling.
 
 ---
-* Schedule a meeting at [https://calendly.com/laszlocph](https://calendly.com/laszlocph)
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
-* These days I'm sitting in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
+* I sit in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
 ---
 **NEW** <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
