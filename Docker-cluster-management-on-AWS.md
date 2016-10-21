@@ -60,13 +60,11 @@ ECS has two primitives to work with: *services* and *tasks*.
 
 ## Compose up
 
-Once the cluster is running, I start up the environment defined in the docker-compose.yml file with the 
+Once the cluster is running, I start up the environment defined in the docker-compose.yml file.
 
 <pre>
 ecs-cli compose service up
 </pre>
-
-command. 
 
 It creates the required *task* definitions from the compose file and also creates a *service*. 
 
@@ -124,7 +122,7 @@ aws elbv2 create-load-balancer --name elb01 --subnets subnet-ae0f49ca subnet-573
 
 aws elbv2 create-target-group --name target01 --protocol HTTP --port 80 --vpc-id vpc-3803615c
 
-aws elbv2 create-listener --load-balancer-arn arn:aws:elasticloadbalancing:eu-west-1:782027979363:loadbalancer/app/elb01/355e0f7219b527e9 --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:eu-west-1:782027979363:targetgroup/target01/ff172e9976a871c4
+aws elbv2 create-listener --load-balancer-arn arn:aws:...loadbalancer/app/elb01 --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=arn:aws:...targetgroup/target01
 </pre>
 
 You can find out more about the  *target group* and *listener* components in [this article](https://aws.amazon.com/blogs/compute/microservice-delivery-with-amazon-ecs-and-application-load-balancers/).
@@ -160,7 +158,7 @@ The last thing I had to prepare is the *task* and *service* definition files.
   "taskDefinition": "boot:1",
   "loadBalancers": [
     {
-      "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:782027979363:targetgroup/target01/03f4ca3155c8db4a",
+      "targetGroupArn": "arn:aws:e....:targetgroup/target01/03f4ca3155c8db4a",
       "containerName": "boot",
       "containerPort": 8080
     }
@@ -196,7 +194,7 @@ After registering the task and service in ECS, the container instances get regis
 
 ## Rolling out updates
 
-Deploying a new version of the service requires to update the service definition, what only takes one command. Then the changes are shown in the ECS logs.
+Deploying a new version of the service requires to update the service definition. Then the changes are shown in the ECS logs.
 
 <pre>
 aws ecs update-service --cluster cluster01 --service arn:aws:ecs:eu-west-1:782027979363:service/boot --task-definition boot:2
@@ -204,13 +202,13 @@ aws ecs update-service --cluster cluster01 --service arn:aws:ecs:eu-west-1:78202
 
 ![Event log](events.png)
 
-Full disclosure: the update took many minutes, but most of the time was spent in draining connections from the ELB. The default five minutes can be changed to lower values to speed up deployment.
+Full disclosure: the update took many minutes, but most of the time was spent in draining connections from ELB. The default five minutes can be changed to speed up deployment.
 
 ## More services
-Since a single instance of the load balancer can handle many services - each mapped into different subpath or port - the only requirement to create a new service is to create the task and service definitions, and to create a new *target group* for each service that you reference in the service definition. Containers will be automatically registered to the load balancer.
+Since a single instance of the load balancer can handle many services - each mapped into a different subpath or port - the only requirement to create a new service is to create the task and service definitions, and to create a new *target group* for each service that you reference in the service definition. Containers will be automatically registered to the load balancer.
 
 ## Next steps
-It was a good exercise to create the first service with AWS CLI. Mapping all services by hand though call for a configuration management tool, where the version state of the service is stored.  As a next step I'm going to look into this problem, either using Ansible, Terraform or CloudFormation.  
+It was a good exercise to create the first service with AWS CLI, mapping all services by hand though is a bit cumbersome. Configuration management tools - where the versioned state of the service is stored - can aid this problem. As a possible next step I will explore either Ansible, Terraform or CloudFormation to manage the stack at a higher level.  
 
 Onwards!
 
