@@ -2,9 +2,16 @@
 layout: default
 ---
 
-Hi, I'm **Laszlo Fogas**, freelance software consultant. I help teams of 5 mature their engineering practices and become scalable technical organizations. 
+Hi, I'm Laszlo Fogas, freelance software consultant. 
 
-I offer workshops and hands-on work to level-up engineering, release and testing practices so you don’t lose productivity during the scaling.
+**I help growing teams mature their engineering practices to become scalable technical organizations.**
+
+I offer workshops and hands-on work to  level-up engineering, release and testing practices so you **don’t lose productivity during scaling**.  
+
+---
+
+I'm a former early employee and Director of Engineering of Falcon.io. I started as an individual contributor being responsible for everything backend. 
+Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
 
 ---
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>

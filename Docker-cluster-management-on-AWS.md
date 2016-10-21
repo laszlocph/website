@@ -10,7 +10,7 @@ In this episode I reuse the well known Docker Compose files from part 2 and run 
 
 ---
 
-By the end of [part 2](Mastering-test-environments-with-Docker) of the series I was able to run any set of services with any feature branch on a remote machine. The setup was quite pleasing to me since the local and test envirnments were identical and I could showcase the state of development easily for Product Management or QA.
+By the end of [part 2](Mastering-test-environments-with-Docker) of the series I was able to run any set of services with any feature branch on a remote machine. The setup was quite pleasing to me since the local and test environments were identical and I could showcase the state of development easily for Product Management or QA.
 
 I could reach that point relatively easily since I used only Docker's built in tooling. They were perfectly integrated and very powerful, thanks to Docker's *batteries included* approach.  
 
@@ -24,7 +24,7 @@ I was also moaning a bit that I couldn't point my Docker Compose script to a clu
 * I could also try Amazon AWS's managed cluster solution: [ECS](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
 * or dive into competing stacks like [Kubernetes](http://kubernetes.io), and later on experience with [Google Cloud's](https://cloud.google.com/container-engine/) managed options.
 
-## ECS: Elastic Cointainer Service
+## ECS: Elastic Container Service
 Eventually I opted for ECS since there are already plenty of new concepts to juggle with. Managing my own cluster - while it is intellectually pleasing - seemed an overkill.
 
 Especially as [AWS provides tooling to reuse my Docker Compose files](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-service.html), and it took only a few changes to fit my work to ECS.
@@ -82,7 +82,7 @@ Since the flow is identical to the flow in part 2, I simply modified the [start-
 
 Each time I run the script I get a new environment exposed on a random port, on one of the cluster node's IP.
 
-Full disclosure: this is not full cluster transparency, but it is sufficient for QA environments. I will address this by Load Balancers in my production setup.
+Full disclosure: this is not full cluster transparency, but it is sufficient for QA environments. I will address this by load balancers in my production setup.
 
 ## Production setup
 
@@ -104,12 +104,12 @@ So the task ahead is to create the fine grained version of the *service* definit
 
 ## Service Discovery light
 
-Service Discovery is a problem that became prominent recently in the highly volatile environment of immutable infrastructures. Since services come and go, scale up and down, one can never be sure on what IP address a service is accessible. Putting IP addresses into application configuration files is too rigid to handle the fast changes. The need arrised to turn things up side down. 
+Service Discovery is a problem that became prominent recently in the highly volatile environment of immutable infrastructures. Since services come and go, scale up and down, one can never be sure on what IP address a service is accessible. Putting IP addresses into application configuration files is too rigid to handle the fast changes. The need arise to turn things up side down. 
 
 Service discovery tools like [Netflix Eureka](https://github.com/Netflix/eureka), [Consul](https://www.consul.io/) become very popular. Essentially every service registers its access information in these components, and the service clients obtain the connection information from these service registries.
 
 In my example though I solve the problem by simply using AWS's Elastic Load Balancer (ELB) service. Especially as it is [now aware of ECS services](https://aws.amazon.com/about-aws/whats-new/2016/08/amazon-ec2-container-service-now-integrated-with-application-load-balancer-to-support-dynamic-ports-and-path-based-routing/). 
-**Services automatically get registered and deregistered in ELB**, so I can be sure that by accessing the service on a given DNS name, my request is routed to one of the containers in an ECS *service*. 
+**Services automatically get registered in ELB**, so I can be sure that by accessing the service on a given DNS name, my request is routed to one of the containers in an ECS *service*. 
 
 This combined with the new **path based routing** in ELB, and the ability to run a load balancer on internal networks allows me to not introduce any complex Service Discovery component.
 
