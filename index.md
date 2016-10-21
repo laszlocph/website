@@ -10,7 +10,9 @@ I offer workshops and hands-on work to  level-up engineering, release and testin
 
 ---
 
-I'm a former early employee and Director of Engineering of Falcon.io. I started as an individual contributor being responsible for everything backend. 
+I'm a former early employee and Director of Engineering of Falcon.io. I spent five years with the company and witnessed the growth from 3 to 200 employees. 
+
+Started as an individual contributor being responsible for everything backend. 
 Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
 
 ---
