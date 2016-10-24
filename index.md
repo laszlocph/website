@@ -15,13 +15,14 @@ I'm a former early employee and Director of Engineering of Falcon.io. I spent fi
 Started as an individual contributor being responsible for everything backend. 
 Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
 
----
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
-* I sit in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
+* My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
 ---
+
+**NEW** <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
 **NEW** <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
-**NEW** <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkis 2.0 and Docker workflow</a>
+<a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkis 2.0 and Docker workflow</a>
 
 ---
  

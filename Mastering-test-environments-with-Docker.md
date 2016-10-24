@@ -231,6 +231,8 @@ There are plenty of next steps ahead of me, clustering is a big topic. My goal i
 
 Onwards!
 
+**NEW** Part three is out <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
+
 ---
 I might be wrong, you know.. if you feel strongly about one or an other solution in this article, reach out at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a> and let's have a chat! 
 
