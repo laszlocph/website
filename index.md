@@ -19,9 +19,9 @@ Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
 ---
-
-**NEW** <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
-**NEW** <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
+**NEW** <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-should-I-get-started" style="color: red; align: center;">I get it Laszlo, but how should I get started?</a><br/>
+<a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
+<a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
 <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkis 2.0 and Docker workflow</a>
 
 ---
