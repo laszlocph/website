@@ -2,9 +2,9 @@
 layout: default
 ---
 
-## I get it Laszlo, but how should I get started?        
+## I get it Laszlo, but how do I get started?        
 
-I got some nice feedback after the [three part Docker article series]() and had the chance to have a few deeper 
+I got some nice feedback after the [three part Docker article series](Simple-Jenkins-and-Docker-workflow) and had the chance to have a few deeper 
 chats with managers from companies big and small. 
 
 They all had their unique situation and while they fight their own daemons day to day, 
@@ -45,6 +45,7 @@ Especially as Docker is becoming as ubiquitous as Git - despite the fact that Gi
 
 ## Boom, profit!
 Investing in your release process has multitude of upsides.
+
 * It's good for retention. Developers just want to ship, and see the impact of their work. No developer ever complained about releasing too often. 
 * It's good for time to market. Consistently. To paraphrase Dave Farley, **if something hurts in software, do it more often**. This is especially [true for releasing](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html). 
 The more often you release the less you have to deal with the unpredictability of the "code freeze", and the infamous merge problems. A good cadence of releases makes software delivery predictable.
@@ -52,7 +53,7 @@ The more often you release the less you have to deal with the unpredictability o
 
 ---
 
-This is not rocket science, but hopefully commodity soon enough. Should you have any question, head over to https://laszlo.cloud
+This is not rocket science, but hopefully commodity soon enough. Should you have any question, head over to [https://laszlo.cloud](https://laszlo.cloud)
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
