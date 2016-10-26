@@ -10,11 +10,6 @@ I offer workshops and hands-on work to  level-up engineering, release and testin
 
 ---
 
-I'm a former early employee and Director of Engineering of Falcon.io. I spent five years with the company and witnessed the growth from 3 to 200 employees. 
-
-Started as an individual contributor being responsible for everything backend. 
-Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
-
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
@@ -27,6 +22,33 @@ Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
 ---
  
 ## What am I up to these days?
+
+I'm exploring the needs of local companies, where they most need help.
+
+I prepared a short workshop for one of them with the following high level agenda.
+
+* Habits of scalable technical organizations
+* What is culture anyway?
+* Effective behaviors in a scaling company
+* Let's talk about processes
+* Let's talk about Agile
+* Measure everything
+* Continuous Integration
+* Git essentials
+* Containers 101
+
+In parallel I'm researching the state of the art in the Docker universe and finding practical use of this high potential technology. 
+A course is manifesting from this effort targeting developers and the instant ROI they can get.
+
+## About me
+
+I'm a former early employee and Director of Engineering of Falcon.io. I spent five years with the company and witnessed the growth from 3 to 200 employees. 
+
+Started as an individual contributor being responsible for everything backend. 
+Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
+
+---
+
 
 After being employed for more than ten years, I'm venturing out to help companies leveling up their teams. 
 
