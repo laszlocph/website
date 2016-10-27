@@ -25,7 +25,7 @@ I was also moaning a bit that I couldn't point my Docker Compose script to a clu
 * or dive into competing stacks like [Kubernetes](http://kubernetes.io), and later on experience with [Google Cloud's](https://cloud.google.com/container-engine/) managed options.
 
 ## ECS: Elastic Container Service
-Eventually I opted for ECS since there are already plenty of new concepts to juggle with. Managing my own cluster - while it is intellectually pleasing - seemed an overkill.
+Eventually I opted for ECS since there are already plenty of new concepts to juggle with. Managing my own cluster - while it is intellectually pleasing - seemed like an overkill.
 
 Especially as [AWS provides tooling to reuse my Docker Compose files](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-service.html), and it took only a few changes to fit my work to ECS.
 
