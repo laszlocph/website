@@ -12,7 +12,7 @@ they all have **developer experience** high on their agenda, and agreed that Doc
 
 We talked about their team structure, their tech legacy and factors that prevent them from going full offense on old processes.
 
-In those talks I emphasized a few things on **how to get started and build change from the ground up and have culture do the dirty work**. 
+In those talks I emphasized a few things on **how to get started to build change from the ground up and have culture do the dirty work**. 
 I also decided to share a few of those points in an article. So here it is.
  
  
@@ -24,11 +24,10 @@ I mean HARD in all caps, if not impossible.
 
 [Changing their working environment](http://www.elidedbranches.com/2016/04/you-can-bring-horse-to-water.html) though yields better results faster, sometimes instantly. And the best news is that you have control over it.
 
-Tooling is a key part of a developer's daily experience. It's not hard to see that people do what is easier for them. 
-You can fight the tide but why would you if at the same time you can **make the right thing easy** and have people naturally opt for the desired behavior.
+Tooling is a key part of developers daily experience. It’s not hard to see that people do what is easier for them and as much you can fight the tide, why would you? The same time you can **make the right thing easy** and have people naturally opt for the desired behavior.
 
 It doesn't require to have a fully staffed platform team or toolsmith team - although it certainly helps, you can get started by having one of your engineer work a full day on the most annoying problem they face. 
-Picking a problem or a person shouldn't be so hard, just follow the inside jokes or find the person yelling the loudest and you quickly find good candidates. 
+Picking a problem and a person shouldn’t be so hard, just follow the inside jokes and find the person yelling the loudest and you quickly find good candidates.
 
 A lot of damage can be done in one day, and if you timebox the effort, you can be sure of finding a pragmatic solution to your most annoying problem. 
 The only thing left is celebrating the small scripts and promote sharing.
