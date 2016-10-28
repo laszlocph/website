@@ -23,7 +23,7 @@ I offer workshops and hands-on work to  level-up engineering, release and testin
  
 ## What am I up to these days?
 
-I'm exploring the needs of local companies, where they most need help. I prepared a short workshop for one of them with the following high level agenda.
+I've prepared a short workshop for one local growing company with the following high level agenda.
 
 * Habits of scalable technical organizations
 * What is culture anyway?
@@ -36,7 +36,7 @@ I'm exploring the needs of local companies, where they most need help. I prepare
 * Containers 101
 
 In parallel I'm researching the state of the art in the Docker universe and the practical use of this high potential technology. 
-A course is manifesting from this effort targeting developers and the instant ROI they can get.
+A course is manifesting from this effort. I'm targeting developers and the instant ROI they can get.
 
 ## About me
 
