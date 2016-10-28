@@ -24,24 +24,24 @@ I mean HARD in all caps, if not impossible.
 
 [Changing their working environment](http://www.elidedbranches.com/2016/04/you-can-bring-horse-to-water.html) though yields better results faster, sometimes instantly. And the best news is that you have control over it.
 
-Tooling is another great asset to achieve change. It's not hard to see that people do what is easier for them. 
+Tooling is a key part of a developer's daily experience. It's not hard to see that people do what is easier for them. 
 You can fight the tide but why would you if at the same time you can **make the right thing easy** and have people naturally opt for the desired behavior.
 
 It doesn't require to have a fully staffed platform team or toolsmith team - although it certainly helps, you can get started by having one of your engineer work a full day on the most annoying problem they face. 
-Picking a problem or a person shouldn't be so hard, just follow the inside jokes or the wining and you quickly find good candidates. 
+Picking a problem or a person shouldn't be so hard, just follow the inside jokes or find the person yelling the loudest and you quickly find good candidates. 
 
 A lot of damage can be done in one day, and if you timebox the effort, you can be sure of finding a pragmatic solution to your most annoying problem. 
-The only thing left is celebrating the small scripts and to promote sharing.
+The only thing left is celebrating the small scripts and promote sharing.
 
 ## Educate
-Knowledge is never evenly distributed in your team, but plans always assume the cutting edge.
+Knowledge is never evenly distributed in your team, plans on the other hand always assume the cutting edge.
  
-You would expect you have Git proficiency in the whole team, and everyone has multitude of scripts to automate their daily work. It's not quite true on the edges.
+You would expect you have Git proficiency in your entire team, and everyone has multitude of scripts to automate their daily work. It's not quite true on the edges.
  
 Therefor it is crucial to reinforce the knowledge of Git, Continuous Integration (CI) and have your team master Docker basics in order to not be bogged down with technicalities.
 
-Tooling hides the complexity, but the listed skills will never be sparred from developers, and are a baseline in a nimble technical organization. 
-Especially as Docker is becoming as ubiquitous as Git - despite the fact that Git was never as straightforward as Docker is today.
+Tooling hides the complexity, but the listed skills will never be sparred from developers. They are a baseline in a nimble technical organization. 
+Especially as Docker is becoming as ubiquitous as Git.
 
 ## Boom, profit!
 Investing in your release process has multitude of upsides.
