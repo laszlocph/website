@@ -16,7 +16,7 @@ I offer workshops and hands-on work to  level-up engineering, release and testin
 **NEW** <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a><br/>
 <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
 <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
-<a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkis 2.0 and Docker workflow</a>
+<a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
 
 ---
  
