@@ -14,6 +14,7 @@ I offer workshops and hands-on work to  level-up engineering, release and testin
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
 ---
+**NEW** <a href="http://laszlo.cloud/Instant-ROI-with-Docker" style="color: red; align: center;">Instant ROI with Docker</a><br/>
 **NEW** <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a><br/>
 <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
 <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
