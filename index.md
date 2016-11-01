@@ -8,8 +8,6 @@ Hi, I'm Laszlo Fogas, freelance software consultant.
 
 I offer workshops and hands-on work to  level-up engineering, release and testing practices so you **don’t lose productivity during scaling**.  
 
----
-
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
@@ -22,9 +20,15 @@ I offer workshops and hands-on work to  level-up engineering, release and testin
 
 ---
  
+ 
 ## What am I up to these days?
 
-I've prepared a short workshop for one local growing company with the following high level agenda.
+I've launched an intro Docker course for developers as there are a few immediate upsides that any team can benefit from. I wrote about this in detail in the <a href="http://laszlo.cloud/Instant-ROI-with-Docker">Instant ROI with Docker</a> article.
+It is reasonably priced as it is a foundation skill for everyone on your team.
+
+<a href="http://www.eventbrite.com/e/docker-kickstart-for-developers-tickets-28859428327?ref=ebtnebregn" target="_blank"><img src="https://www.eventbrite.com/custombutton?eid=28859428327" alt="Eventbrite - Docker kickstart for Developers" /></a>
+
+I've prepared a short workshop for a local growing company with the following high level agenda. We are planning on hands-on work once the workshop took place and strengthen the core practices that will help them long term.
 
 * Habits of scalable technical organizations
 * What is culture anyway?
@@ -36,9 +40,6 @@ I've prepared a short workshop for one local growing company with the following 
 * Git essentials
 * Containers 101
 
-In parallel I'm researching the state of the art in the Docker universe and the practical use of this high potential technology. 
-A course is manifesting from this effort. I'm targeting developers and the instant ROI they can get.
-
 ## About me
 
 I'm a former early employee and Director of Engineering of Falcon.io. I spent five years with the company and witnessed the growth from 3 to 200 employees. 
@@ -46,7 +47,7 @@ I'm a former early employee and Director of Engineering of Falcon.io. I spent fi
 Started as an individual contributor being responsible for everything backend. 
 Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
 
----
+--
 
 
 After being employed for more than ten years, I'm venturing out to help companies leveling up their teams. 

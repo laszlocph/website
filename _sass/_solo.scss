@@ -22,7 +22,7 @@ body {
 }
 
 a {
-  color: #0074d9; /* From http://clrs.cc */
+  color: red; /* From http://clrs.cc */
   text-decoration: none;
 }
 
@@ -47,6 +47,12 @@ h1 {
   h1 {
     font-size: 3rem;
     margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 50rem) {
+  .event {
+    position: absolute; right: 10rem; top: 1rem
   }
 }
 

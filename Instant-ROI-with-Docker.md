@@ -33,4 +33,4 @@ There is an adequate answer for every question, but don't go down the rabbit hol
 
 There is plenty of time to discuss the best of breed in orchestration technology, which cloud provider to chose or discussing organizational barriers and whatnot. 
 
-Instead, **have developers get comfortable with Docker and let them drive the change**. It's not an ops concern, but a new way of packaging applications that is becoming part of developers daily job. Just like it happened with Git and version control.
+Instead, **have developers get comfortable with Docker and let them drive the change**. It's not an ops concern, but a new way of packaging applications that is becoming part of developerts daily job. Just like it happened with Git and version control.
