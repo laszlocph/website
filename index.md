@@ -23,10 +23,17 @@ I offer workshops and hands-on work to  level-up engineering, release and testin
  
 ## What am I up to these days?
 
-I've launched an intro Docker course for developers as there are a few immediate upsides that any team can benefit from. I wrote about this in detail in the <a href="http://laszlo.cloud/Instant-ROI-with-Docker">Instant ROI with Docker</a> article.
+9th Nov, I'm heading to Amsterdam to assist [Adrian Mouat](http://www.adrianmouat.com/) at his [Docker Tutorial](http://conferences.oreilly.com/velocity/devops-web-performance-eu/public/schedule/detail/54134) delivered at VelocityConf@Amsterdam. 
+This is an awesome opportunity - I can't wait.
+
+--
+
+I've launched an intro Docker course for developers as there are some immediate upsides that any team can benefit from. I wrote about this in detail in the <a href="http://laszlo.cloud/Instant-ROI-with-Docker">Instant ROI with Docker</a> article.
 It is reasonably priced as it is a foundation skill for everyone on your team.
 
 <a href="http://www.eventbrite.com/e/docker-kickstart-for-developers-tickets-28859428327?ref=ebtnebregn" target="_blank"><img src="https://www.eventbrite.com/custombutton?eid=28859428327" alt="Eventbrite - Docker kickstart for Developers" /></a>
+
+--
 
 I've prepared a short workshop for a local growing company with the following high level agenda. We are planning on hands-on work once the workshop took place and strengthen the core practices that will help them long term.
 
