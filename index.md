@@ -2,9 +2,9 @@
 layout: default
 ---
 
-Hi, I'm Laszlo Fogas, freelance software consultant. 
-
-**I help growing teams mature their engineering practices to become scalable technical organizations.**
+Hi, I'm Laszlo Fogas, software consultant.
+ 
+**I do organizational development and Devops**: helping growing teams mature their engineering practices to become scalable technical organizations.
 
 I offer workshops and hands-on work to  level-up engineering, release and testing practices so you **don’t lose productivity during scaling**.  
 
