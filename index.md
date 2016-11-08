@@ -9,6 +9,8 @@ Hi, I'm Laszlo Fogas, software consultant.
 I offer workshops and hands-on work to  level-up engineering, release and testing practices so you **don’t lose productivity during scaling**.  
 
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
+* LinkedIn: <a href="https://dk.linkedin.com/in/laszlofogas">https://dk.linkedin.com/in/laszlofogas</a>
+* Twitter: <a href="https://twitter.com/laszlocph">@laszlocph</a>
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
 
 ---
