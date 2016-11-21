@@ -38,7 +38,7 @@ Docker gives you all that plus **streamlined operations** within your organizati
 
 ## Good to meet you
 
-I'm a former early employee and Director of Engineering of Falcon.io. I started as an individual contributor being responsible for everything backend, later I became Director of Engineering and scaled engineering to 7 teams of 7.
+I'm a former early employee and Director of Engineering of [Falcon.io](https://falcon.io). I started as an individual contributor being responsible for everything backend, later I became Director of Engineering and scaled engineering to 7 teams of 7.
 
 The fall of 2016 I started #laszlo.cloud, a consultancy to focus on my sweetspot: **driving the devops transition** with technology and communication backing up each other. 
 
