@@ -2,98 +2,69 @@
 layout: default
 ---
 
-Hi, I'm Laszlo Fogas, software consultant.
- 
-**I do organizational development and Devops**: helping growing teams mature their engineering practices to become scalable technical organizations.
+Hi, I'm Laszlo Fogas, Devops consultant. 
 
-I offer workshops and hands-on work to  level-up engineering, release and testing practices so you **don’t lose productivity during scaling**.  
+**I help software teams optimize their Cloud strategy.** From developer advocacy to production setups.
+
+---
+
+![Laszlo](9ySXeJrr.jpg){: width="250px"}
+
 
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
-* LinkedIn: <a href="https://dk.linkedin.com/in/laszlofogas">https://dk.linkedin.com/in/laszlofogas</a>
-* Twitter: <a href="https://twitter.com/laszlocph">@laszlocph</a>
-* My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/)
-
+* LinkedIn: [https://dk.linkedin.com/in/laszlofogas](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}
+* Twitter: [@laszlocph](https://twitter.com/laszlocph){:target="_blank"}
+* My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/){:target="_blank"}
+   
 ---
-**NEW** <a href="http://laszlo.cloud/My-affection-with-Docker" style="color: red; align: center;">My affection with Docker</a><br/>
-**NEW** <a href="http://laszlo.cloud/Instant-ROI-with-Docker" style="color: red; align: center;">Instant ROI with Docker</a><br/>
-<a href="http://laszlo.cloud/Raw-CircleCI-first-impression" style="color: red; align: center;">Raw: CircleCI first impression</a><br/>
-<a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a><br/>
-<a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
-<a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
-<a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
-
----
+     
+## Becuse shift happens
  
+Docker is taking over the Cloud. [DataDog's numbers](https://www.datadoghq.com/docker-adoption/){:target="_blank"} show that 10% of their monitored hosts are now running Docker. 
+
+Each hosts running five containers on average, proving that the promise is real, **Docker** doesn't just standardize how developers package their software, but also drives cost down.
+
+Docker also promotes modern **Devops** practices that are increasingly important for companies. Taking a lean approach on product development [predicts higher IT performance](https://puppet.com/resources/white-paper/2016-state-of-devops-report){:target="_blank"}.
+
+Technology is no longer just a supporting capability. Shorter cycles enable business R&D activities that result in significant market advantages.
+
+## Faster onboarding, smaller Cloud bill
+
+Imagine that a new developer joins your team and in ten minutes she is able to run the whole stack locally and ready to churn out features. 
+
+Imagine that the very same day she is able to deploy her changes to your audience through an all automated delivery pipeline. 
+
+Docker gives you all that plus **streamlined operations** within your organization and a **smaller cloud bill**.
+
+## Good to meet you
+
+I'm a former early employee and Director of Engineering of Falcon.io. I started as an individual contributor being responsible for everything backend, later I became Director of Engineering and scaled engineering to 7 teams of 7.
+
+The fall of 2016 I started #laszlo.cloud, a consultancy to focus on my sweetspot: **driving the devops transition** with technology and communication backing up each other. 
+
+Understanding both tech and people gives me the right perspective to do so. Because leading engineers is no herding cats.
+
+Some of my articles:  
+    
+* <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a><br/>
+* <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
+    
  
 ## What am I up to these days?
+* 24th Nov - I'm heading to Malmo again to present [Docker for everyone](https://www.meetup.com/Javaforum-Malmo/events/234911104/){:target="_blank"} on Javaforum 
 
-9th Nov, I'm heading to Amsterdam to assist [Adrian Mouat](http://www.adrianmouat.com/) at his [Docker Tutorial](http://conferences.oreilly.com/velocity/devops-web-performance-eu/public/schedule/detail/54134) delivered at VelocityConf@Amsterdam. 
-This is an awesome opportunity - I can't wait.
+* I'm helping the [24Slides](https://24slides.com/) team on an ongoing part-time basis. The team carries the right amount of ambition and skill, also they have two of my ex-colleagues that is a great sign for me.
 
---
+* 16th Nov - I gave a talk in Malmo. I was very happy about the long QA that followed.
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Thank you <a href="https://twitter.com/laszlocph">@laszlocph</a> for a good talk about habits of scalable orgs at <a href="https://twitter.com/producttank">@producttank</a> Malmo at <a href="https://twitter.com/_FooCafe_">@_FooCafe_</a> today! <a href="https://t.co/1jvsnXrPJb">pic.twitter.com/1jvsnXrPJb</a></p>&mdash; Erik Starck (@erikstarck) <a href="https://twitter.com/erikstarck/status/798975031766355972">November 16, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-I've launched an intro Docker course for developers as there are some immediate upsides that any team can benefit from. I wrote about this in detail in the <a href="http://laszlo.cloud/Instant-ROI-with-Docker">Instant ROI with Docker</a> article.
-It is reasonably priced as it is a foundation skill for everyone on your team.
+* 15th Nov - I attended the [Rancher](http://rancher.com){:target="_blank"} partnership event in Geneva. Met some members of the team and learned nice tricks on their training.
 
-<a href="http://www.eventbrite.com/e/docker-kickstart-for-developers-tickets-28859428327?ref=ebtnebregn" target="_blank"><img src="https://www.eventbrite.com/custombutton?eid=28859428327" alt="Eventbrite - Docker kickstart for Developers" /></a>
+* 9th Nov - I headed to Amsterdam to assist Adrian Mouat at his [Docker Tutorial](http://conferences.oreilly.com/velocity/devops-web-performance-eu/public/schedule/detail/54134){:target="_blank"} delivered at VelocityConf@Amsterdam.
 
---
+* I've prepared a short workshop for a local growing company. After the workshop hands-on work follow to strengthen the core practices that will help them long term.
 
-I've prepared a short workshop for a local growing company with the following high level agenda. We are planning on hands-on work once the workshop took place and strengthen the core practices that will help them long term.
-
-* Habits of scalable technical organizations
-* What is culture anyway?
-* Effective behaviors in a scaling company
-* Let's talk about processes
-* Let's talk about Agile
-* Measure everything
-* Continuous Integration
-* Git essentials
-* Containers 101
-
-## About me
-
-I'm a former early employee and Director of Engineering of Falcon.io. I spent five years with the company and witnessed the growth from 3 to 200 employees. 
-
-Started as an individual contributor being responsible for everything backend. 
-Later, I became Director of Engineering and scaled engineering to 7 teams of 7.
-
---
-
-
-After being employed for more than ten years, I'm venturing out to help companies leveling up their teams. 
-
-Throughout my career I saw all too many times how teams suffer without firm leadership. Sometimes it's caused by lack of time, sometimes 
-lack of seniority, but in all cases it's amazing to see how even a little strategic attention works magic
- on productivity. An engaged engineer is a productive engineer.
- 
- 
-#### Let's talk if
- * your team needs a shakeup
- * your team is looking to expand significantly
- * if you are unsure that introducing process is the right next step
- * if you experience slowdown in your team's output
- * if your engineers *just don't get it*
- * or if you are interested what was it like to be part of FalconIO's growth from 3 to 200 employees.
-
-I'm best reached at: **<a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>**
-    
-#### My mistress <3
-
-We live in a fantastic era. An era where software delivery is revolutionized beyond imagination.
-
-One of the key components to FalconIO's fast iteration cycles was the simple **Continuous Integration (CI)** process where engineers 
-could test and release changes on their own, not bundling different changes together - and as a result - not introducing additional 
-coordination needs in the software release. 
-
-The past three years this infrastructure was put to test more than 3000 times, each time 
-generating an independent sandbox environment. While it was built on Amazon AMIs, it served 
-its purpose brilliantly and only reached its limits recently when we started to introduce microservices at scale.
-
-Now I'm excited to spend time with my other love - **containerized** applications - and see how containers will supercharge this already 
-proven way of releasing software.
-
-I'm always up for a chat when it comes to CI/CD pipelines, try me: **<a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>**
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
