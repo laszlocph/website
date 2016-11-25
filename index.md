@@ -38,7 +38,7 @@ Docker gives you all that plus **streamlined operations** within your organizati
 
 ## Good to meet you
 
-I'm a former early employee and Director of Engineering of [Falcon.io](https://falcon.io). I started as an individual contributor being responsible for everything backend, later I became Director of Engineering and scaled engineering to 7 teams of 7.
+I'm a former early employee and Director of Engineering of [Falcon.io](https://falcon.io){:target="_blank"}. I started as an individual contributor being responsible for everything backend, later I became Director of Engineering and scaled engineering to 7 teams of 7.
 
 The fall of 2016 I started #laszlo.cloud, a consultancy to focus on my sweetspot: **driving the devops transition** with technology and communication backing up each other. 
 
@@ -51,7 +51,15 @@ Some of my articles:
     
  
 ## What am I up to these days?
-* 24th Nov - I'm heading to Malmo again to present [Docker for everyone](https://www.meetup.com/Javaforum-Malmo/events/234911104/){:target="_blank"} on Javaforum 
+* 24th Nov - Presented in Malmo on the Javaform [Docker for everyone](https://www.meetup.com/Javaforum-Malmo/events/234911104/){:target="_blank"} on Javaforum 
+
+It went well, although this time the material was a bit too much and I have to rush through many of the concepts. Still I think people got a great deal of things to check further on the internet. Good crows again.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/laszlocph">@laszlocph</a> preaparing for his <a href="https://twitter.com/hashtag/Docker?src=hash">#Docker</a> talk at <a href="https://twitter.com/hashtag/javaforum?src=hash">#javaforum</a> <a href="https://t.co/7VuzH87asB">pic.twitter.com/7VuzH87asB</a></p>&mdash; Javaforum Malmö (@javaforum) <a href="https://twitter.com/javaforum/status/801824355277795328">November 24, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/laszlocph">@laszlocph</a> preaparing for his <a href="https://twitter.com/hashtag/Docker?src=hash">#Docker</a> talk at <a href="https://twitter.com/hashtag/javaforum?src=hash">#javaforum</a> <a href="https://t.co/7VuzH87asB">pic.twitter.com/7VuzH87asB</a></p>&mdash; Javaforum Malmö (@javaforum) <a href="https://twitter.com/javaforum/status/801824355277795328">November 24, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 * I'm helping the [24Slides](https://24slides.com/) team on an ongoing part-time basis. The team carries the right amount of ambition and skill, also they have two of my ex-colleagues that is a great sign for me.
 
