@@ -45,7 +45,8 @@ The fall of 2016 I started #laszlo.cloud, a consultancy to focus on my sweetspot
 Understanding both tech and people gives me the right perspective to do so. Because leading engineers is no herding cats.
 
 Some of my articles:  
-    
+
+* <a href="http://laszlo.cloud/Attack-your-cloud-bill" style="color: red; align: center;">Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google</a>
 * <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a><br/>
 * <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
     
