@@ -23,7 +23,7 @@ Luckily it is more viable these days having **Docker as the common ground in inf
 In this article I show you how to unify the advantages of AWS and Google's Cloud Platform, using [Rancher](http://rancher.com/){:target="_blank"} - a thin layer atop of various container scheduler engines - to provide a transparent workflow for deploying on them transparently.
 
 >You had the ability for some time in the VM space to abstract cloud providers - [using CloudFoundry](https://www.mendix.com/blog/new-cloud-foundry-based-mendix-cloud-runs-globally-aws/?utm_content=buffer69519&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer){:target="_blank"} - 
-and other container platforms are also emerging besides Rancher in the container space. 
+and other container platforms are also emerging besides Rancher. 
 Like Kubernetes, your very own Paas construction kit, if you prefer that route.
 
 ## Secure foundations
@@ -91,10 +91,10 @@ I also deployed a load balancer - a Rancher infrastructure service - to serve tr
 
 ## Furher possibilities
 
-I am extremely happy about this setup. While one can enjoy the managed Docker cluster options both from Amazon and Google ([ECS](https://aws.amazon.com/ecs/) and [GCE](https://cloud.google.com/container-engine/)) by standardizing on Docker and orchestrating with tools like Rancher one can achieve great flexibility: 
+I am extremely happy about this setup. While one can enjoy the managed Docker cluster options both from Amazon and Google ([ECS](https://aws.amazon.com/ecs/) and [GCE](https://cloud.google.com/container-engine/)), standardizing on Docker and orchestrating with Rancher one can achieve great flexibility: 
 
 * experimentation with different providers is a good route to savings. Not forgetting that not being locked in to a certain vendor yields significantly better position in negotiations.
-* One can also spin up test clusters on premise or move certain background workloads to cheap VPS providers (hello [Packet](https://www.packet.net/bare-metal/){:target="_blank"})
+* One can also spin up QA clusters on premise or move certain background workloads to cheap VPS providers (hello [Packet](https://www.packet.net/bare-metal/){:target="_blank"})
 * also, it opens up new disaster recovery possibilities.
 
 Onwards!
