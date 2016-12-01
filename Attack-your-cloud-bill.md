@@ -89,7 +89,7 @@ I deployed my dummy stack two times, once to the AWS nodes, and once to the Goog
 
 I also deployed a load balancer - a Rancher infrastructure service - to serve traffic from the world. I made sure they get scheduled to the node that allows public access on certain ports. Rancher's overlay network (note the *Network agent* containers) makes sure that the load balancer can communicate with the other nodes.
 
-## Furher possibilities
+## Further possibilities
 
 I am extremely happy about this setup. While one can enjoy the managed Docker cluster options both from Amazon and Google ([ECS](https://aws.amazon.com/ecs/) and [GCE](https://cloud.google.com/container-engine/)), standardizing on Docker and orchestrating with Rancher one can achieve great flexibility: 
 
