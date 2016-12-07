@@ -11,7 +11,7 @@ I always had an itch though that if only I could carve out some of my workloads 
 I had very productive bizdev calls with the Google Cloud folks (hey Robin!) and [voices of the internet](https://thehftguy.com/2016/11/18/google-cloud-is-50-cheaper-than-aws/){:target="_blank"} also say that there might be a price advantage of using them. 
 The [custom machine types](https://cloud.google.com/compute/docs/machine-types#custom_machine_types){:target="_blank"} sure look interesting. 
 
-There are more to consider than price of course, but if you have the kind of bill, 
+There is more to consider than price of course, but if you have the kind of bill, 
 the ability to experiment with hosting can yield monthly an FTE in **cloud bill reduction**.
 
 ## Cloud agnostic
@@ -20,7 +20,7 @@ It requires a cloud agnostic setup though.
 
 Luckily it is more viable these days having **Docker as the common ground in infrastructure**. 
 
-In this article I show you how to unify the advantages of AWS and Google's Cloud Platform, using [Rancher](http://rancher.com/){:target="_blank"} - a thin layer atop of various container scheduler engines - to provide a transparent workflow for deploying on them transparently.
+In this article I show you how to unify the advantages of AWS and Google's Cloud Platform, using [Rancher](http://rancher.com/){:target="_blank"} - a thin layer atop of various container scheduler engines - to provide a transparent workflow for deploying on them.
 
 >You had the ability for some time in the VM space to abstract cloud providers - [using CloudFoundry](https://www.mendix.com/blog/new-cloud-foundry-based-mendix-cloud-runs-globally-aws/?utm_content=buffer69519&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer){:target="_blank"} - 
 and other container platforms are also emerging besides Rancher. 
@@ -79,7 +79,7 @@ redis:
     io.rancher.scheduler.affinity:host_label: cloud=AWS
 </pre>
 
-The above is a standard Docker Compose file, with custom labels that control Rancher's scheduling engine. Hats off Rancher, this is a much nicer integration to the ecosystem than json files [I had to write for Amazon ECS](https://laszlo.cloud/Mastering-test-environments-with-Docker).
+The above is a standard Docker Compose file, with custom labels that control Rancher's scheduling engine. Hats off Rancher, this is a much nicer integration to the ecosystem than the json files [I had to write for Amazon ECS](https://laszlo.cloud/Mastering-test-environments-with-Docker).
 
 ## The final picture
 
