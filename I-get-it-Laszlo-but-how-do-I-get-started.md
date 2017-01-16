@@ -64,3 +64,11 @@ This is not rocket science, but hopefully commodity soon enough. Should you have
   ga('send', 'pageview');
 
 </script>
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@laszlocph">
+<meta name="twitter:creator" content="@laszlocph">
+<meta name="twitter:title" content="I get it Laszlo, but how do I get started?">
+<meta name="twitter:description" content="If there is anything I learned during the years of managing developers is that getting people to change is hard. I mean HARD in all caps, if not impossible.">
+<meta name="twitter:image" content="https://laszlo.cloud/9ySXeJrr.jpg">
+
