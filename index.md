@@ -4,7 +4,7 @@ layout: default
 
 Hi, I'm Laszlo Fogas, Devops consultant. 
 
-**I help software teams optimize their Cloud strategy.** From developer advocacy to production setups.
+**I help software teams execute their Cloud strategy.** From developer advocacy to production setups.
 
 ---
 
