@@ -18,7 +18,7 @@ I also decided to share a few of those points in an article. So here it is.
  
 ---
 
-## Tooling is a great culture barrier, invest in it
+## Tooling is a great culture bearer, invest in it
 If there is anything I learned during the years of managing developers is that getting people to change is hard. 
 I mean HARD in all caps, if not impossible.
 
