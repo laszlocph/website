@@ -52,7 +52,8 @@ Some of my articles:
     
  
 ## What am I up to these days?
-* Started working with Europe's only [Container Solutions](http://container-solutions.com/){:target="_blank"} on an AWS and Kubernetes migration project.
+* Started a Kubernetes project for [Denmark's E-conomic](https://www.e-conomic.dk/) 1st April
+* Started working with Europe's only [Container Solutions](http://container-solutions.com/){:target="_blank"} on an AWS and Kubernetes - Openshift migration project.
 * 24th Nov - Presented in Malmo on the Javaform meetup: [Docker for everyone](https://www.meetup.com/Javaforum-Malmo/events/234911104/){:target="_blank"}. It went well, although this time the material was a bit too much and I rushed through many of the concepts. Still I think people got a great deal of things to check further on the internet. Good crowd.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/laszlocph">@laszlocph</a> preaparing for his <a href="https://twitter.com/hashtag/Docker?src=hash">#Docker</a> talk at <a href="https://twitter.com/hashtag/javaforum?src=hash">#javaforum</a> <a href="https://t.co/7VuzH87asB">pic.twitter.com/7VuzH87asB</a></p>&mdash; Javaforum Malmö (@javaforum) <a href="https://twitter.com/javaforum/status/801824355277795328">November 24, 2016</a></blockquote>
