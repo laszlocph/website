@@ -1,7 +1,7 @@
 # Site settings
 title: "laszlo.cloud"
 tag_text: "laszlo.cloud"
-description: I’m Laszlo Fogas, freelance software consultant. Engineering leadership and Devops expert; former early employee & Director of Engineering @ FalconIO.
+description: I'm Laszlo Fogas, Devops Consultant. I help software teams to move their Docker experiments to production. See my roadmap for Kubernetes projects.
 
 # Build settings
 markdown: kramdown
