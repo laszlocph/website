@@ -21,7 +21,7 @@ See how I work: <a href="http://laszlo.cloud/Roadmap-for-Kubernetes-projects" st
 ---
 
 ## What am I up to these days?
-* I provide technical consultancy for [Agillic](http://www.agillic.com/) on their Docker orchestration project.
+* I provide consultancy for [Agillic](http://www.agillic.com/) on their Docker orchestration project.
 * Started a Rancher Kubernetes project for Denmark's [E-conomic](https://www.e-conomic.dk/)
      
 ## Good to meet you
