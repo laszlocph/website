@@ -14,8 +14,7 @@ See how I work: <a href="http://laszlo.cloud/Roadmap-for-Kubernetes-projects" st
 
 
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
-* LinkedIn: [https://dk.linkedin.com/in/laszlofogas](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}
-* Twitter: [@laszlocph](https://twitter.com/laszlocph){:target="_blank"}
+* [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/){:target="_blank"}
    
 ---
