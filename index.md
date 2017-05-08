@@ -48,3 +48,10 @@ Some of my articles:
   ga('send', 'pageview');
 
 </script>
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@laszlocph">
+<meta name="twitter:creator" content="@laszlocph">
+<meta name="twitter:title" content="Laszlo Cloud">
+<meta name="twitter:description" content="{{ site.description }}">
+<meta name="twitter:image" content="https://laszlo.cloud/9ySXeJrr.jpg">

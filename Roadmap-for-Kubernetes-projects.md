@@ -78,7 +78,7 @@ it can easily happen that for a given company it will just not work out.
 
 Death by a thousand papercuts is really threatening as the team can be exhausted from the seemingly endless issues, perhaps with a metrics collector integration, or Docker daemon issues in the given infrastructure.
 
-One can only fight the exhaustion by setting a large enough inertia and skill in the team by involving as many parties as possible. Parties that want the project to succeed since someone non vested in the ides gives up easier on an issue than someone who genuinely believes that the benefits outweigh the issues.
+One can only fight the exhaustion by setting a large enough inertia and skill in the team by involving as many parties as possible. Parties that want the project to succeed since someone non vested in the idea gives up easier than someone who genuinely believes that the benefits outweigh the issues.
 Make sure you identify these people early on, bring in the expertise if needed, but also accept the failure if it happens.
 
 My experience recently is that the most part of issues I face have a matching resolved Github issue with code merged into the mainline. And if not, the pace of progress is getting exponential, with vendors fully backing the Kubernetes cause. Docker / Kubernetes is becoming the new Linux, with its backing foundation (CNCF) and distributions (Openshift, Rancher, GKE), and spread alike.
@@ -86,3 +86,10 @@ My experience recently is that the most part of issues I face have a matching re
 ---
 
 **Struggling to move from Docker Compose to production? Get in touch on** [https://laszlo.cloud](https://laszlo.cloud)
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@laszlocph">
+<meta name="twitter:creator" content="@laszlocph">
+<meta name="twitter:title" content="Roadmap for Kubernetes projects?">
+<meta name="twitter:description" content="In this article I document a pragmatic approach how to carry out a Kubernetes project. I've been following this roadmap with two of my clients, and although we haven't got to the later stages yet, it feels right to approach a new technology like Kubernetes this way.">
+<meta name="twitter:image" content="https://laszlo.cloud/9ySXeJrr.jpg">

@@ -1,7 +1,7 @@
 # Site settings
 title: "laszlo.cloud"
 tag_text: "laszlo.cloud"
-description: I'm Laszlo Fogas, Devops Consultant. I help software teams to move their Docker experiments to production. See my roadmap for Kubernetes projects.
+description: I'm Laszlo Fogas, Devops Consultant. I help software teams to move their Docker experiments to production. Check out my roadmap for Kubernetes projects!
 
 # Build settings
 markdown: kramdown
