@@ -26,14 +26,14 @@ The standardized blue-green or rolling deployments can be demonstrated to any st
 
 This step involves having basic routing, so people can demo their services, and the usage of a container registry.
 
-This will trigger early adopters in the organization to start writing Kubernetes service definitions yaml files, and a solid sign that the project is actually happening.
+This will trigger early adopters in the organization to start writing Kubernetes service definitions yaml files, a solid sign that the project is actually happening.
 
 **How to achive this step quickly?**
 
 Kubernetes was well known as something hard to install but these days I find it easier to actually get started with the various distributions vendors offer. 
-My pick is Rancher, which makes it easy to install a dummy Kubernetes with basic routing, metrics and other services. 
+My pick is Rancher, which makes it easy to install a dummy Kubernetes cluster with basic routing, metrics and other services. 
 
-And while Rancher offer templates for more resilient cluster setups, if we decide to go with another vendor, the lock-in is not that big.
+And while Rancher offer templates for a more resilient cluster setup, if we decide to go with another vendor, the lock-in is not that big.
 Few months back I was able to flip my Openshift targeted yaml files to Google Container Engine in a matter of six hours for an applications involving five services.
 
 ## Step two
@@ -53,7 +53,7 @@ By the end of this phase the first service should be deployed on a staging like 
 
 While basic services are in place on the cluster, and people have a basic understanding of the tools, the cluster still very vulnerable at this point.
 
-Recreating the cluster on a proper network layout in a HA setup is probably the right next step. Doing that in the favored configuration management tool to be able to easily reproduce the work is probably a good idea.  
+Recreating the cluster on a proper network layout in a HA setup is probably the right next step. Doing that in the favored configuration management tool to be able to easily reproduce the work is desired.  
 
 ## Step four
 
@@ -66,16 +66,23 @@ The support workload of the ever growing number services on the cluster will als
 
 By this time the project has been ongoing for a few months and every organization should be able to draw their conclusion whether to go to production or not.
 
-## Failure modes
+## Avoid failure modes
  
-* **Don't debate, do**
+#### Don't debate, do
 <br/>The biggest enemy of the Docker / Kubernetes projects I see is the endless debates. Perhaps it's because of overwhelming number of decisions that have to be made, or the learning curve, but projects often stall on the altair of finding the best registry, CI or monitoring tool.
 <br/>Keep in mind, that a pull request trumps a thousand argument. If only meetings that happen, it's not an unfriendly move to settle it with a working PR. One can respond with a counter PR if that invested in the decision. In the meantime though there is a working solution.
 
-* **Death by a thousand papercuts**
-<br/>We should never forget that Kubernetes and Docker at al. is a new technology. And while the horror stories that one can read on HackerNews perhaps painting a grimmer picture that it really is,
-it can easily happen that for a given company it will just not work out. Death by a thousand papercuts is really threatening, the team can be exhausted from the seemingly endless issues, perhaps with a metrics collector integration, or Docker daemon issues in the given infrastructure.
-<br/>One can only fight against this by setting a large enough inertia and skill in the team by involving as many parties as humanly possible who want to project to succeed. A non interested party gives up easier on an issue than someone who genuinely believes that the benefits outweigh the issues.
-Make sure you identify these people early on, bring in the expertise if needed, but also accept the failure if it happens. It might be that a set of shell scripts running Docker on a VM is what the solution is for you
+#### Death by a thousand papercuts
+<br/>We should never forget that Kubernetes and Docker et al. are new technologies. And while the horror stories that one can read on HackerNews perhaps painting a grimmer picture that it really is,
+it can easily happen that for a given company it will just not work out. 
 
-    
+Death by a thousand papercuts is really threatening as the team can be exhausted from the seemingly endless issues, perhaps with a metrics collector integration, or Docker daemon issues in the given infrastructure.
+
+One can only fight the exhaustion by setting a large enough inertia and skill in the team by involving as many parties as possible. Parties that want the project to succeed since someone non vested in the ides gives up easier on an issue than someone who genuinely believes that the benefits outweigh the issues.
+Make sure you identify these people early on, bring in the expertise if needed, but also accept the failure if it happens.
+
+My experience recently is that the most part of issues I face have a matching resolved Github issue with code merged into the mainline. And if not, the pace of progress is getting exponential, with vendors fully backing the Kubernetes cause. Docker / Kubernetes is becoming the new Linux, with its backing foundation (CNCF) and distributions (Openshift, Rancher, GKE), and spread alike.
+
+---
+
+**Struggling to move from Docker Compose to production? Get in touch on** [https://laszlo.cloud](https://laszlo.cloud)
