@@ -10,7 +10,7 @@ See how I work: <a href="http://laszlo.cloud/Roadmap-for-Kubernetes-projects" st
 
 ---
 
-![Laszlo](9ySXeJrr.jpg){: width="250px"}
+![Laszlo Fogas, Devops consultant](9ySXeJrr.jpg){: width="250px"}
 
 
 * Reach me at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a>
@@ -19,7 +19,7 @@ See how I work: <a href="http://laszlo.cloud/Roadmap-for-Kubernetes-projects" st
    
 ---
 
-## What am I up to these days?
+## Ongoing Docker / Kubernetes projects
 * I provide consultancy for [Agillic](http://www.agillic.com/) on their Docker orchestration project.
 * Started a Rancher Kubernetes project for Denmark's [E-conomic](https://www.e-conomic.dk/)
      
@@ -49,9 +49,3 @@ Some of my articles:
 
 </script>
 
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@laszlocph">
-<meta name="twitter:creator" content="@laszlocph">
-<meta name="twitter:title" content="Laszlo Cloud">
-<meta name="twitter:description" content="{{ site.description }}">
-<meta name="twitter:image" content="https://laszlo.cloud/9ySXeJrr.jpg">
