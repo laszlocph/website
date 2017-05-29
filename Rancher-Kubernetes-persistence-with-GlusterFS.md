@@ -87,8 +87,6 @@ It references the Kubernetes endpoint to know where the GlusterFS cluster is ava
 
 Warning: the Recycle policy might not be available. At least at the time of writing I had to write my own shell script to clean up used disks since it's not implemented yet in Kube.
 
-All nodes in Kubernetes cluster must have GlusterFS-Client Package installed. (TBD)
-
 <pre>
 apiVersion: v1
 kind: PersistentVolume
@@ -142,30 +140,11 @@ items:
         containers:
         - name: nginx
           image: nginx
-        volumeMounts:
-        - mountPath: /mnt/ifs_storage
-          name: dir-1
-      volumes:
-        - name: dir-1
-          persistentVolumeClaim:
-            claimName: file-upload-claim
+          volumeMounts:
+          - mountPath: /mnt/
+            name: dir-1   
+        volumes:
+          - name: dir-1
+            persistentVolumeClaim:
+              claimName: file-upload-claim
 </pre>
-
-
-
-cat svc, cat endpoint
-create both
-get both
-
-demo the disks working on mounts
-with watch
-
-show and create pv
-
-show and create pvc
-
-show yaml, deploy
-
-ssh into pod, create file, watch disks for change
-
-
