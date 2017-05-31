@@ -38,6 +38,8 @@ Some of my articles:
 * <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a><br/>
 * <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
 * <a href="http://laszlo.cloud/Rancher-Kubernetes-persistence-with-GlusterFS" style="color: red; align: center;">Rancher Kubernetes persistence with GlusterFS</a>
+* <a href="http://laszlo.cloud/Rancher-Kubernetes-routing" style="color: red; align: center;">Rancher Kubernetes routing</a>
+
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
