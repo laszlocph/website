@@ -85,6 +85,8 @@ My experience recently is that the most part of issues I face have a matching re
 
 ---
 
+2017-05-05
+
 **Struggling to move from Docker Compose to production? Get in touch on** [https://laszlo.cloud](https://laszlo.cloud)
 
 <meta name="twitter:card" content="summary">
@@ -93,3 +95,4 @@ My experience recently is that the most part of issues I face have a matching re
 <meta name="twitter:title" content="Roadmap for Kubernetes projects?">
 <meta name="twitter:description" content="In this article I document a pragmatic approach how to carry out a Kubernetes project. I've been following this roadmap with two of my clients, and although we haven't got to the later stages yet, it feels right to approach a new technology like Kubernetes this way.">
 <meta name="twitter:image" content="https://laszlo.cloud/9ySXeJrr.jpg">
+

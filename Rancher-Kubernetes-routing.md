@@ -148,3 +148,7 @@ The Rancher LB was also the place where I terminate SSL, so the Kube Ingress doe
 I'm not sure what lead the Rancher team pick this unconventional design, I'm sure they have their reasons. 
 
 What turned out to be a show stopper for me is that I either had to deal with port collisions or one giant shared Ingress file. None I'd like to live with long term and it seems the Kuberneted Ingress serves me well.
+
+---
+
+2017-05-31
