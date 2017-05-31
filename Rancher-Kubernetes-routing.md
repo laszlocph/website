@@ -84,15 +84,15 @@ One little Ingress snippet for each service I have, so it can be controlled by t
 
 The difference between the Ingress and the Ingress controller was not crystal clear for me, but after some digging it materialized for me that the Ingress Controller is a component that listens to Kubernetes lifecycle events, and when an Ingress is defined, deleted or changed it makes the appropriate modifications in the "router" that actually handles the requests.
 
-I'm still a bit insecure of naming all the components that comprise the "Ingress", but let me try to describe each component's behavior in Rancher world:
+Let me try to describe each component's behavior in Rancher world:
 
 * **Ingress**: is a Kubernetes logical abstraction that is nothing more than the piece of yaml I showed above.
 * **Ingress Controller**: It's a container itself that listens to Kubernetes events and creates a "router" for each Ingress definition. It does not handle traffic, it's simple an event listener.
-* **"Router"**: I had to come up with this name myself, still not sure if this is the right one, but the fact that the Rancher Ingress Controller does not handle traffic itself was confusing to me. What it does is that it creates a Rancher Load Balancer for each Ingress definition.
+* **Rancher Load Balancer**: The "router" that the controller creates for each Ingress definition is a Rancher Load Balancer
 
-Since the Rancher Ingress Controller creates Rancher Load Balancers I was not in a better position than before: port collisions were still an issue, and placement of these LoadBalancers was not in my control.
+Since the Rancher Ingress Controller creates a Rancher Load Balancer for every service I was not in a better position than before: port collisions were still an issue, and placement of these LoadBalancers was not in my control.
 
-By re-reading the [Rancher's documentation](https://docs.rancher.com/rancher/v1.3/en/kubernetes/ingress/) I found a somewhat okay solution as I was able to control the placement of the Loadbalancers, plus if I kept all my service entry points in one giant Ingress definition I ended up having only one LoadBalancer.
+By re-reading the [Rancher's documentation](https://docs.rancher.com/rancher/v1.3/en/kubernetes/ingress/) I found a somewhat okay solution as I was able to control the placement of the Loadbalancers, plus if I kept all my service entrypoints in one giant Ingress definition I ended up having only one LoadBalancer.
  
 <pre>
 apiVersion: extensions/v1beta1
@@ -126,11 +126,11 @@ rules:
         servicePort: 80
 </pre>
 
-But as you can tell, having one giant config for all the routing is reallt not convenient and prone to errors.
+But as you can tell, having one giant config for all the routing is really not convenient and prone to errors.
 
 ## The Kubernetes Ingress Controller
 
-It bothered me a lot, so a few days later I checked out what vanilla Kubernetes has to offer. 
+It bothered me a lot, so a few days later I checked out what the vanilla Kubernetes has to offer. 
 
 I knew it can be done as Openshift's Router worked as I would prefer: having many Ingress definitions that all modify one central router software component (which was HAProxy that case).
 
