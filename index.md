@@ -31,7 +31,24 @@ Participated in three orchestration projects using Redhat's Openshift and the Ra
 And I'm ready to help your project.
 
 <script async id="_ck_219414" src="https://forms.convertkit.com/219414?v=6"></script>
-  
+
+
+Or read some of my articles:
+
+* <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a>
+* <a href="http://laszlo.cloud/Attack-your-cloud-bill" style="color: red; align: center;">Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google</a>
+* <a href="http://laszlo.cloud/Rancher-Kubernetes-persistence-with-GlusterFS" style="color: red; align: center;">Rancher Kubernetes persistence with GlusterFS</a>
+* <a href="http://laszlo.cloud/Rancher-Kubernetes-routing" style="color: red; align: center;">Rancher Kubernetes routing</a>
+* <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
+* <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a>
+
+---
+
+Need answers for your own situation? Book a short call with me and get clarity instantly.
+
+---
+
+
 ## Good to meet you
 
 I'm a former early employee and Director of Engineering of Falcon.io. I started as an individual contributor being responsible for everything backend, later I became Director of Engineering and scaled engineering to 7 teams of 7.
@@ -48,27 +65,6 @@ Understanding both tech and people gives me the right perspective to do so. Beca
 <br/>
 
 <script async id="_ck_219414" src="https://forms.convertkit.com/219414?v=6"></script>
-
-
-
-* Get clarity. Book a short call with me to answer the questions for your very own situation.
-
-* Kickstart your Docker orchestration project by me delivering a Kubernetes cluster on your infrastructure. For a fixed cost.
-The world changes once your team can deploy their work on a cluster.
-
-* Not sure yet about this whole Docker thing?
-
-
-Or read some of my articles:
-
-* <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a>
-* <a href="http://laszlo.cloud/Attack-your-cloud-bill" style="color: red; align: center;">Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google</a>
-* <a href="http://laszlo.cloud/Rancher-Kubernetes-persistence-with-GlusterFS" style="color: red; align: center;">Rancher Kubernetes persistence with GlusterFS</a>
-* <a href="http://laszlo.cloud/Rancher-Kubernetes-routing" style="color: red; align: center;">Rancher Kubernetes routing</a>
-* <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
-* <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a>
-
-
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
