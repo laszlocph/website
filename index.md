@@ -35,8 +35,12 @@ Some of my articles:
 
 * <a href="http://laszlo.cloud/Roadmap-for-Kubernetes-projects" style="color: red; align: center;">Roadmap for Kubernetes projects</a>
 * <a href="http://laszlo.cloud/Attack-your-cloud-bill" style="color: red; align: center;">Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google</a>
-* <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a><br/>
+* <a href="http://laszlo.cloud/I-get-it-Laszlo-but-how-do-I-get-started" style="color: red; align: center;">I get it Laszlo, but how do I get started?</a>
+<br/><br/>
 * <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
+* <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a>
+* <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a>
+<br/><br/>
 * <a href="http://laszlo.cloud/Rancher-Kubernetes-persistence-with-GlusterFS" style="color: red; align: center;">Rancher Kubernetes persistence with GlusterFS</a>
 * <a href="http://laszlo.cloud/Rancher-Kubernetes-routing" style="color: red; align: center;">Rancher Kubernetes routing</a>
 
