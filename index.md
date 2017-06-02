@@ -30,7 +30,7 @@ Participated in three orchestration projects using Redhat's Openshift and the Ra
 
 And I'm ready to help your project. 
 
-I created the **Compose to Production** email course that walks you through the bits and pieces you have to account for when you move your Docker workloads to production. 
+**I created the Compose to Production email course that walks you through the bits and pieces you have to account for when you move your Docker workloads to production.** 
 
 The title works with the premise that Docker Compose is in use in your organization.  If that's not the case, that should not discourage you. It really just a way to express the premise this course is working with: that basic Docker knowledge is ubiquitous, devs use it and love it for their development environments, but there is a giant wall and confusion when it comes to moving all that to production.
 
