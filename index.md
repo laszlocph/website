@@ -28,10 +28,21 @@ It's almost a full time job navigating the container landscape with all that is 
 
 Participated in three orchestration projects using Redhat's Openshift and the Rancher Kubernetes distribution. 
 
-And I'm ready to help your project.
+And I'm ready to help your project. 
+
+I created the **Compose to Production** email course that walks you through the bits and pieces you have to account for when you move your Docker workloads to production. 
+
+The title works with the premise that Docker Compose is in use in your organization.  If that's not the case, that should not discourage you. It really just a way to express the premise this course is working with: that basic Docker knowledge is ubiquitous, devs use it and love it for their development environments, but there is a giant wall and confusion when it comes to moving all that to production.
+
+Cut through the noise and enroll now. The first lesson will arrive immediately in your inbox and you will receive the next eight in the following days. 
+
+Completing the course you will have clarity and know what to do to complete your Docker project successfully.
+
+<br/>
 
 <script async id="_ck_219414" src="https://forms.convertkit.com/219414?v=6"></script>
 
+<br/>
 
 Or read some of my articles:
 
@@ -41,13 +52,6 @@ Or read some of my articles:
 * <a href="http://laszlo.cloud/Rancher-Kubernetes-routing" style="color: red; align: center;">Rancher Kubernetes routing</a>
 * <a href="http://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" style="color: red; align: center;">A simple Jenkins 2.0 and Docker workflow</a>
 * <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a>
-
----
-
-Need answers for your own situation? Book a short call with me and get clarity instantly.
-
----
-
 
 ## Good to meet you
 
