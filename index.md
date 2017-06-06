@@ -62,7 +62,7 @@ The fall of 2016 I started Laszlo Cloud, a consultancy to focus on my sweetspot:
 Understanding both tech and people gives me the right perspective to do so. Because leading engineers is no herding cats.
 
 * Reach me at laszlo@laszlo.cloud
-* [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}
+* [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}, [Instagram](https://www.instagram.com/laszlo.cloud/){:target="_blank"}
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/){:target="_blank"}
 
 
