@@ -190,26 +190,3 @@ to pick any component with any set of branches to provision a local, test, or ev
 Onwards!
 
 **NEW** Part two is out <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
-
----
-I might be wrong, you know.. if you feel strongly about one or an other solution in this article, reach out at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a> and let's have a chat! 
-
----
-
-Full disclosure: many of Jenkins's design issues got highlighted in the most recent [Thoughtworks Tech Radar](https://www.thoughtworks
-.com/radar/tools#blip-link-976). Those can't be overlooked. There are many challengers in the space, however Jenkins being a true 
-workhorse of our industry, it is here to stay for many more years. And with these few steps, we better prepared it for the next era of CI 
-automation.
-
----
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>

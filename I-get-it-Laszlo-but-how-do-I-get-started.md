@@ -50,10 +50,6 @@ Investing in your release process has multitude of upsides.
 The more often you release the less you have to deal with the unpredictability of the "code freeze", and the infamous merge problems. A good cadence of releases makes software delivery predictable.
 * It's good for talent attraction. Once you nailed it all, documenting how you deploy software tells more to potential hires than any hiring pitch.
 
----
-
-This is not rocket science, but hopefully commodity soon enough. Should you have any question, head over to [https://laszlo.cloud](https://laszlo.cloud)
-
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

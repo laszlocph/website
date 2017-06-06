@@ -149,6 +149,4 @@ I'm not sure what lead the Rancher team pick this unconventional design, I'm sur
 
 What turned out to be a show stopper for me is that I either had to deal with port collisions or one giant shared Ingress file. None I'd like to live with long term and it seems the Kuberneted Ingress serves me well.
 
----
-
 2017-05-31

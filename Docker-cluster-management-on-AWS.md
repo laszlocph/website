@@ -211,17 +211,3 @@ Since a single instance of the load balancer can handle many services - each map
 It was a good exercise to create the first service with AWS CLI, mapping all services by hand though is a bit cumbersome. Configuration management tools - where the versioned state of the service is stored - can aid this problem. As a possible next step I will explore either Ansible, Terraform or CloudFormation to manage the stack at a higher level.  
 
 Onwards!
-
----
-I might be wrong, you know.. if you feel strongly about one or an other solution in this article, reach out at <a href="mailto:laszlo@laszlo.cloud">laszlo@laszlo.cloud</a> and let's have a chat! 
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>

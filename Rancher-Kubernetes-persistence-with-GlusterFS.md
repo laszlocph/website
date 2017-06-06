@@ -161,6 +161,4 @@ If you deployed all the components, you should be able to create a file within y
 
 There are two issues I faced in my deployment. The recycle *persistentVolumeReclaimPolicy* is not yet implemented, so I had to create a cleanup cron task, and second, the volume was mounted for the root user and I couldn't find a nice solution to grant access to my non root user in the container. I used a *postStart* lifecycle action in the pod definition, but I wasn't very satisfied with this solution.
 
----
-
 2017-05-26
