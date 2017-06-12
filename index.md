@@ -1,5 +1,7 @@
 ---
 layout: default
+title: Laszlo Fogas, Devops Consultant
+excerpt: 
 ---
 
 Hi, I'm Laszlo Fogas, Devops Consultant. 
