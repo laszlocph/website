@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Mastering test environments with Docker
+image: env.png
+link: /Mastering-test-environments-with-Docker
+excerpt: In this article I show how to use Docker Compose to pick and choose services and branches for any local or QA environment. I also showcase the branch aware build pipeline introduced in Jenkins 2.0.
 ---
 
 ## Mastering test environments with Docker
@@ -232,15 +235,6 @@ There are plenty of next steps ahead of me, clustering is a big topic. My goal i
 
 Onwards!
 
+2016-10-12
+
 **NEW** Part three is out <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>

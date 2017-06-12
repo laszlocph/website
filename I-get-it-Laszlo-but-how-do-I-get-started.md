@@ -1,6 +1,9 @@
 ---
 layout: default
-title: I get it Laszlo, but how do I get started? 
+title: I get it Laszlo, but how do I get started?
+image: 9ySXeJrr.jpg
+link: /I-get-it-Laszlo-but-how-do-I-get-started
+excerpt: If there is anything I learned during the years of managing developers is that getting people to change is hard. I decided to share a few points in an article. So here it is.
 ---
 
 ## I get it Laszlo, but how do I get started?        
@@ -51,21 +54,4 @@ Investing in your release process has multitude of upsides.
 The more often you release the less you have to deal with the unpredictability of the "code freeze", and the infamous merge problems. A good cadence of releases makes software delivery predictable.
 * It's good for talent attraction. Once you nailed it all, documenting how you deploy software tells more to potential hires than any hiring pitch.
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@laszlocph">
-<meta name="twitter:creator" content="@laszlocph">
-<meta name="twitter:title" content="I get it Laszlo, but how do I get started?">
-<meta name="twitter:description" content="If there is anything I learned during the years of managing developers is that getting people to change is hard. I mean HARD in all caps, if not impossible.">
-<meta name="twitter:image" content="https://laszlo.cloud/9ySXeJrr.jpg">
-
+2016-10-26
