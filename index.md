@@ -50,9 +50,9 @@ Hire me, and have the following list of deliveries in a matter of weeks on a fix
 <p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> Developers ramped up to be able to deploy to the cluster</p>
 </div>
 <br/>
-These deliveries open up many parralell activities and send a clear message to your organization that Docker is happening. 
+These deliveries open up many paralell activities and send a clear message to your organization that Docker is happening. 
 
-Your developers will be able to deploy new servcies with only defining a few yaml files, gaining total control over their services.
+Your developers will be able to deploy new services with only defining a few yaml files, gaining total control over their services.
 
 Worried that when I'm gone the knowledge is gone too?
 
