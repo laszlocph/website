@@ -3,6 +3,7 @@ layout: default
 title: A simple Jenkins 2.0 and Docker workflow
 path: pipeline.png
 link: /Simple-Jenkins-and-Docker-workflow
+excerpt: A Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version controlled. The end result is a container with code ready to deploy.
 ---
 
 ## A simple Jenkins 2.0 and Docker workflow
