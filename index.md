@@ -6,39 +6,73 @@ link: /
 excerpt: I'm Laszlo Fogas, Devops Consultant. I help software teams to move their Docker experiments to production. Check out my roadmap for Kubernetes projects!
 ---
 
-Hi, I'm Laszlo Fogas, Devops Consultant. 
-
-**I help software teams to move their Docker experiments to production.**
-
-<br/>
-
-![Laszlo Fogas, Devops consultant](9ySXeJrr.jpg){: width="250px"}
-
-
-
-## Do you know how to navigate the container landscape?
 * Kubernetes or Docker Swarm, maybe Mesos?
 * How to handle persistence? Secrets?
 * What CI server to use?
 * Is Docker ready for production? Is it secure?
-* Can I use my existing ELK stack? Grafana?
+* Can you use your existing ELK stack? Grafana?
 * What about the database?
 
-It's so simple using Docker locally with Compose, but how do you move all that to production? 
+<br/>
+It's so simple using Docker locally with Compose, but how do you move all that to production?
 
-It's almost a full time job navigating the container landscape with all that is happening, the different vendors and technologies. 
+---
 
-## I've dedicated my past year to answer all these questions.
+Hi, I'm Laszlo Fogas, Devops Consultant.
+
+**I help software teams moving their Docker experiments to production.**
+<br/>
+<br/>
+<img src="9ySXeJrr.jpg" alt="Laszlo Fogas, Devops consultant" style="width: 250px"/>
+
+<br/>
+
+
+I've dedicated the past year answering these questions. 
 
 Participated in three orchestration projects using Redhat's Openshift and the Rancher Kubernetes distribution. 
 
-And I'm ready to help your project. 
+
+
+## Kickstart your Docker project
+
+The biggest enemy of Docker projects is the overwhelming number of technology choices you have to make. This requires expertise that is not always available in your team given the steep learning curve in this fast moving ecosystem.
+
+To kickstart your Docker orchestration project I distilled the five steps that give clarity and clear direction for your team. 
+
+Hire me, and have the following list of deliveries in a matter of weeks on a fix price: 
+
+<div style="background: #f9f9f9; border: solid 1px #d1d1d1; color: #666; line-height: 1em; font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;padding: 2em 1em 1em 1em" >
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> The first services containerized and deployed on the cluster</p>
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> Shipping logs to your aggregated logging solution</p> 
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> Shipping metrics to your metrics solution</p>
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> Routing traffic to your cluster with TLS on *.yourdomain.com</p>
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> Developers ramped up to be able to deploy to the cluster</p>
+</div>
+<br/>
+These deliveries open up many parralell activities and send a clear message to your organization that Docker is happening. 
+
+Your developers will be able to deploy new servcies with only defining a few yaml files, gaining total control over their services.
+
+Worried that when I'm gone the knowledge is gone too?
+
+<div style="background: #f9f9f9; border: solid 1px #d1d1d1; color: #666; line-height: 1em; font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;padding: 2em 1em 1em 1em" >
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I deliver the cluster as code in an agreed configuration management tool. Terraform and Ansible preffered, I have experience in Chef too.</p>
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I work closely with your Ops team</p>
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I follow your deployment into production and beyond based on an agreed hourly fee</p>
+</div>
+<br/>
+
+
+Email me for a quote on laszlo@laszlo.cloud
+
+## Learn more about my methods
 
 I created the **Compose to Production** email course that walks you through the bits and pieces you have to account for when you move your Docker workloads to production. 
 
-The title works with the premise that Docker Compose is in use in your organization.  If that's not the case, that should not discourage you. It really just a way to express the premise this course is working with: that basic Docker knowledge is ubiquitous, devs use it and love it for their development environments, but there is a giant wall and confusion when it comes to moving all that to production.
+The title works with the premise that Docker Compose is in use in your organization. If that's not the case, that should not discourage you. It really just a way to express the premise that basic Docker knowledge is ubiquitous, devs use it and love it for their development environments, but there is a huge gap when it comes to moving all that to production.
 
-Cut through the noise and enroll now. The first lesson will arrive immediately in your inbox and you will receive the next eight in the following days. 
+If you enroll now, the first lesson will arrive immediately in your inbox.
 
 Completing the course you will have clarity and know what to do to complete your Docker project successfully.
 
@@ -48,7 +82,7 @@ Completing the course you will have clarity and know what to do to complete your
 
 <br/>
 
-Or read some of my articles:
+You may also read some of my articles:
 
 * <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a>
 * <a href="http://laszlo.cloud/Attack-your-cloud-bill" style="color: red; align: center;">Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google</a>
