@@ -2,6 +2,7 @@
 layout: default
 title: A simple Jenkins 2.0 and Docker workflow
 path: pipeline.png
+link: /Simple-Jenkins-and-Docker-workflow
 ---
 
 ## A simple Jenkins 2.0 and Docker workflow
