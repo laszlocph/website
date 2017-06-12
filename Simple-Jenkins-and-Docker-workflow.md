@@ -193,4 +193,6 @@ to pick any component with any set of branches to provision a local, test, or ev
 
 Onwards!
 
-**NEW** Part two is out <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>
+2016-10-05
+
+Check out part two <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>

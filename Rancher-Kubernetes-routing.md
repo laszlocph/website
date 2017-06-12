@@ -1,6 +1,10 @@
 ---
 layout: default
 title: Rancher Kubernetes routing
+image: rancher.png
+link: /Rancher-Kubernetes-routing
+excerpt: Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.
+
 ---
 
 ## Rancher Kubernetes routing
@@ -14,7 +18,7 @@ Having those three in place opens up the cluster for wider usage and my focus ca
 
 ## Rancher's take
 
-Recently I got to know Rancher's take on how traffic should be routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.
+Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.
 
 To access a Kubernetes service, the only thing I had to do is to create a Kubernetes service with *"type: LoadBalancer"*
 
