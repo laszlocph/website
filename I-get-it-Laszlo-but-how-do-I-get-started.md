@@ -1,5 +1,6 @@
 ---
 layout: default
+title: I get it Laszlo, but how do I get started? 
 ---
 
 ## I get it Laszlo, but how do I get started?        

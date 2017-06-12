@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Mastering test environments with Docker
 ---
 
 ## Mastering test environments with Docker

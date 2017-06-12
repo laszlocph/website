@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Rancher Kubernetes persistence with GlusterFS
 ---
 
 ## Rancher Kubernetes persistence with GlusterFS

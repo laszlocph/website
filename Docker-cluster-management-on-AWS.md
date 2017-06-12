@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Docker cluster management on AWS
 ---
 
 ## Docker cluster management on AWS

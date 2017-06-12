@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google 
 ---
 
 ## Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google
