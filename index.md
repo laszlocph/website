@@ -57,7 +57,7 @@ Your developers will be able to deploy new services with only defining a few yam
 Worried that when I'm gone the knowledge is gone too?
 
 <div style="background: #f9f9f9; border: solid 1px #d1d1d1; color: #666; line-height: 1em; font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;padding: 2em 1em 1em 1em" >
-<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I deliver the cluster as code in an agreed configuration management tool. Terraform and Ansible preffered, I have experience in Chef too.</p>
+<p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I deliver the cluster as code in an agreed configuration management tool. Terraform and Ansible preferred, I have experience in Chef too.</p>
 <p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I work closely with your Ops team</p>
 <p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I follow your deployment into production and beyond based on an agreed hourly fee</p>
 </div>
