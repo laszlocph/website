@@ -82,7 +82,7 @@ If you enroll now, the first lesson will arrive immediately in your inbox.
 
 ## So what happens once I'm done?
 
-I understand that this going to be the core of your infrastructure that's why I make sure that during the whole process I work as transparently as possible. Where I go, markdown files and Pull Requests follow. 
+I understand that this is going to be the core of your infrastructure that's why I make sure that during the whole process I work as transparently as possible. Where I go, markdown files and Pull Requests follow. 
 
 I understand that not being in control can have huge repercussions in your uptime. That's why
 
@@ -92,6 +92,13 @@ I understand that not being in control can have huge repercussions in your uptim
 <p><i class="fa fa-check" aria-hidden="true" style="color: #66ff66"></i> I follow your deployment into production and beyond</p>
 </div>
 <br/>
+
+See what some of my kind clients has to say about this:
+
+*"I felt like I had a good overview of what was done along the way and that we would not be reliant on Laszlo after the contract ends. 
+We basically had a notion of what direction we wanted to move with our platform and Laszlo facilitated that swimmingly. 
+Along the way we got very good coaching about how to evangelize the new service platform and help with presenting it to the dev teams."* 
+- **Oscar Elfving, Operations Team Lead at Visma e-conomic A/S**
 
 ## Good to meet you
 
