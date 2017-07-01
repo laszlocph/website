@@ -93,8 +93,7 @@ I understand that not being in control can have huge repercussions in your uptim
 </div>
 <br/>
 
-See what some of my kind clients has to say about this:
-
+<br/>
 *"I felt like I had a good overview of what was done along the way and that we would not be reliant on Laszlo after the contract ends. 
 We basically had a notion of what direction we wanted to move with our platform and Laszlo facilitated that swimmingly. 
 Along the way we got very good coaching about how to evangelize the new service platform and help with presenting it to the dev teams."* - **Oscar Elfving, Operations Team Lead at Visma e-conomic A/S**
