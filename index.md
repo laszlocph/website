@@ -60,15 +60,12 @@ I found that having a working cluster where developers can deploy to changes the
 First off it sends a clear message to your organization that Docker is happening. Developers and stakeholders can see the vision in action, they will be able to do zero downtime deployments, with the tooling that is no different than later in production.
 And third, it reveals those pesky requirements that are specific to your organization. The sooner they surface, the better chance we have to tackle them and not lose momentum on the way.
 
----
-
 ## Want me on your team?
 
 Drop me a line with a few words about your situation and we take it from there. I respond in a day:
 
 #### laszlo@laszlo.cloud
 
----
 
 ## Want to pick my brain?
 
