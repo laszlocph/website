@@ -8,6 +8,7 @@ excerpt: In this article I show how to use Docker Compose to pick and choose ser
 ---
 
 ## Mastering test environments with Docker
+{{ page.date | date: "%Y-%m-%d" }}
 
 ---
 
@@ -235,7 +236,5 @@ Sadly Docker Compose can not be pointed at this new clustering solution yet, I'm
 There are plenty of next steps ahead of me, clustering is a big topic. My goal is to find a nice way to run production stacks with similar ease as the workflow above. I will also peak into competing platforms and investigate connecting topics.
 
 Onwards!
-
-2016-10-12
 
 **NEW** Part three is out <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>

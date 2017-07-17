@@ -9,6 +9,7 @@ excerpt: In this episode I reuse the well known Docker Compose files from part 2
 ---
 
 ## Docker cluster management on AWS
+{{ page.date | date: "%Y-%m-%d" }}
 
 ---
 **tldr**
@@ -217,5 +218,3 @@ Since a single instance of the load balancer can handle many services - each map
 It was a good exercise to create the first service with AWS CLI, mapping all services by hand though is a bit cumbersome. Configuration management tools - where the versioned state of the service is stored - can aid this problem. As a possible next step I will explore either Ansible, Terraform or CloudFormation to manage the stack at a higher level.  
 
 Onwards!
-
-2016-10-21

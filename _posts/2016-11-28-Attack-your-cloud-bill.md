@@ -9,6 +9,7 @@ excerpt: In this article I explore an option to build a Cloud agnostic setup for
 
 
 ## Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google
+{{ page.date | date: "%Y-%m-%d" }}
 
 AWS is a [10 billion](http://www.recode.net/2016/4/28/11586526/aws-cloud-revenue-growth){:target="_blank"} a year business. It's not surprising at all, the speed of innovation, the plethora of services truly make it the market leader.
 
@@ -104,5 +105,3 @@ I am extremely happy about this setup. While one can enjoy the managed Docker cl
 * also, it opens up new disaster recovery possibilities.
 
 Onwards!
-
-2016-11-28

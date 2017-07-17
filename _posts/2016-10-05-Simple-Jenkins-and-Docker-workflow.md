@@ -8,6 +8,7 @@ excerpt: A Docker based workflow in Jenkins 2.0 with both the CI pipeline and th
 ---
 
 ## A simple Jenkins 2.0 and Docker workflow
+{{ page.date | date: "%Y-%m-%d" }}
 
 ---
 **tldr**
@@ -193,7 +194,5 @@ My next step is to continue on this path, and make this workflow aware of multip
 to pick any component with any set of branches to provision a local, test, or even production environment.
 
 Onwards!
-
-2016-10-05
 
 Check out part two <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br/>

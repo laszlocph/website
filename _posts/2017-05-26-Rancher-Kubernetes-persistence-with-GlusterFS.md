@@ -9,6 +9,7 @@ excerpt: How do you handle persistence when you orchestrate Docker containers? T
 ---
 
 ## Rancher Kubernetes persistence with GlusterFS
+{{ page.date | date: "%Y-%m-%d" }}
 
 The bellow described method was tested on the Rancher Kubernetes distribution but I borrow the code from a previous project when I used Openshift. It works on both platforms without any modification. 
 
@@ -171,5 +172,3 @@ If you deployed all the components, you should be able to create a file within y
 There are two issues I faced in my deployment. The recycle *persistentVolumeReclaimPolicy* is not yet implemented, so I had to create a cleanup cron task, and second, the volume was mounted for the root user and I couldn't find a nice solution to grant access to my non root user in the container. I used a *postStart* lifecycle action in the pod definition, but I wasn't very satisfied with this solution.
 
 UPDATE: just realized that fsGroup as described [here](https://kubernetes.io/docs/concepts/policy/security-context/) is solving the problem with the ownership of folders on the mounted disk. 
-
-2017-05-26
