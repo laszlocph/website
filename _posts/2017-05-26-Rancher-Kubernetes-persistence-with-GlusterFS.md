@@ -3,6 +3,7 @@ layout: default
 title: Rancher Kubernetes persistence with GlusterFS
 image: rancher.png
 link: /Rancher-Kubernetes-persistence-with-GlusterFS
+permalink: /Rancher-Kubernetes-persistence-with-GlusterFS
 excerpt: How do you handle persistence when you orchestrate Docker containers? The question I'm constantly being asked when starting a new project. 
 
 ---

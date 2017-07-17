@@ -3,6 +3,7 @@ layout: default
 title: A simple Jenkins 2.0 and Docker workflow
 image: pipeline.png
 link: /Simple-Jenkins-and-Docker-workflow
+permalink: /Simple-Jenkins-and-Docker-workflow
 excerpt: A Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version controlled. The end result is a container with code ready to deploy.
 ---
 
@@ -153,7 +154,7 @@ Wait, what?
 * the second runs the actual build inside that container
 * the last one takes the artifact and build the production container image.
 
-![Pipeline](pipeline.png)
+![Pipeline](images/pipeline.png)
 
 ## Interacting with the Build container
 

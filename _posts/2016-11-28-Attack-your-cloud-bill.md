@@ -3,8 +3,9 @@ layout: default
 title: Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google
 image: images/hosts.png
 link: /Attack-your-cloud-bill
+permalink: /Attack-your-cloud-bill
 excerpt: In this article I explore an option to build a Cloud agnostic setup for deploying containers. Ultimately achieving greater flexibility and control.
----
+--- 
 
 
 ## Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google

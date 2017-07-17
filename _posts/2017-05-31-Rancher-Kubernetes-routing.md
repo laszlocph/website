@@ -3,6 +3,7 @@ layout: default
 title: Rancher Kubernetes routing
 image: rancher.png
 link: /Rancher-Kubernetes-routing
+permalink: /Rancher-Kubernetes-routing
 excerpt: Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.
 
 ---

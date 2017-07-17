@@ -3,6 +3,7 @@ layout: default
 title: Docker cluster management on AWS
 image: cloudformation.png
 link: /Docker-cluster-management-on-AWS
+permalink: /Docker-cluster-management-on-AWS
 excerpt: In this episode I reuse the well known Docker Compose files from part 2 and run the stack on AWS. I also explore production usage on AWS ECS.
 
 ---
@@ -20,7 +21,7 @@ By the end of [part 2](Mastering-test-environments-with-Docker) of the series I 
 I could reach that point relatively easily since I used only Docker's built in tooling. They were perfectly integrated and very powerful, thanks to Docker's *batteries included* approach.  
 
 
-![Tailored environment](env.png)
+![Tailored environment](images/env.png)
 
 I was also moaning a bit that I couldn't point my Docker Compose script to a cluster of Docker Engines in swarm mode, but I generally wasn't sure about the next steps.
 
@@ -53,7 +54,7 @@ ecs-cli up --keypair ecs --capability-iam --size 2 --instance-type t2.micro
 
 The above two commands create a complete ECS cluster with all the network infrastructure it requires. It uses a CloudFormation template in the background, where you can validate the actual complexity of the stack. 
 
-![Network infrastructure](cloudformation.png)
+![Network infrastructure](images/cloudformation.png)
 
 ## ECS services and tasks
 
@@ -194,7 +195,7 @@ aws ecs create-service --cli-input-json file://boot-service.json
 
 After registering the task and service in ECS, the container instances get registered in the ELB Target Group and the service is available on load balancer's hostname.
 
-![Healthy nodes in the cluster](nodes.png)
+![Healthy nodes in the cluster](images/nodes.png)
 
 
 ## Rolling out updates
@@ -205,7 +206,7 @@ Deploying a new version of the service requires to update the service definition
 aws ecs update-service --cluster cluster01 --service arn:aws:ecs:eu-west-1:782027979363:service/boot --task-definition boot:2
 </pre>
 
-![Event log](events.png)
+![Event log](images/events.png)
 
 Full disclosure: the update took many minutes, but most of the time was spent in draining connections from ELB. The default five minutes can be changed to speed up deployment.
 

@@ -3,6 +3,7 @@ layout: default
 title: Mastering test environments with Docker
 image: env.png
 link: /Mastering-test-environments-with-Docker
+permalink: /Mastering-test-environments-with-Docker
 excerpt: In this article I show how to use Docker Compose to pick and choose services and branches for any local or QA environment. I also showcase the branch aware build pipeline introduced in Jenkins 2.0.
 ---
 
@@ -34,11 +35,11 @@ This nifty feature spares us a ton of boilerplate work as we don't have to set u
 
 By picking *Multibranch Pipeline* on the job creation page we get the same behavior as the *Pipeline* job, plus Jenkins automatically creates a sub-project for each branch with a Jenkinsfile that it finds in the repository.
 
-![Multi-branch support](multibranch.png)
+![Multi-branch support](images/multibranch.png)
 
 We also got a new item on the side bar to reindex branches on demand. It is able to detect new branches and delete pipelines that belong to deleted ones.
  
-![Multi-branch support](branch-indexing.png)
+![Multi-branch support](images/branch-indexing.png)
 
 I made one more modification to the pipeline to make it practically useful. In this new final step I **push the built Docker container image to a [registry](https://hub.docker.com/r/laszlocph/spring-boot-dummy/tags/)**. 
 With this step the container becomes available to other processes for verification and deployment.
@@ -201,7 +202,7 @@ It writes a new compose file what I can use later to spin up the environment.
 The script also fetches the available branches for services where the *image* element is annotated with the Githup repository URL. 
 
 
-![Tailored environment](env.png)
+![Tailored environment](images/env.png)
 
 As shown on the above screenshot, I selected all services and picked the *new-endpoint* branch for the *boot* component. Then I took the prepared compose file and started a new environment on a remote host by using [this script](https://github.com/laszlocph/multi-env/blob/master/start-env.sh).
 

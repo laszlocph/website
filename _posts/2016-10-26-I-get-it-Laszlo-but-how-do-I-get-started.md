@@ -1,8 +1,9 @@
 ---
 layout: default
 title: I get it Laszlo, but how do I get started?
-image: 9ySXeJrr.jpg
+image: images/tools.jpeg
 link: /I-get-it-Laszlo-but-how-do-I-get-started
+permalink: /I-get-it-Laszlo-but-how-do-I-get-started
 excerpt: If there is anything I learned during the years of managing developers is that getting people to change is hard. I decided to share a few points in an article. So here it is.
 ---
 
