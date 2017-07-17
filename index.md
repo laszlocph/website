@@ -80,6 +80,9 @@ If you enroll now, the first lesson will arrive immediately in your inbox.
 
 <script async id="_ck_219414" src="https://forms.convertkit.com/219414?v=6"></script>
 
+<br/>
+Or check out [my articles](/posts). 
+
 ## So what happens once I'm done?
 
 I understand that this is going to be the core of your infrastructure that's why I make sure that during the whole process I work as transparently as possible. Where I go, markdown files and Pull Requests follow. 
