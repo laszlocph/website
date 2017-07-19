@@ -78,6 +78,5 @@ See the details on how to [define secrets](https://kubernetes.io/docs/concepts/c
 
 Onwards!
 
-ps.: if you want a multi-tenant Kubernetes cluster for your teams. Get in touch on laszlo@laszlo.cloud - I answer within a day.
 
 
