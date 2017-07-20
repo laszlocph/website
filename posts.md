@@ -1,4 +1,4 @@
 ---
 layout: posts
-title: My rants. In one place.
+title: All my rants. In one place.
 ---

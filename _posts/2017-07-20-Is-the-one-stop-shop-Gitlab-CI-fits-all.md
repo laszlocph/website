@@ -50,13 +50,13 @@ But yesterday I made an effort to see for myself whats the fuzz about Gitlab, an
 
 My first impressions as bullets in no particular order:
 
-* Nice [one-liner](https://docs.gitlab.com/omnibus/docker/#run-the-image) to start it locally with Docker. Just as you'd expect it in 2017
+* Nice [one-liner](https://docs.gitlab.com/omnibus/docker/#run-the-image){:target="_blank"} to start it locally with Docker. Just as you'd expect it in 2017
 * Sleek UI, API keys, ssh keys, MFA all there, with nice explanations on the ui
-* Straightforward to create a new project, no different than github
-* Vanity, but I'd be sad not having the activity card on my public github profile. Especially as I want [this](https://commitprint.com/) in my livingroom
+* Straightforward to create a new project, no different than Github
+* Vanity, but I'd be sad not having the activity card on my public Github profile. Especially as I want [this](https://commitprint.com/){:target="_blank"} in my livingroom
 * Little too white, no strong strokes or contrast really, I guess I will get used to this
 
-If you want to get a feel for it, check out the Gitlab source code on.. well, [Gitlab](https://gitlab.com/gitlab-org/gitlab-ce/). Very Meta.
+If you want to get a feel for it, check out the Gitlab source code on.. well, [Gitlab](https://gitlab.com/gitlab-org/gitlab-ce/){:target="_blank"}. Very Meta.
 
 #### Gitlab Pipelines
 
@@ -92,9 +92,9 @@ build:
 For the build to kick-off I also added a Gitlab Runner to Gitlab, which is basically a worker where the pipeline jobs are executed. 
 *"A Runner can be a virtual machine, a VPS, a bare-metal machine, a docker container or even a cluster of containers. GitLab and the Runners communicate through an API, so the only requirement is that the Runner's machine has Internet access."*
 
-See the various Runner types [here](https://docs.gitlab.com/runner/#selecting-the-executor).
+See the various Runner types [here](https://docs.gitlab.com/runner/#selecting-the-executor){:target="_blank"}.
 
-Again it was a [Docker one-liner](https://docs.gitlab.com/runner/install/docker.html#docker-image-installation-and-configuration) plus a Docker exec to register the Runner with Gitlab
+Again it was a [Docker one-liner](https://docs.gitlab.com/runner/install/docker.html#docker-image-installation-and-configuration){:target="_blank"} plus a Docker exec to register the Runner with Gitlab
 
 <pre>
 docker run -d --name gitlab-runner --restart always \
@@ -113,7 +113,7 @@ Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/):
 </pre>
 
 #### The verdict
-The above didn't take more than five hours in a summery pace, including the build image I created with Docker and Java installed and tackling an [issue](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/issues/1986) with running Docker builds in the the Docker based Gitlab Runner.
+The above didn't take more than five hours in a summery pace, including the build image I created with Docker and Java installed and tackling an [issue](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/issues/1986){:target="_blank"} with running Docker builds in the the Docker based Gitlab Runner.
 
 Although I did have dummy repositories prepared and worked with various CIs before I must say the experience was really nice. Everything was where it ought to be.
 
@@ -123,14 +123,14 @@ Although I did have dummy repositories prepared and worked with various CIs befo
 
 * The builds were twice as fast as on my free CircleCI plan. On CircleCI the plumbing tasks take awful lot of time resulting my build taking at list two three minutes, while on this Gitlab instance it is almost exactly one minute.
 
-* Just a random signal: the open source Gnome project is also [moving to Gitlab](ttps://gitlab.com/gitlab-org/gitlab-ce/issues/35287).
+* Just a random signal: the open source Gnome project is also [moving to Gitlab](ttps://gitlab.com/gitlab-org/gitlab-ce/issues/35287){:target="_blank"}.
 
 * I find Gitlab's execution polished, with various install options documented, and they even make the migration from Github scary easy: it takes a token and clicking one button to migrate all your Github repos.
 
 ![VPN](images/import-all.png)
 
 <br/>
-That's it for today, but I'm not done yet. I'm super excited about Gitlab's [Review apps](https://about.gitlab.com/2016/11/22/introducing-review-apps/) feature, plus I did see a menu item saying "Environments". But more on these later.
+That's it for today, but I'm not done yet. I'm super excited about Gitlab's [Review apps](https://about.gitlab.com/2016/11/22/introducing-review-apps/){:target="_blank"} feature, plus I did see a menu item saying "Environments". But more on these later.
 
 Onwards!
 
