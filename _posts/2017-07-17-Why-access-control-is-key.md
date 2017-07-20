@@ -2,7 +2,7 @@
 layout: default
 title: Why access control is key for a secure multi-tenant Kubernetes deployment?
 image: images/kubernetes.png
-link: //Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment
+link: /Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment
 permalink: /Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment
 excerpt: Why access control is key for a secure multi-tenant Kubernetes deployment?
 --- 
@@ -32,13 +32,13 @@ Access control is quite an important feature if you ask me. When I worked with t
 
 The only workaround I could provide until now is to physically separate the clusters along the security boundaries. Which is still the best practice for test and production environments: even though one can label nodes and set up namespaces accordingly, life is easier if those environments remain phisically separate. 
 
-For this article I quickly checked [what's up](https://docs.docker.com/engine/extend/plugins_authorization/) in the Docker Swarm world: *"Docker’s out-of-the-box authorization model is all or nothing. Any user with permission to access the Docker daemon can run any Docker client command."* 
+For this article I quickly checked [what's up](https://docs.docker.com/engine/extend/plugins_authorization/){:target="_blank"} in the Docker Swarm world: *"Docker’s out-of-the-box authorization model is all or nothing. Any user with permission to access the Docker daemon can run any Docker client command."* 
 
 But don't I worry since *"Anyone with the appropriate skills can develop an authorization plugin."* - well, thanks Docker!
 
 #### Access control primitives
 
-Kubernetes [RBAC](https://kubernetes.io/docs/admin/authorization/rbac/) allows cluster administrators to selectively grant particular users or service accounts fine-grained access to specific resources on a per-namespace basis.
+Kubernetes [RBAC](https://kubernetes.io/docs/admin/authorization/rbac/){:target="_blank"} allows cluster administrators to selectively grant particular users or service accounts fine-grained access to specific resources on a per-namespace basis.
 
 The key primitives are:
  
@@ -72,7 +72,7 @@ and to further protect the api keys and certificates the following workflow is i
 * Secrets are prepared in the cluster by cluster admins, prior to deployment
 * Secrets are stored in an encrypted Chef or Ansible Vault
 
-See the details on how to [define secrets](https://kubernetes.io/docs/concepts/configuration/secret/#overview-of-secrets) in Kubernetes and what's their [security properties](https://kubernetes.io/docs/concepts/configuration/secret/#security-properties) and associated risks.
+See the details on how to [define secrets](https://kubernetes.io/docs/concepts/configuration/secret/#overview-of-secrets){:target="_blank"} in Kubernetes and what's their [security properties](https://kubernetes.io/docs/concepts/configuration/secret/#security-properties) and associated risks.
 
 <br/>
 
