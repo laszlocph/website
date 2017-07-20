@@ -4,7 +4,7 @@ title: Is the one-stop-shop Gitlab CI fits all?
 image: images/gitlab.png
 link: /Is-the-one-stop-shop-Gitlab-CI-fits-all
 permalink: /Is-the-one-stop-shop-Gitlab-CI-fits-all
-excerpt: Is the one-stop-shop Gitlab CI fits all?
+excerpt: I was often scared away by Gitlab's suite approach with their Slack replacement and other bells and whistles I don't need. In this article I try to figure if can I use only the parts that matter to me? 
 --- 
 
 ## Is the one-stop-shop Gitlab CI fits all?
