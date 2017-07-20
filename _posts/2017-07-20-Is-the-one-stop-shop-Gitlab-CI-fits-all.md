@@ -69,7 +69,7 @@ The Pipelines menu item naturally fits the UI. Pipelines belong to source reposi
 <br/>
 Clicking Pipelines for the first time Gitlab shows probably the best introductory text I've seen on both how to get started with Gitlab Pipelines, but also on good CI practices. I found my way around more easily than with CircleCI for example.
 
-I had to create the .gitlab-ci.yml and add the a Gitlab Runner and then the project was building on every git push.
+I had to create the .gitlab-ci.yml, add a Gitlab Runner and then the project was building on every git push.
 
 If you've seen a Travis or Circle CI yaml, Gitlab's yaml format probably looks familiar. In the example bellow first I define the build Docker image where the project is built (achiving a reproducible build experience), then I call a simple Gradle build command and a Docker push to the registry. That's about it. 
 
@@ -123,9 +123,9 @@ Although I did have dummy repositories prepared and worked with various CIs befo
 
 * The builds were twice as fast as on my free CircleCI plan. On CircleCI the plumbing tasks take awful lot of time resulting my build taking at list two three minutes, while on this Gitlab instance it is almost exactly one minute.
 
-* Just a random signal: the open source Gnome project is also [moving to Gitlab](ttps://gitlab.com/gitlab-org/gitlab-ce/issues/35287){:target="_blank"}.
+* Just a random signal: the open source Gnome project is also [moving to Gitlab](https://gitlab.com/gitlab-org/gitlab-ce/issues/35287){:target="_blank"}.
 
-* I find Gitlab's execution polished, with various install options documented, and they even make the migration from Github scary easy: it takes a token and clicking one button to migrate all your Github repos.
+* I find Gitlab's execution polished. The various install options are documented, and they even make the migration from Github scary easy: it takes a token and clicking one button to migrate all your Github repos.
 
 ![VPN](images/import-all.png)
 
