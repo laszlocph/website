@@ -38,6 +38,8 @@ Sometimes though, I wish I would be the person who just buys into an ecosystem l
 
 Gitlab is one of those suites that seemed greener many times as they offer a self-hosted Github like experience for source code management, a CI server, a Wiki, a task manager and many more. 
 
+![All the things](images/suite.png)
+
 But that many more that scared me every time I looked at their marketing videos: 
 
 >Let's say you have an idea. And you discuss that on Mattermost, our company chat solution
