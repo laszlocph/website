@@ -63,7 +63,7 @@ Besides defining the deployment step, the deploy_review stage contains a section
 <pre>
 environment:
     name: review/$CI_COMMIT_REF_NAME
-    url: http://$CI_COMMIT_REF_NAME.cirescues.com
+    url: http://$CI_COMMIT_REF_NAME.laszlo.cloud
 </pre>
 
 And that's it. We use a special Gitlab variable to name the environment as review/&lt;&lt;branchname&gt;&gt;, and Gitlab will show the environment on the UI. No need to predefine the environment in Gitlab. They are trully dynamic.
