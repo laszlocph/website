@@ -70,7 +70,7 @@ And that's it. We use a special Gitlab variable to name the environment as revie
 
 #### Environments on the Gitlab UI
 
-This feature is only brilliant, because of how Gitlab integrates Environments to the UI. Environments prefixed with the same <prefix>/ are collapsable in the UI.
+This feature is only brilliant, because of how Gitlab integrates Environments to the UI. Environments prefixed with the same &lt;&lt;prefix&gt;&gt;/ are collapsable in the UI.
 
 ![Gitlab environments](images/gitlab-envs.png)
 
