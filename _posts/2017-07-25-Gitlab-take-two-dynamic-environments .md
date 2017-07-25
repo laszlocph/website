@@ -107,6 +107,6 @@ As for Gitlab, I'm sold. The simplicity of the Environments feature amaze me. Ac
 
 The Github suite did not enforce anything on me, I like that. This might change of course. They certainly want to make it easy for developers, and that may reach magic levels. 
 
-For example with their [autodeploy effort](https://docs.gitlab.com/ee/ci/autodeploy/index.html){:target="_blank"} where they want to infer the deployment method from the source code. In my experience its only an illusion until reality kicks in. Things are complex, hiding that for too long is not the right answer. Anyways, let's wait with the verdict on that one.
+For example with their [autodeploy effort](https://docs.gitlab.com/ee/ci/autodeploy/index.html){:target="_blank"} where they want to infer the deployment method from the source code. In my experience it's only an illusion until reality kicks in. Things are complex, hiding that for too long is not the right answer. Anyways, let's wait with the verdict on that one.
 
 Onwards!
