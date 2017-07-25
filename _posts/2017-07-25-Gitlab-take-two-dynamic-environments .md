@@ -58,7 +58,7 @@ While the payload may seem criptic first sight, it is essentially passing a dock
 
 <br/>
 
-<script src="http://gist-it.appspot.com/https://github.com/laszlocph/todomvc-springboot-backend/blob/master/stack.json"></script>
+<script src="https://gist.github.com/laszlocph/f2da691257045a13b09e58a31d099db6.js"></script>
 
 <br/>
 
