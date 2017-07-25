@@ -51,20 +51,14 @@ The additions I made to achieve the dynamic environments is the deploy_review st
 <script src="https://gist.github.com/laszlocph/0cac604fa56e0ac6e5a2141939162fb4.js"></script>
 
 <br/>
-
 The deploy_review stage as its name suggests deploys the images that were built in the build stage. Doing that with a simple curl to the Rancher container orchestration platform, with the stack definition in the payload.
 
 While the payload may seem criptic first sight, it is essentially passing a docker-compose definition to Rancher, with a few deployment specific meta information in the rancher-compose field.
 
-<br/>
-
 <script src="https://gist.github.com/laszlocph/f2da691257045a13b09e58a31d099db6.js"></script>
 
 <br/>
-
 Besides defining the deployment step, the deploy_review stage contains a section about the environment itself: the key-value pair to define the environment name and its URL.
-
-<br/>
 
 <pre>
 environment:
@@ -72,14 +66,13 @@ environment:
     url: http://$CI_COMMIT_REF_NAME.cirescues.com
 </pre>
 
-<br/>
-
-And that's it. We use a special Gitlab variable to name the Environment as review/&lt;&lt;branchname&gt;&gt;, and Gitlab will show the environment on the UI. No need to predefine the environment in Gitlab. They are trully dynamic.
+And that's it. We use a special Gitlab variable to name the environment as review/&lt;&lt;branchname&gt;&gt;, and Gitlab will show the environment on the UI. No need to predefine the environment in Gitlab. They are trully dynamic.
 
 #### Environments on the Gitlab UI
 
 This feature is only brilliant, because of how Gitlab integrates Environments to the UI. Environments prefixed with the same <prefix>/ are collapsable in the UI.
-![VPN](images/gitlab-envs.png)
+
+![Gitlab environments](images/gitlab-envs.png)
 
 <br/>
 The environment link is shown both on the Environments screen (above) and on the PR details page as shown bellow.
@@ -90,7 +83,7 @@ Plus one can view the deployment history of an environment, redeploy or roll bac
 ![Deployment history](images/deployments_view.png)
 
 <br/>
-More on the features of environments in the [Gitlab documentation]{:target="_blank"}(https://docs.gitlab.com/ce/ci/environments.html).
+More on environments in the [Gitlab documentation](https://docs.gitlab.com/ce/ci/environments.html){:target="_blank"}.
 
 #### Host based routing
 
