@@ -87,15 +87,15 @@ More on environments in the [Gitlab documentation](https://docs.gitlab.com/ce/ci
 
 #### Host based routing
 
-While the .gitlab-ci.yml supports variables, there is a limitation that prevented me from doing the bare minimum for the dynamic environments - just launching a new environment on its own port; I had to set up proper host based routing for the environments in Rancher because of a [limitation](https://docs.gitlab.com/ce/ci/environments.html#limitations) in the usage of Gitlab variables. 
+While the .gitlab-ci.yml supports variables, there is a [limitation](https://docs.gitlab.com/ce/ci/environments.html#limitations){:target="_blank"} that prevented me from doing the bare minimum for the dynamic environments - just launching a new environment on its own port; I had to set up proper host based routing for the environments in Rancher.
 
-It's not the end of the world as instead of URLs like http://laszlo.cloud:xxxx I have now easy to remember URLs in the form of 
+It's not the end of the world as instead of URLs like http://laszlo.cloud:xxxx I have now easy to remember URLs like 
 
 >http://&lt;&lt;branchname&gt;&gt;.laszlo.cloud 
 
 It looks pretty cool.
 
-For that, I used Traefik, a modern reverse proxy where all my Rancher services automatically register. All I had to do is to deploy Traefik from the Rancher service catalog and set a few labels as described [here](http://rancher.com/traefik-active-load-balancer-on-rancher/).
+For that, I used Traefik, a modern reverse proxy where all my Rancher services automatically register. All I had to do is to deploy Traefik from the Rancher service catalog and set a few labels as described [here](http://rancher.com/traefik-active-load-balancer-on-rancher/){:target="_blank"}.
 
 #### Closing thoughts
 
@@ -105,8 +105,8 @@ I started the pursuit last fall in [Mastering test environments with Docker](/Ma
 
 As for Gitlab, I'm sold. The simplicity of the Environments feature amaze me. Actually I'm thinking it's not too difficult for Github to follow the lead, nor anyone who wants to extend Github with a browser extension, [Refined Github](https://github.com/sindresorhus/refined-github){:target="_blank"} style.
 
-The Github suite did not enforce anything on me, I like that. This might change of course. 
+The Github suite did not enforce anything on me, I like that. This might change of course. They certainly want to make it easy for developers, and that may reach magic levels. 
 
-They certainly want to make it easy for developers, and that may reach **magic** level. For example with their [autodeploy effort](https://docs.gitlab.com/ee/ci/autodeploy/index.html){:target="_blank"} where they want to infer the deployment method from the source code. In my experience its only an illusion until reality kicks in. Things are complex, hiding that for too long is not the right answer. Anyways, let's wait with the verdict on that one.
+For example with their [autodeploy effort](https://docs.gitlab.com/ee/ci/autodeploy/index.html){:target="_blank"} where they want to infer the deployment method from the source code. In my experience its only an illusion until reality kicks in. Things are complex, hiding that for too long is not the right answer. Anyways, let's wait with the verdict on that one.
 
 Onwards!
