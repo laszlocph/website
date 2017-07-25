@@ -18,7 +18,7 @@ Rewinding a few weeks back, I rediscovered a concept so dear to me: review apps.
 * reducing the mayhem on release day
 * eliminating the code cut-off completely 
 
-I made this video back then to demonstrate the feature on Github - as you can see I was not giving in just yet to Gitlab. 
+I made this video back then to demonstrate the feature on Github - as you can see I was not giving in to Gitlab just yet. 
 
 <br/>
 
@@ -28,19 +28,19 @@ I made this video back then to demonstrate the feature on Github - as you can se
 
 #### It takes one URL
 
-What happened in the video above behind the scenes is
+What happened in the video behind the scenes is
 
-* On commit a CircleCI job was triggered
+* A CircleCI job was triggered on commit
 * That job built the code and pushed the Docker image to the registry
 * CircleCI called a custom webhook I built to do the auto deploy to a dynamic environment
-* In that little Python endpoint I called the Rancher container orchestration system to deploy a new instance of the app with the just built image
+* In that little Python endpoint I called the Rancher container orchestration system to deploy a new instance of the app with the freshly built image
 * Once it was deplyoed I used Github's [Status API](https://developer.github.com/v3/repos/statuses/){:target="_blank"} to report back the environment's URL
 
-While it was not a big task, it did take time to piece it together, and the UX of using the Status API for dynamic environments is not perfect, since it was not necessairily made for that. 
+While it was not a big task, it did take time to piece it together, and using the Status API for dynamic environments does not have the best UX in my opinion. 
 
 No surprise I was pumped to see the native support of Environments in Gitlab. Little did I know about the elegance of how Gitlab added the Environments feature. 
 
-In essence they did what I did with Github: built in a place where the URL of the dynamic environment can be stored, plus featured the name value pairs (environment - access URL) in the right places on the UI. **Nothing prescribed, or built in.** Flexibility by design.
+In essence they did what I did with Github: they built in a place where the URL of the dynamic environment can be stored, plus featured the name value pairs (environment - access URL) in the right places on the UI. Allowing full flexibility with environments, nothing really prescribed about the deployment method, no app server built in or similar.
 
 #### How to dynamic environment?
 
@@ -48,7 +48,7 @@ The bellow .gitlab-ci.yml may look familiar from part one.
 
 The additions I made to achieve the dynamic environments is the deploy_review stage.
 
-<script src="http://gist-it.appspot.com/https://github.com/laszlocph/todomvc-springboot-backend/blob/master/.gitlab-ci.yml"></script>
+<script src="https://gist.github.com/laszlocph/0cac604fa56e0ac6e5a2141939162fb4.js"></script>
 
 <br/>
 
