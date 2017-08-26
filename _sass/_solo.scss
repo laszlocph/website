@@ -185,10 +185,5 @@ pre > code {
 }
 
 .questions {
-  padding: 1em 0 1em 1.5rem;
   font-size: 1.25em;
-  background: #EF3B36;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #FFFFFF, #EF3B36);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #FFFFFF, #EF3B36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
 }
