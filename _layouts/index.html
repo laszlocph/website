@@ -23,14 +23,17 @@
 
   <title>{{ site.title }} - {{ page.title }}</title>
   <link rel="stylesheet" href="css/main.css">
+  <style>
+    p, ul{
+        font-size: 1.25em;
+    }
+    </style>
 {% include head.html %}
 </head>
 <body style="position: relative">
-  <div style="max-width: 50rem; margin: 0 auto; padding: 0 1rem;">
-    <h1 style="text-align: center">Do you know how to navigate the container landscape?</h1>
-    <div class="container">
-      {{ content }}
-    </div>
+  <div class="container">
+    <h1>{{ site.tag_text }}</h1>
+    {{ content }}
   </div>
 {% include scripts.html %}
 </body>
