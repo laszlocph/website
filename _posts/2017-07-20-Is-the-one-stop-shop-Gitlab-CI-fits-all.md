@@ -8,6 +8,7 @@ excerpt: I was often scared away by Gitlab's suite approach with their Slack rep
 --- 
 
 ## Is the one-stop-shop Gitlab CI fits all?
+{{ page.date | date: "%Y-%m-%d" }}
 
 You may have heard me saying that CI doesn't matter in orchestration projects. 
 

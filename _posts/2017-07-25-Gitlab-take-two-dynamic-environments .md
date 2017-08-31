@@ -8,6 +8,7 @@ excerpt: In part one I found Gitlab to be not too pushy about its suite approach
 --- 
 
 ## Gitlab take two - Dynamic Environments
+{{ page.date | date: "%Y-%m-%d" }}
 
 In part one I found Gitlab to be not too pushy about its suite approach, and its CI to work as advertised. In part two Gitlab takes my appreciation to the next level. I say just one word: environments.
 
