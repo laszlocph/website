@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Cloud and Containers - August
-image: 
+image: images/1500x500.jpg
 link: /cloud-and-containers-august
 permalink: /cloud-and-containers-august
-excerpt: summary
+excerpt: August had tremendous amount of container news. CNCF grew a lot in influence and I started thinking  that the only true challenger of AWS's hegemony are the CNCF projects. I'm also pleased to see Microsoft as a true innovator in the container space. And the race is on for Windows based container workloads.
 
 --- 
 
