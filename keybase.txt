@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/laszlocph
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://laszlo.cloud
+  * I am laszlocph (https://keybase.io/laszlocph) on keybase.
+  * I have a public key ASDAY3cxI1Z5vuHEC5nwDYKAsfXSqkxK1XNwhUNpSwCQeQo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120c0637731235679bee1c40b99f00d8280b1f5d2aa4c4ad573708543694b0090790a",
+      "host": "keybase.io",
+      "kid": "0120c0637731235679bee1c40b99f00d8280b1f5d2aa4c4ad573708543694b0090790a",
+      "uid": "a81c120ca773a19f22d3f74ea1221319",
+      "username": "laszlocph"
+    },
+    "merkle_root": {
+      "ctime": 1505128014,
+      "hash": "fa5f1d7afcc831b5389025a71d80bed9da9947273988e9fabffde2d8e848d3eea0cb58f8bbc18f3639e17c30aeb1807e610e8941d919e2cb9c0c68e6f7d480ac",
+      "hash_meta": "26f239ab5d1c7d29f271cee05c913b8128a4a5554b6202e6f8cd33700f2a924e",
+      "seqno": 1379759
+    },
+    "service": {
+      "hostname": "laszlo.cloud",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.30"
+  },
+  "ctime": 1505128022,
+  "expire_in": 504576000,
+  "prev": "1c91f9651dd9b41ccd341f31fca6de09db69a6359b70b1cdef8556a15f99128a",
+  "seqno": 9,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgwGN3MSNWeb7hxAuZ8A2CgLH10qpMStVzcIVDaUsAkHkKp3BheWxvYWTFA0V7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwYzA2Mzc3MzEyMzU2NzliZWUxYzQwYjk5ZjAwZDgyODBiMWY1ZDJhYTRjNGFkNTczNzA4NTQzNjk0YjAwOTA3OTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwYzA2Mzc3MzEyMzU2NzliZWUxYzQwYjk5ZjAwZDgyODBiMWY1ZDJhYTRjNGFkNTczNzA4NTQzNjk0YjAwOTA3OTBhIiwidWlkIjoiYTgxYzEyMGNhNzczYTE5ZjIyZDNmNzRlYTEyMjEzMTkiLCJ1c2VybmFtZSI6Imxhc3psb2NwaCJ9LCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTUwNTEyODAxNCwiaGFzaCI6ImZhNWYxZDdhZmNjODMxYjUzODkwMjVhNzFkODBiZWQ5ZGE5OTQ3MjczOTg4ZTlmYWJmZmRlMmQ4ZTg0OGQzZWVhMGNiNThmOGJiYzE4ZjM2MzllMTdjMzBhZWIxODA3ZTYxMGU4OTQxZDkxOWUyY2I5YzBjNjhlNmY3ZDQ4MGFjIiwiaGFzaF9tZXRhIjoiMjZmMjM5YWI1ZDFjN2QyOWYyNzFjZWUwNWM5MTNiODEyOGE0YTU1NTRiNjIwMmU2ZjhjZDMzNzAwZjJhOTI0ZSIsInNlcW5vIjoxMzc5NzU5fSwic2VydmljZSI6eyJob3N0bmFtZSI6Imxhc3psby5jbG91ZCIsInByb3RvY29sIjoiaHR0cHM6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjMwIn0sImN0aW1lIjoxNTA1MTI4MDIyLCJleHBpcmVfaW4iOjUwNDU3NjAwMCwicHJldiI6IjFjOTFmOTY1MWRkOWI0MWNjZDM0MWYzMWZjYTZkZTA5ZGI2OWE2MzU5YjcwYjFjZGVmODU1NmExNWY5OTEyOGEiLCJzZXFubyI6OSwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEAt0+C4oy2vJMV3jSRDtbFRvp1NZTTRZ7cwwubTDnUhtD8LXRbby3y/xCGcYgXZxObLbU5Ntvpe84fFsTj1e4MKqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQg1qJMi6mmnxXb+DqQ3EDDFKO5uh6He8ZsDnYVIrTwjYOjdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/laszlocph
+
+==================================================================
