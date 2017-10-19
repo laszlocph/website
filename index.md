@@ -48,11 +48,6 @@ As a former engineer and Director of Engineering I gained perspective to effecti
   {% endfor %}
 </ul>   
 
-## Or if you are trying to tackle the container space alone
-I recommend signing up to the Compose to Production email sequence. It helps cutting through the noise.
-<script async id="_ck_219414" src="https://forms.convertkit.com/219414?v=6"></script>
-
-
 <div class="testimonial">
 <p>“Extremely knowledgeable about containerization and orchestration. I felt like I had a good overview of what was done along the way and that we would not be reliant on Laszlo after the contract ends.”</p> - Oscar Elfving, Operations Team Lead at Visma e-conomic A/S
 </div>
