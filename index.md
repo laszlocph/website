@@ -29,7 +29,7 @@ Hi I'm Laszlo Fogas, Cloud consultant.
 
 The fall of 2016 I set out to start Laszlo Cloud, a consultancy to elevate team cultures through automation and tooling.
 
-As a former engineer and Director of Engineering I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infarstructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
+As a former engineer and Director of Engineering I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
 
 * Reach me at laszlo@laszlo.cloud
 * [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}, [Instagram](https://www.instagram.com/laszlo.cloud/){:target="_blank"}
