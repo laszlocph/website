@@ -31,6 +31,9 @@ The fall of 2016 I set out to start Laszlo Cloud, a consultancy to elevate team 
 
 As a former engineer and Director of Engineering I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
 
+![Laszlo Fogas](laszlo.jpg){:width="25%"}
+
+
 * Reach me at laszlo@laszlo.cloud
 * [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}, [Instagram](https://www.instagram.com/laszlo.cloud/){:target="_blank"}
 * My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/){:target="_blank"}
