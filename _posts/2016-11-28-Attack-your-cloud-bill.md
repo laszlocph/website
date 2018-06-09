@@ -64,7 +64,7 @@ Once ping was running between the nodes across clouds, the fun began.
 
 I regard Docker Compose the centerpiece of the Docker revolution and was a bummer when I realized that Docker Swarm (aka Docker Engine in swarm mode) doesn't let me control my services through compose files. I was relieved though when all that worked in Rancher out of the box: **in Rancher you deploy your *stacks* through Docker Compose files**.
 
-<pre>
+```yml
 boot:
   image: laszlocph/springboot-demo
   links:
@@ -84,7 +84,7 @@ redis:
   image: redis
   labels:
     io.rancher.scheduler.affinity:host_label: cloud=AWS
-</pre>
+```
 
 The above is a standard Docker Compose file, with custom labels that control Rancher's scheduling engine. Hats off Rancher, this is a much nicer integration to the ecosystem than the json files [I had to write for Amazon ECS](https://laszlo.cloud/Mastering-test-environments-with-Docker).
 

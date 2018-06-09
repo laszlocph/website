@@ -50,7 +50,7 @@ At this point components are built continuously on every branch. As a next step 
 
 Docker Compose has a simple yaml syntax, and while it has [powerful options](https://docs.docker.com/compose/compose-file/), it is very easy to define simple stacks.
 
-<pre>
+```yml
 version: '2'
 
 services:
@@ -64,8 +64,7 @@ services:
    image: laszlocph/spring-boot-dummy
  redis:
    image: redis
-
-</pre>
+```
 
 Above I defined three services, 
 * *web-python* is based on a dummy webapp, the laszlocph/composetest image that depends on a running redis container
@@ -80,7 +79,7 @@ They can do that by simply mentioning each other's name as Compose puts an entry
 
 Once the services are up you can verify the containers with the *docker ps* command as they are completely regular containers. Docker Compose seamlessly integrates with other Docker tools.
 
-<pre>
+```bash
 laszlo@~/multi-env: docker-compose up
 Creating network "multienv_default" with the default driver
 Creating multienv_boot_1
@@ -121,7 +120,7 @@ web-python_1  |  * Restarting with stat
 web-python_1  |  * Debugger is active!
 web-python_1  |  * Debugger pin code: 238-470-859
 
-</pre>
+```
 
 ## Operating Docker Compose
 
@@ -146,9 +145,9 @@ Imagine when a new colleague joins the team and she has a local environment up a
 
 First, let's create a remote environment with an other Docker tool. Docker Machine allows me to provision easily a VM with Docker Engine installed, be that locally with VirtualBox or remotely on Amazon AWS or Azure.
 
-<pre>
+```bash
 docker-machine create --driver virtualbox composeHost
-</pre>
+```
 
 Docker Machine - just like Vagrant - pulls in an image and launches a VM in Virtualbox and also provides convenience methods to operate the VM. 
 
@@ -161,14 +160,14 @@ Notable commands are:
 
 Once the new node is running I can point my docker executable to it by running 
 
-<pre>
+```bash
 eval $(docker-machine env composeHost)
-</pre>
+```
 
 **From this moment on, every docker command I run is not executed locally, but on the remote host.** 
 This may look magical, but what happens in the background is that it sets a few environment variables that is regarded by the docker executable.
 
-<pre>
+```bash
 laszlo@~: docker-machine env composeHost
 export DOCKER_TLS_VERIFY="1"
 export DOCKER_HOST="tcp://192.168.99.100:2376"
@@ -176,16 +175,16 @@ export DOCKER_CERT_PATH="/home/laszlo/.docker/machine/machines/composeHost"
 export DOCKER_MACHINE_NAME="composeHost"
 # Run this command to configure your shell: 
 # eval $(docker-machine env composeHost)
-</pre>
+```
 
 While the above clarifies what happens, the outcome is still magical as the docker-compose command will also operate on the remote machine as it relies on standard docker commands. 
 **Providing the same interface for local and remote work for no additional cost.**
 
 Once I'm done with the remote work, or got confused which server I'm on, I can easily set the environment back to local by calling
 
-<pre>
+```bash
 eval $(docker-machine env -u)
-</pre>
+```
 
 ## Running multiple flavors at the same time
 At this point I can run my stack locally or remotely, but the static port binding prevents me from running multiple instances at the same time. 
