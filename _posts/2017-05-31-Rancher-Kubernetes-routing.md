@@ -24,7 +24,7 @@ Recently I got to know Rancher's take on how traffic is routed to my Kubernetes 
 
 To access a Kubernetes service, the only thing I had to do is to create a Kubernetes service with *"type: LoadBalancer"*
 
-<pre>
+```yml
 kind: Service
 apiVersion: v1
 metadata:
@@ -37,7 +37,7 @@ spec:
       port: 80
       targetPort: 80
   <b>type: LoadBalancer</b>
-</pre>
+```
 
 By doing so and running "kubectl get svc" an EXTERNAL-IP showed up after a few seconds and I was good to access the service from the browser. 
 
@@ -55,7 +55,7 @@ It was clear that I wanted to have host based routing and offer all my services 
 
 I had the idea that the Ingress definitions will look something like this:
 
-<pre>
+```yml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -68,9 +68,9 @@ spec:
       - backend:
           serviceName: s1
           servicePort: 80
-</pre>
+```
 
-<pre>
+```yml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -83,7 +83,7 @@ spec:
       - backend:
           serviceName: s2
           servicePort: 80
-</pre>
+```
 
 One little Ingress snippet for each service I have, so it can be controlled by the feature team who owns the service and the services would be available on s1.mycompany.com and s2.mycompany.com respectively.
 
@@ -101,7 +101,7 @@ Since the Rancher Ingress Controller creates a Rancher Load Balancer for every s
 
 By re-reading the [Rancher's documentation](https://docs.rancher.com/rancher/v1.3/en/kubernetes/ingress/) I found a somewhat okay solution as I was able to control the placement of the Loadbalancers, plus if I kept all my service entrypoints in one giant Ingress definition I ended up having only one LoadBalancer.
  
-<pre>
+```yml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -131,7 +131,7 @@ rules:
     - backend:
         serviceName: s3
         servicePort: 80
-</pre>
+```
 
 But as you can tell, having one giant config for all the routing is really not convenient and prone to errors.
 

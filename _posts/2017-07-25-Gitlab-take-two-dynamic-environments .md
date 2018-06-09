@@ -61,11 +61,11 @@ While the payload may seem criptic first sight, it is essentially passing a dock
 <br/>
 Besides defining the deployment step, the deploy_review stage contains a section about the environment itself: the key-value pair to define the environment name and its URL.
 
-<pre>
+```yml
 environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://$CI_COMMIT_REF_NAME.laszlo.cloud
-</pre>
+```
 
 And that's it. We use a special Gitlab variable to name the environment as review/&lt;&lt;branchname&gt;&gt;, and Gitlab will show the environment on the UI. No need to predefine the environment in Gitlab. They are trully dynamic.
 

@@ -76,7 +76,7 @@ I had to create the .gitlab-ci.yml, add a Gitlab Runner and then the project was
 
 If you've seen a Travis or Circle CI yaml, Gitlab's yaml format probably looks familiar. In the example bellow first I define the build Docker image where the project is built (achiving a reproducible build experience), then I call a simple Gradle build command and a Docker push to the registry. That's about it. 
 
-<pre>
+```yml
 image: laszlocloud/build-image
 
 before_script:
@@ -88,7 +88,7 @@ build:
     - ./gradlew clean build
     - docker build --rm=false -t laszlocloud/todomvc-springboot-backend:${CI_COMMIT_SHA} .
     - docker push laszlocloud/todomvc-springboot-backend:${CI_COMMIT_SHA}
-</pre>
+```
 
 #### Gitlab Runner
 
@@ -99,21 +99,21 @@ See the various Runner types [here](https://docs.gitlab.com/runner/#selecting-th
 
 Again it was a [Docker one-liner](https://docs.gitlab.com/runner/install/docker.html#docker-image-installation-and-configuration){:target="_blank"} plus a Docker exec to register the Runner with Gitlab
 
-<pre>
+```bash
 docker run -d --name gitlab-runner --restart always \
   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
   -v /var/run/docker.sock:/var/run/docker.sock \
   gitlab/gitlab-runner:latest
-</pre>
+```
 
-<pre>
+```bash
 docker exec -it gitlab-runner bash
 root@2d333fb8e7a4:/# sudo gitlab-runner register
 Running in system-mode.                            
                                                    
 Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/):
 ...
-</pre>
+```
 
 #### The verdict
 The above didn't take more than five hours in a summery pace, including the build image I created with Docker and Java installed and tackling an [issue](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/issues/1986){:target="_blank"} with running Docker builds in the the Docker based Gitlab Runner.

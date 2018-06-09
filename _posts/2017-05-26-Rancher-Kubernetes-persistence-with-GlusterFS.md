@@ -118,7 +118,7 @@ spec:
 
 #### 60-pvc.yml
 
-```
+```yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -135,7 +135,7 @@ spec:
 
 Finally deploy your service, and mount the previously defined persistent volume.
 
-```
+```yml
 apiVersion: v1
 kind: List
 items:
