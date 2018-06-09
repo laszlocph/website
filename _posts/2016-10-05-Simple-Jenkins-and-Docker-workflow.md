@@ -80,13 +80,13 @@ try, and to gain experience for the times when your ops team is ready hosting it
 
 For this purpose I extended the [base Docker image for Jenkins](https://github.com/jenkinsci/docker) with sudo capabilities. Other than this little change it's the vanilla Jenkins experience. 
 
-<pre>
+```bash
 git clone git@github.com:laszlocph/jenkins-with-sudo.git
 cd jenkins-with-sudo
 docker build -t laszlocph/jenkins-with-sudo:latest .
 
 docker run -it --rm --network=host -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker laszlocph/jenkins-with-sudo:latest
-</pre>
+```
 
 Once Jenkins is up, chose the default plugin set, and continue as the *admin* user. You can find the login 
 credentials in the startup log.
@@ -110,36 +110,36 @@ this solution quite nifty.
 For testing I prepared a small Spring Boot application (yes, Java) with two Dockerfiles. The *Dockerfile* in the *docker* folder is 
 representing the runtime image of the application. 
 
-<pre>
+```Dockerfile
 FROM anapsix/alpine-java
 
 WORKDIR spring-boot-dummy
 ADD spring-boot-dummy-0.1.0.jar .
 
 CMD java -jar spring-boot-dummy-0.1.0.jar
-</pre>
+```
 
 
 It copies the single fat *.jar* file to the container, then executes it with a simple *java -jar*. You can testdrive it yourself with the 
 provided *build-image.sh*, and validate it on [http://localhost:8080](http://localhost:8080)
 
-<pre>
+```bash
 git clone git@github.com:laszlocph/spring-boot-dummy.git
 cd spring-boot-dummy
 sh build-image.sh
 docker run -it --rm --network=host laszlocph/spring-boot-dummy
-</pre>
+```
 
 The *Dockerfile* in the root is the build environment. While for Java projects dependencies might not collide, Python and 
 other projects benefit greatly from an independent build environments.
 
-<pre>
+```Dockerfile
 FROM anapsix/alpine-java:8_jdk
 
 WORKDIR spring-boot-dummy
 ADD . .
 CMD sleep 1h
-</pre>
+```
 
 All needed dependencies for our simple Java app are provided in the SDK or are fetched by Gradle, so the only thing we have to do to 
 compile our project is taking a small Java SDK image and adding all our files to the image. Then we let it sleep for an hour. 
@@ -165,14 +165,14 @@ the *docker exec* command.
 Remember, all the Build container does is sleeping. It does that to be around even after the build script finished
 generating the build artifacts. We can take that artifact further in the pipeline and stop the build container. 
 
-<pre>
+```bash
 ...
 sh "sudo docker exec ${CONTAINER_ID} ./gradlew build"
 sh "sudo docker cp ${CONTAINER_ID}:/spring-boot-dummy/build/libs/spring-boot-dummy-0.1.0.jar docker/spring-boot-dummy-0.1.0.jar"
 sh "sudo docker stop ${CONTAINER_ID}"
 sh "sudo docker rm ${CONTAINER_ID}"
 ...
-</pre>
+```
 
 ## To see it in action
 
