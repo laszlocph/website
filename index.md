@@ -36,7 +36,7 @@ As a former engineer and Director of Engineering I gained perspective to effecti
 
 * Reach me at laszlo@laszlo.cloud
 * [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}, [Instagram](https://www.instagram.com/laszlo.cloud/){:target="_blank"}
-* My homebase is in central Copenhagen, at [Republikken](http://republikken.net/contact-republikken/){:target="_blank"}
+* My homebase is in Copenhagen
 
 <div class="testimonial">
 <p>“We basically had a notion of what direction we wanted to move with our platform and Laszlo facilitated that swimmingly. Along the way we got very good coaching about how to evangelize the new service platform and help with presenting it to the dev teams.”</p> - Oscar Elfving, Operations Team Lead at Visma e-conomic A/S
