@@ -14,7 +14,7 @@ excerpt: I'm Laszlo Fogas, Devops Consultant. I help software teams to move thei
   <li>Are you spending most of your time supporting developers?</li>
 </ul>
 
-These are <a href="https://thenewstack.io/github-goes-kubernetes-tells/" target="_blank">not uncommon</a> pains during the adoption of microservice architectures.
+These are not uncommon pains during the adoption of microservice architectures.
 
 With the recent innovation in Cloud Native technologies though, it doesn't have to be like this. Container orchestrators like Kubernetes and CI/CD innovators make it possible to build a self-service platform for your developers.
 
