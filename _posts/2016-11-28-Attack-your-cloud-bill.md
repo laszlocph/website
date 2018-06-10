@@ -19,13 +19,13 @@ I had very productive bizdev calls with the Google Cloud folks (hey Robin!) and 
 The [custom machine types](https://cloud.google.com/compute/docs/machine-types#custom_machine_types){:target="_blank"} sure look interesting. 
 
 There is more to consider than price of course, but if you have the kind of bill, 
-the ability to experiment with hosting can yield monthly an FTE in **cloud bill reduction**.
+the ability to experiment with hosting can yield monthly an FTE in cloud bill reduction.
 
 ## Cloud agnostic
 
 It requires a cloud agnostic setup though. 
 
-Luckily it is more viable these days having **Docker as the common ground in infrastructure**. 
+Luckily it is more viable these days having Docker as the common ground in infrastructure. 
 
 In this article I show you how to unify the advantages of AWS and Google's Cloud Platform, using [Rancher](http://rancher.com/){:target="_blank"} - a thin layer atop of various container scheduler engines - to provide a transparent workflow for deploying on them.
 
@@ -62,7 +62,7 @@ In this Cattle environment there are two nodes in an AWS private subnet and a si
 
 Once ping was running between the nodes across clouds, the fun began.
 
-I regard Docker Compose the centerpiece of the Docker revolution and was a bummer when I realized that Docker Swarm (aka Docker Engine in swarm mode) doesn't let me control my services through compose files. I was relieved though when all that worked in Rancher out of the box: **in Rancher you deploy your *stacks* through Docker Compose files**.
+I regard Docker Compose the centerpiece of the Docker revolution and was a bummer when I realized that Docker Swarm (aka Docker Engine in swarm mode) doesn't let me control my services through compose files. I was relieved though when all that worked in Rancher out of the box: in Rancher you deploy your *stacks* through Docker Compose files.
 
 ```yml
 boot:

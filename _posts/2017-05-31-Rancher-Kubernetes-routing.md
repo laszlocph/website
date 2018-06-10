@@ -45,7 +45,7 @@ Later when I used internal IPs in my cluster, the described method was still wor
 
 It felt a bit like magic, but it only started to bother me, when I experienced port collisions for port 80; and when the service IPs were on nodes that were not part of my load balancer pool.
  
-**It turned out Rancher creates a LoadBalancer container for each service you define and place them accross all rancher nodes, no matter what their Kubernetes role is.** Meaning one point a load balancer was provisioned on my etcd node. Not quite the design I was going for.
+It turned out Rancher creates a LoadBalancer container for each service you define and place them accross all rancher nodes, no matter what their Kubernetes role is. Meaning one point a load balancer was provisioned on my etcd node. Not quite the design I was going for.
 
 While I knew that I have to address routing at some point, I was slightly concerned by this behavior.
 

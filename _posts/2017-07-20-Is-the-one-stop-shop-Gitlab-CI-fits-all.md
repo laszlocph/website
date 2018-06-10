@@ -49,7 +49,7 @@ Boom, in a snap they lost me. They want me to use all their crap?? Give my contr
 
 #### First impressions
 
-But yesterday I made an effort to see for myself whats the fuzz about Gitlab, and most importantly: **can I use only the parts that matter to me?**
+But yesterday I made an effort to see for myself whats the fuzz about Gitlab, and most importantly: can I use only the parts that matter to me?
 
 My first impressions as bullets in no particular order:
 
@@ -120,7 +120,7 @@ The above didn't take more than five hours in a summery pace, including the buil
 
 Although I did have dummy repositories prepared and worked with various CIs before I must say the experience was really nice. Everything was where it ought to be.
 
-**If I would start up something now I would probably just roll with Gitlab.**
+If I would start up something now I would probably just roll with Gitlab.
 
 * Their features are not too pushy, I didn't have to go through hoops of they trying to promote parts of their stack I don't need.
 

@@ -56,7 +56,7 @@ Another nice property of the Roles that they are additive.
 
 Using these primitives I was able to build the secure, multi-tenant container platform that multiple teams can use while not seeing or interfering with each other's deployments or secrets. 
 
-And the icing on the cake was Rancher's nice touch. Since they already support many authentication providers from Active Directory to Github, **I was able to bind the RBAC roles to the Github teams that already existed** in my client's organization. How cool is that?
+And the icing on the cake was Rancher's nice touch. Since they already support many authentication providers from Active Directory to Github, I was able to bind the RBAC roles to the Github teams that already existed in my client's organization. How cool is that?
 
 So the setup as of today follows the following principles:
 

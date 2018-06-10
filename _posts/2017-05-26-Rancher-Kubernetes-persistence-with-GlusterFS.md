@@ -17,7 +17,7 @@ Not surprisingly as the Kubernetes upstream generally [supports](https://kuberne
 
 But back to the main question, the infamous one: 
 
-**How do you handle persistence when you orchestrate Docker containers?** 
+How do you handle persistence when you orchestrate Docker containers? 
 
 The question I'm constantly being asked when starting a new project. 
 
@@ -25,7 +25,7 @@ And my answer is: you don't. Or at least I hope you won't. But instead, your ser
 
 Persistence is a hard question, and the answers the Docker world gives you are no different than the current solutions out there. At the end of the day you either make sure that the same folder structure is available on all your cluster nodes (with NFS for example outside of Kubernetes) or talk to the file cluster on a given endpoint through a proprietary protocol like in the case with GlusterFS.
 
-But **let's say you do a lift and shift project, or the managed cloud services are not an option for you, what do you do then?**
+But let's say you do a lift and shift project, or the managed cloud services are not an option for you, what do you do then?
 
 Just allow me one more thought here and I promise I won't be the grumpy dev anymore: make sure you containerize your persistence / database for the right reasons. In my experience databases are not the workloads that mostly benefit from the many advantages Docker gives you. You are not releasing new version of your database every day - hack every six month would be uncommon. 
 

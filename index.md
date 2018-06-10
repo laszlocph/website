@@ -20,7 +20,7 @@ With the recent innovation in Cloud Native technologies though, it doesn't have 
 
 <h2>So your developers don't need permission nor support to put their services in front of customers.</h2>
 
-It's not just for the Facebooks and Googles anymore, you can have your Paas in-house catering for the self-service developer, tailored to your IT landscape. So developers can focus on innovation; after all <strong>developers like nothing else more than shipping</strong>
+It's not just for the Facebooks and Googles anymore, you can have your Paas in-house catering for the self-service developer, tailored to your IT landscape. So developers can focus on innovation; after all developers like nothing else more than shipping.
 
 
 ## Good to meet you

@@ -12,7 +12,7 @@ excerpt: In this article I show how to use Docker Compose to pick and choose ser
 
 ---
 
-**tldr**
+tldr
 In this article I show how to use Docker Compose to pick and choose services and branches for any local or QA environment. I also showcase the branch aware build pipeline introduced in Jenkins 2.0.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Uu0v-ZDlYDI" frameborder="0" allowfullscreen></iframe>
@@ -25,13 +25,13 @@ In the [first part](Simple-Jenkins-and-Docker-workflow) of the series I addresse
 * we version the build environment together with the source code
 * so as we version the build pipeline in the source repository
 
-The last outstanding requirement makes the workflow so exciting to me, **the ability to provision an environment with a handpicked set of components and branches** unlocks productivity to a great extent.
+The last outstanding requirement makes the workflow so exciting to me, the ability to provision an environment with a handpicked set of components and branches unlocks productivity to a great extent.
  
 
 ## Build every branch
 But first we have to make sure that all branches get built automatically. 
 
-Besides the Jenkinsfile, **Jenkins has another new feature in 2.0, it is now aware of branches in the source code repository.** 
+Besides the Jenkinsfile, Jenkins has another new feature in 2.0, it is now aware of branches in the source code repository. 
 This nifty feature spares us a ton of boilerplate work as we don't have to set up new instances of the build pipeline for every branch ourselves.
 
 By picking *Multibranch Pipeline* on the job creation page we get the same behavior as the *Pipeline* job, plus Jenkins automatically creates a sub-project for each branch with a Jenkinsfile that it finds in the repository.
@@ -42,7 +42,7 @@ We also got a new item on the side bar to reindex branches on demand. It is able
  
 ![Multi-branch support](images/branch-indexing.png)
 
-I made one more modification to the pipeline to make it practically useful. In this new final step I **push the built Docker container image to a [registry](https://hub.docker.com/r/laszlocph/spring-boot-dummy/tags/)**. 
+I made one more modification to the pipeline to make it practically useful. In this new final step I push the built Docker container image to a [registry](https://hub.docker.com/r/laszlocph/spring-boot-dummy/tags/). 
 With this step the container becomes available to other processes for verification and deployment.
 
 ## Define stacks
@@ -71,7 +71,7 @@ Above I defined three services,
 * *boot* is the well known Spring Boot application from part one.
 * *redis* is just a vanilla Redis container
 
-Running this stack takes nothing more than executing the **docker-compose up** command. We don't have to fiddle with individual *docker run* commands as
+Running this stack takes nothing more than executing the docker-compose up command. We don't have to fiddle with individual *docker run* commands as
 it will start all containers in the right order, with the right volumes and exposed ports just as they are described in the docker-compose file. 
 
 Furthermore it defines a Docker network, so the services are able to communicate with each other in separation to other network traffic. 
@@ -139,7 +139,7 @@ If you version your compose file together with the source code it guarantees tha
 or a cluster of Docker Engines. You can start up a QA environment or even a production stack just as easy as running one locally. And that has huge value for me. 
 
 Imagine when a new colleague joins the team and she has a local environment up and running within fifteen minutes. Or when she has her first feature ready to showcase, she can share the QA environment with the team with a single command. 
-**Now this is what I call proper onboarding.** 
+Now this is what I call proper onboarding. 
 
 ## Running a stack remotely
 
@@ -164,7 +164,7 @@ Once the new node is running I can point my docker executable to it by running
 eval $(docker-machine env composeHost)
 ```
 
-**From this moment on, every docker command I run is not executed locally, but on the remote host.** 
+From this moment on, every docker command I run is not executed locally, but on the remote host. 
 This may look magical, but what happens in the background is that it sets a few environment variables that is regarded by the docker executable.
 
 ```bash
@@ -178,7 +178,7 @@ export DOCKER_MACHINE_NAME="composeHost"
 ```
 
 While the above clarifies what happens, the outcome is still magical as the docker-compose command will also operate on the remote machine as it relies on standard docker commands. 
-**Providing the same interface for local and remote work for no additional cost.**
+Providing the same interface for local and remote work for no additional cost.
 
 Once I'm done with the remote work, or got confused which server I'm on, I can easily set the environment back to local by calling
 
@@ -195,7 +195,7 @@ Furthermore there are typically not three but thirty components in my stack, mak
 While the compose file allows [hierarchies](https://docs.docker.com/compose/extends/) of files built on each other, and the usage of [variables](https://docs.docker.com/compose/environment-variables/) 
 allow me to expose the same service on different ports, managing that by hand may become cumbersome.
 
-**For this reason I built a little tool to handpick what services I need and what feature branch to include in an environment.** 
+For this reason I built a little tool to handpick what services I need and what feature branch to include in an environment. 
 [It](https://github.com/laszlocph/composer/blob/master/composer.py) simply reads the compose file, then the component set can be defined interactively. 
 It writes a new compose file what I can use later to spin up the environment.
 
@@ -218,11 +218,11 @@ I was inspired by the Docker Compose and Machine commands so I also introduced a
 I hope you are as pumped about the screen above as I am. While the script can be made web based, more robust, etc, I achieved what I set out to do. 
 
 For me Docker lived up to the promise. 
-Especially as **the rabbit hole was never too deep**. During my research, problems were easy to resolve after half an hour of searching and making sensible choices. 
+Especially as the rabbit hole was never too deep. During my research, problems were easy to resolve after half an hour of searching and making sensible choices. 
 Docker is here and can provide real productivity improvements.
 
 I also reached the bleeding edge of the ecosystem. While Docker Compose integrates with all tools, this does not stand for the clustering improvements introduced in version 1.12. 
-More specifically, Compose can be pointed to a cluster and run distributed, but only with **Docker Swarm**, not with the newly introduced **Docker Engine in swarm mode**. 
+More specifically, Compose can be pointed to a cluster and run distributed, but only with Docker Swarm, not with the newly introduced Docker Engine in swarm mode. 
 
 Important to highlight that the two are not the same. 
 
@@ -236,4 +236,4 @@ There are plenty of next steps ahead of me, clustering is a big topic. My goal i
 
 Onwards!
 
-**NEW** Part three is out <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>
+NEW Part three is out <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br/>

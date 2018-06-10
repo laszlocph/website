@@ -14,11 +14,11 @@ I got some nice feedback after the [three part Docker article series](Simple-Jen
 chats with managers from companies big and small. 
 
 They all had their unique situation and while they fight their own daemons day to day, 
-they all have **developer experience** high on their agenda, and agreed that Docker has a huge part to play there.   
+they all have developer experience high on their agenda, and agreed that Docker has a huge part to play there.   
 
 We talked about their team structure, their tech legacy and factors that prevent them from going full offense on old processes.
 
-In those talks I emphasized a few things on **how to get started to build change from the ground up and have culture do the dirty work**. 
+In those talks I emphasized a few things on how to get started to build change from the ground up and have culture do the dirty work. 
 I also decided to share a few of those points in an article. So here it is.
  
  
@@ -30,7 +30,7 @@ I mean HARD in all caps, if not impossible.
 
 [Changing their working environment](http://www.elidedbranches.com/2016/04/you-can-bring-horse-to-water.html) though yields better results faster, sometimes instantly. And the best news is that you have control over it.
 
-Tooling is a key part of developers daily experience. It’s not hard to see that people do what is easier for them and as much you can fight the tide, why would you? The same time you can **make the right thing easy** and have people naturally opt for the desired behavior.
+Tooling is a key part of developers daily experience. It’s not hard to see that people do what is easier for them and as much you can fight the tide, why would you? The same time you can make the right thing easy and have people naturally opt for the desired behavior.
 
 It doesn't require to have a fully staffed platform team or toolsmith team - although it certainly helps, you can get started by having one of your engineer work a full day on the most annoying problem they face. 
 Picking a problem and a person shouldn’t be so hard, just follow the inside jokes and find the person yelling the loudest and you quickly find good candidates.
@@ -52,6 +52,6 @@ Especially as Docker is becoming as ubiquitous as Git.
 Investing in your release process has multitude of upsides.
 
 * It's good for retention. Developers just want to ship, and see the impact of their work. No developer ever complained about releasing too often. 
-* It's good for time to market. Consistently. To paraphrase Dave Farley, **if something hurts in software, do it more often**. This is especially [true for releasing](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html). 
+* It's good for time to market. Consistently. To paraphrase Dave Farley, if something hurts in software, do it more often. This is especially [true for releasing](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html). 
 The more often you release the less you have to deal with the unpredictability of the "code freeze", and the infamous merge problems. A good cadence of releases makes software delivery predictable.
 * It's good for talent attraction. Once you nailed it all, documenting how you deploy software tells more to potential hires than any hiring pitch.

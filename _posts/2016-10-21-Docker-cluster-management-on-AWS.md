@@ -12,7 +12,7 @@ excerpt: In this episode I reuse the well known Docker Compose files from part 2
 {{ page.date | date: "%Y-%m-%d" }}
 
 ---
-**tldr**
+tldr
 In this episode I reuse the well known Docker Compose files from part 2 and run the stack on AWS. I also explore production usage on AWS ECS.
 
 ---
@@ -84,7 +84,7 @@ Similarly to Docker Compose, I can check the status, or stop the environment wit
 
 At this point the service is accessible on the displayed IP, I only have to do a small modification in the AWS Security Group because I use a non standard port. And while I'm there, I make sure that the service is only accessible to me. That you can do by limiting the incoming traffic to your office IP, but I rather suggest to set up VPN  access for higher security.
 
-Since the flow is identical to the flow in part 2, I simply modified the [start-env](https://github.com/laszlocph/multi-env/blob/ecs/start-env.sh) script to operate with the *ecs-cli* commands, and **I achieved the same flexibility using an ECS cluster**. 
+Since the flow is identical to the flow in part 2, I simply modified the [start-env](https://github.com/laszlocph/multi-env/blob/ecs/start-env.sh) script to operate with the *ecs-cli* commands, and I achieved the same flexibility using an ECS cluster. 
 
 Each time I run the script I get a new environment exposed on a random port, on one of the cluster node's IP.
 
@@ -99,7 +99,7 @@ There are a few [notable limitations](http://docs.aws.amazon.com/AmazonECS/lates
 * A *task* can only take up to 10 components
 * Referencing components by their name through *links* only work within one *task* definition. This I have to address with an extra layer of abstraction.
 
-So essentially I'm facing the same problem as with using compose with swarm mode. **I have to architect my production layout differently than my local and QA environments.**
+So essentially I'm facing the same problem as with using compose with swarm mode. I have to architect my production layout differently than my local and QA environments.
 
 This may feel like giving up Docker's main promise, but I argue that the value is in the flexibility I achieved with the local/QA environments by handling the whole stack together. 
 
@@ -115,9 +115,9 @@ Service Discovery is a problem that became prominent recently in the highly vola
 Service discovery tools like [Netflix Eureka](https://github.com/Netflix/eureka), [Consul](https://www.consul.io/) become very popular. Essentially every service registers its access information in these components, and the service clients obtain the connection information from these service registries.
 
 In my example though I solve the problem by simply using AWS's Elastic Load Balancer (ELB) service. Especially as it is [now aware of ECS services](https://aws.amazon.com/about-aws/whats-new/2016/08/amazon-ec2-container-service-now-integrated-with-application-load-balancer-to-support-dynamic-ports-and-path-based-routing/). 
-**Services automatically get registered in ELB**, so I can be sure that by accessing the service on a given DNS name, my request is routed to one of the containers in an ECS *service*. 
+Services automatically get registered in ELB, so I can be sure that by accessing the service on a given DNS name, my request is routed to one of the containers in an ECS *service*. 
 
-This combined with the new **path based routing** in ELB, and the ability to run a load balancer on internal networks allows me to not introduce any complex Service Discovery component.
+This combined with the new path based routing in ELB, and the ability to run a load balancer on internal networks allows me to not introduce any complex Service Discovery component.
 
 ## Launching the production service
 
