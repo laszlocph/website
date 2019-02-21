@@ -27,7 +27,7 @@ I made this video back then to demonstrate the feature on Github - as you can se
 
 <br/>
 
-#### It takes one URL
+### It takes one URL
 
 What happened in the video behind the scenes is
 
@@ -43,7 +43,7 @@ No surprise I was pumped to see the native support of Environments in Gitlab. Li
 
 In essence they did what I did with Github: they built in a place where the URL of the dynamic environment can be stored, plus featured the name value pairs (environment - access URL) in the right places on the UI. Allowing full flexibility with environments, nothing really prescribed about the deployment method, no app server built in or similar.
 
-#### How to dynamic environment?
+### How to dynamic environment?
 
 The bellow .gitlab-ci.yml may look familiar from part one. 
 
@@ -69,7 +69,7 @@ environment:
 
 And that's it. We use a special Gitlab variable to name the environment as review/&lt;&lt;branchname&gt;&gt;, and Gitlab will show the environment on the UI. No need to predefine the environment in Gitlab. They are trully dynamic.
 
-#### Environments on the Gitlab UI
+### Environments on the Gitlab UI
 
 This feature is only brilliant, because of how Gitlab integrates Environments to the UI. Environments prefixed with the same &lt;&lt;prefix&gt;&gt;/ are collapsable in the UI.
 
@@ -86,7 +86,7 @@ Plus one can view the deployment history of an environment, redeploy or roll bac
 <br/>
 More on environments in the [Gitlab documentation](https://docs.gitlab.com/ce/ci/environments.html){:target="_blank"}.
 
-#### Host based routing
+### Host based routing
 
 While the .gitlab-ci.yml supports variables, there is a [limitation](https://docs.gitlab.com/ce/ci/environments.html#limitations){:target="_blank"} that prevented me from doing the bare minimum for the dynamic environments - just launching a new environment on its own port; I had to set up proper host based routing for the environments in Rancher.
 
@@ -98,7 +98,7 @@ It looks pretty cool.
 
 For that, I used Traefik, a modern reverse proxy where all my Rancher services automatically register. All I had to do is to deploy Traefik from the Rancher service catalog and set a few labels as described [here](http://rancher.com/traefik-active-load-balancer-on-rancher/){:target="_blank"}.
 
-#### Closing thoughts
+### Closing thoughts
 
 It took some time until I found Gitlab's Dynamic Environments. 
 

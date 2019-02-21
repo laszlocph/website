@@ -31,7 +31,7 @@ I was also moaning a bit that I couldn't point my Docker Compose script to a clu
 * I could also try Amazon AWS's managed cluster solution: [ECS](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
 * or dive into competing stacks like [Kubernetes](http://kubernetes.io), and later on experience with [Google Cloud's](https://cloud.google.com/container-engine/) managed options.
 
-## ECS: Elastic Container Service
+### ECS: Elastic Container Service
 Eventually I opted for ECS since there are already plenty of new concepts to juggle with. Managing my own cluster - while it is intellectually pleasing - seemed like an overkill.
 
 Especially as [AWS provides tooling to reuse my Docker Compose files](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-service.html), and it took only a few changes to fit my work to ECS.
@@ -40,7 +40,7 @@ You can check those changes [here](https://github.com/laszlocph/multi-env/commit
 
 While running compose on ECS for QA environments was a breeze, I had to create AWS flavored service definitions anyway for my production stack. But more on that later.
 
-## Launching a cluster
+### Launching a cluster
 
 ECS has a very straightforward [documentation](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/create_cluster.html), and it's easy to create a cluster with the AWS dashboard based on that. 
 
@@ -56,7 +56,7 @@ The above two commands create a complete ECS cluster with all the network infras
 
 ![Network infrastructure](images/cloudformation.png)
 
-## ECS services and tasks
+### ECS services and tasks
 
 ECS has two primitives to work with: *services* and *tasks*.
 
@@ -64,7 +64,7 @@ ECS has two primitives to work with: *services* and *tasks*.
 
 *Services* represent a higher level of abstraction. You define what task to run, how many instances, what load balancer to use, and you set the auto scaling parameters here too. The ECS *service* makes sure that the preferred amount of containers run, it starts new containers if one dies, and you also perform rolling updates through the *service* definition by changing the referenced task. ECS takes care of the redeployment.
 
-## Compose up
+### Compose up
 
 Once the cluster is running, I start up the environment defined in the docker-compose.yml file.
 
@@ -90,7 +90,7 @@ Each time I run the script I get a new environment exposed on a random port, on 
 
 Full disclosure: this is not full cluster transparency, but it is sufficient for QA environments. I will address this by load balancers in my production setup.
 
-## Production setup
+### Production setup
 
 There are a few [notable limitations](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html) which prevent me from running my production stack directly from compose files:
 
@@ -108,7 +108,7 @@ Furthermore some elements of my stack may never be Dockerized for production use
 
 So the task ahead is to create the fine grained version of the *service* definitions, and solve the problem of *Service Discovery*.
 
-## Service Discovery light
+### Service Discovery light
 
 Service Discovery is a problem that became prominent recently in the highly volatile environment of immutable infrastructures. Since services come and go, scale up and down, one can never be sure on what IP address a service is accessible. Putting IP addresses into application configuration files is too rigid to handle the fast changes. The need arise to turn things up side down. 
 
@@ -119,7 +119,7 @@ Services automatically get registered in ELB, so I can be sure that by accessing
 
 This combined with the new path based routing in ELB, and the ability to run a load balancer on internal networks allows me to not introduce any complex Service Discovery component.
 
-## Launching the production service
+### Launching the production service
 
 I had to provide a few parameters in order to create the load balancer. The subnets are the ones where the ECS cluster nodes are created, and I created a brand new security group for the load balancer. Later on the cluster nodes will only allow connections from the load balancer, while the load balancer takes the ingress traffic. 
 
@@ -198,7 +198,7 @@ After registering the task and service in ECS, the container instances get regis
 ![Healthy nodes in the cluster](images/nodes.png)
 
 
-## Rolling out updates
+### Rolling out updates
 
 Deploying a new version of the service requires to update the service definition. Then the changes are shown in the ECS logs.
 
@@ -210,10 +210,10 @@ aws ecs update-service --cluster cluster01 --service arn:aws:ecs:eu-west-1:78202
 
 Full disclosure: the update took many minutes, but most of the time was spent in draining connections from ELB. The default five minutes can be changed to speed up deployment.
 
-## More services
+### More services
 Since a single instance of the load balancer can handle many services - each mapped into a different subpath or port - the only requirement to create a new service is to create the task and service definitions, and to create a new *target group* for each service that you reference in the service definition. Containers will be automatically registered to the load balancer.
 
-## Next steps
+### Next steps
 It was a good exercise to create the first service with AWS CLI, mapping all services by hand though is a bit cumbersome. Configuration management tools - where the versioned state of the service is stored - can aid this problem. As a possible next step I will explore either Ansible, Terraform or CloudFormation to manage the stack at a higher level.  
 
 Onwards!

@@ -25,7 +25,7 @@ make the process less brittle and enables Devs to do things that used to require
 While in my projects I often keep the CI platform out of scope - I just use what's available - I wanted to take some modern CI for a spin.
 In this article I jot down my first impressions about Gitlab and its one-stop-shop approach of serving dev teams. Beware, I do have preconceptions.
 
-#### Buying in to an ecosystem or piecing it together?
+### Buying in to an ecosystem or piecing it together?
 
 The above question is often top of my mind recently. While there are certain ecosystems I don't mind buying into - since the benefits almost make me not think of the lock-in, in most cases I value control over anything else.
 AWS is a good example for the former, and pretty much everything else for the latter.
@@ -35,7 +35,7 @@ Navigating the quirks of not one, but two cloud providers is certainly a challen
 
 Sometimes though, I wish I would be the person who just buys into an ecosystem like Rails, or .Net, or buys a suite or opts for a managed solution. The grass does seem greener there sometimes and I wonder about the real value of all the choices I have.
 
-#### Give my control back!
+### Give my control back!
 
 Gitlab is one of those suites that seemed greener many times as they offer a self-hosted Github like experience for source code management, a CI server, a Wiki, a task manager and many more. 
 
@@ -47,7 +47,7 @@ But that many more that scared me every time I looked at their marketing videos:
 
 Boom, in a snap they lost me. They want me to use all their crap?? Give my control back!
 
-#### First impressions
+### First impressions
 
 But yesterday I made an effort to see for myself whats the fuzz about Gitlab, and most importantly: can I use only the parts that matter to me?
 
@@ -61,7 +61,7 @@ My first impressions as bullets in no particular order:
 
 If you want to get a feel for it, check out the Gitlab source code on.. well, [Gitlab](https://gitlab.com/gitlab-org/gitlab-ce/){:target="_blank"}. Very Meta.
 
-#### Gitlab Pipelines
+### Gitlab Pipelines
 
 All in all, if you used Github before, you will find everything where you expect it to be. Good job Gitlab, for source code management Gitlab is a true alternative for Github. Let's see if the CI offering is as strong too.
 
@@ -90,7 +90,7 @@ build:
     - docker push laszlocloud/todomvc-springboot-backend:${CI_COMMIT_SHA}
 ```
 
-#### Gitlab Runner
+### Gitlab Runner
 
 For the build to kick-off I also added a Gitlab Runner to Gitlab, which is basically a worker where the pipeline jobs are executed. 
 *"A Runner can be a virtual machine, a VPS, a bare-metal machine, a docker container or even a cluster of containers. GitLab and the Runners communicate through an API, so the only requirement is that the Runner's machine has Internet access."*
@@ -115,7 +115,7 @@ Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/):
 ...
 ```
 
-#### The verdict
+### The verdict
 The above didn't take more than five hours in a summery pace, including the build image I created with Docker and Java installed and tackling an [issue](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/issues/1986){:target="_blank"} with running Docker builds in the the Docker based Gitlab Runner.
 
 Although I did have dummy repositories prepared and worked with various CIs before I must say the experience was really nice. Everything was where it ought to be.

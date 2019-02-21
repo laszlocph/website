@@ -26,7 +26,7 @@ maturity of the Docker world i should double down on. I was amazed by how conver
 is not something for 2017, it's for the here and now. Since I'm a freelance consultant since this Monday, and it is already 
 Wednesday, I should start sharing, shouldn't I?
 
-## The power of releasing often
+### The power of releasing often
 Last Friday, I left [Falcon.io](https://www.falcon.io/) after five years. That naturally puts me in a very reflective mood, not that I don't reflect much in general anyway... But this article is not one of *those*. What should concern you though is that after making an 
 inventory of what worked well in that five years, one thing stood out.
 
@@ -37,7 +37,7 @@ others. And that's clever. Clever, since there is nothing engineers like more th
 Now, I'm excited to have a more modern take on that workflow utilizing Docker and modern CI tools. A lot happened since we launched 
 our homegrown VM based tooling. 
 
-## Modern requirements
+### Modern requirements
 One requirement stands still: the ability to provision an environment with handpicked components and branches, be that locally, or on a 
 QA environment.
 
@@ -55,7 +55,7 @@ The separation of roles and responsibilities become more clear between dev and o
 gatekeepers  (having root access to install *that Ruby gem*), to enablers. They make sure that plenty of computing power is provisioned 
 to the CI environment, and.. well, that's all.
 
-## An opinionated take
+### An opinionated take
 As I see it, the only blocker to get started with Docker, is the paralyzing amount of choice. There is simply too many good options to 
 choose from. If there are 10 components with 3 good choices for each, you do the math why there's a thousands choices you have to 
 make to reach nirvana.
@@ -64,7 +64,7 @@ In this article - and the many ones that will follow - I give an opinionated tak
  to quantify, I will provide some reasoning, and I promise you that I always go towards simplicity. Albeit I pick things simple to me, 
  or to my team. I'm only pragmatic in my own universe.
  
-## Jenkins 2.0
+### Jenkins 2.0
 
 This choice may seem a bit old school in the abundance of services like [drone.io](http://drone.io), [circle.ci](http://circle.ci), 
 [concourse.ci](http://concourse.ci), [this.ci](nope), [that.ci](neither this one) (you pick which one of these are actually a CI 
@@ -73,7 +73,7 @@ solution), you can't ignore the ubiquity of Jenkins. For me, the fact that I kno
 In version 2.0 it introduces the Jenkinsfile: a [Groovy based DSL](https://jenkins.io/doc/pipeline/) to describe the build pipeline, ticking the box on one of my 
 requirements. The other two boxes can also be ticked by integrating Docker into the Jenkins workflow, albeit with some plumbing. I'm going to showcase the necessary plumbing in this article.
 
-## Running Jenkins in Docker
+### Running Jenkins in Docker
 
 First and for most, let's get fancy and run Jenkins itself in Docker. To make it easy for you to 
 try, and to gain experience for the times when your ops team is ready hosting it. 
@@ -92,7 +92,7 @@ Once Jenkins is up, chose the default plugin set, and continue as the *admin* us
 credentials in the startup log.
 
 
-## Running Docker in Docker?
+### Running Docker in Docker?
 Let me explain the arguments of the *docker run* command.
 
 The first *-v* option provides a persistent volume for Jenkins to store the job definitions and workspaces. You could mount here a 
@@ -106,7 +106,7 @@ For alternatives, reasoning and consequences see [this](https://jpetazzo.github.
 [this](http://container-solutions.com/running-docker-in-jenkins-in-docker/) article. Trust me, having read those you will find 
 this solution quite nifty.
 
-## Dockerfiles
+### Dockerfiles
 For testing I prepared a small Spring Boot application (yes, Java) with two Dockerfiles. The *Dockerfile* in the *docker* folder is 
 representing the runtime image of the application. 
 
@@ -148,7 +148,7 @@ Wait, what?
 
 [Yes](http://unix.stackexchange.com/a/270996), the image will not do anything itself, just provides the necessary dependencies. We will interact with it from the Jenkins workflow.
 
-## Jenkinsfile
+### Jenkinsfile
 
 [My example pipeline](https://github.com/laszlocph/spring-boot-dummy/blob/master/Jenkinsfile) contains three stages:
 * the first one to prepares the Build container image
@@ -157,7 +157,7 @@ Wait, what?
 
 ![Pipeline](images/pipeline.png)
 
-## Interacting with the Build container
+### Interacting with the Build container
 
 The key in this pipeline is the second step where I start up the Build container and run the app specific build script with 
 the *docker exec* command. 
@@ -174,7 +174,7 @@ sh "sudo docker rm ${CONTAINER_ID}"
 ...
 ```
 
-## To see it in action
+### To see it in action
 
 Simply navigate to the [New Item](http://localhost:8080/view/All/newJob) page, provide an 
 adequate name to your project and click *Pipeline* from the various presets.
@@ -183,7 +183,7 @@ On the configuration page edit the *Pipeline* group by selecting the *Pipeline s
 
 Save it and click the *Build now* button. You should see all the steps executing successfully.
 
-## Next steps
+### Next steps
 What we just did is remarkable from many aspects. 
 
 * We incorporated Docker into our Jenkins workflow as all the builds run now in a designated Docker container. 

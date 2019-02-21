@@ -21,7 +21,7 @@ The [custom machine types](https://cloud.google.com/compute/docs/machine-types#c
 There is more to consider than price of course, but if you have the kind of bill, 
 the ability to experiment with hosting can yield monthly an FTE in cloud bill reduction.
 
-## Cloud agnostic
+### Cloud agnostic
 
 It requires a cloud agnostic setup though. 
 
@@ -33,7 +33,7 @@ In this article I show you how to unify the advantages of AWS and Google's Cloud
 and other container platforms are also emerging besides Rancher. 
 Like Kubernetes, your very own Paas construction kit, if you prefer that route.
 
-## Secure foundations
+### Secure foundations
 
 I started by laying down foundations for network communication. Luckily AWS is attacking the enterprise market full front, thus provides VPN connection to connect other networks to their cloud.
 
@@ -42,7 +42,7 @@ Calculate with double though as redundant connections are supported out of the b
 
 ![VPN](images/vpn.png)
 
-## Rancher
+### Rancher
 
 Rancher's infrastructure page is a delight for people loving hardware. 
 
@@ -58,7 +58,7 @@ In this Cattle environment there are two nodes in an AWS private subnet and a si
 
 ![Firewall](images/ports.png)
 
-## Deploying your docker-compose.yml
+### Deploying your docker-compose.yml
 
 Once ping was running between the nodes across clouds, the fun began.
 
@@ -88,7 +88,7 @@ redis:
 
 The above is a standard Docker Compose file, with custom labels that control Rancher's scheduling engine. Hats off Rancher, this is a much nicer integration to the ecosystem than the json files [I had to write for Amazon ECS](https://laszlo.cloud/Mastering-test-environments-with-Docker).
 
-## The final picture
+### The final picture
 
 I deployed my dummy stack two times, once to the AWS nodes, and once to the Google nodes, just by changing the scheduler affinity in the compose file shown above. As you can see the containers in AWS were deployed evenly on the two nodes, while in the single node Google environment they concentrate on the one node available. 
 
@@ -96,7 +96,7 @@ I deployed my dummy stack two times, once to the AWS nodes, and once to the Goog
 
 I also deployed a load balancer - a Rancher infrastructure service - to serve traffic from the world. I made sure they get scheduled to the node that allows public access on certain ports. Rancher's overlay network (note the *Network agent* containers) makes sure that the load balancer can communicate with the other nodes.
 
-## Further possibilities
+### Further possibilities
 
 I am extremely happy about this setup. While one can enjoy the managed Docker cluster options both from Amazon and Google ([ECS](https://aws.amazon.com/ecs/) and [GCE](https://cloud.google.com/container-engine/)), standardizing on Docker and orchestrating with Rancher one can achieve great flexibility: 
 

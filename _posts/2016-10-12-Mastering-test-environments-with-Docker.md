@@ -28,7 +28,7 @@ In the [first part](Simple-Jenkins-and-Docker-workflow) of the series I addresse
 The last outstanding requirement makes the workflow so exciting to me, the ability to provision an environment with a handpicked set of components and branches unlocks productivity to a great extent.
  
 
-## Build every branch
+### Build every branch
 But first we have to make sure that all branches get built automatically. 
 
 Besides the Jenkinsfile, Jenkins has another new feature in 2.0, it is now aware of branches in the source code repository. 
@@ -45,7 +45,7 @@ We also got a new item on the side bar to reindex branches on demand. It is able
 I made one more modification to the pipeline to make it practically useful. In this new final step I push the built Docker container image to a [registry](https://hub.docker.com/r/laszlocph/spring-boot-dummy/tags/). 
 With this step the container becomes available to other processes for verification and deployment.
 
-## Define stacks
+### Define stacks
 At this point components are built continuously on every branch. As a next step I describe their interrelatedness with [Docker Compose](https://docs.docker.com/compose/) and handle them as a logical unit to bring up local and later remote environments.
 
 Docker Compose has a simple yaml syntax, and while it has [powerful options](https://docs.docker.com/compose/compose-file/), it is very easy to define simple stacks.
@@ -122,7 +122,7 @@ web-python_1  |  * Debugger pin code: 238-470-859
 
 ```
 
-## Operating Docker Compose
+### Operating Docker Compose
 
 
 You can get the true power of Docker Compose from its [CLI reference](https://docs.docker.com/compose/reference/), I only want to highlight a few commands that can get you very far:
@@ -133,7 +133,7 @@ You can get the true power of Docker Compose from its [CLI reference](https://do
 * *docker-compose stop* to stop a stack
 * *docker-compose rm* to clean up once you are done
 
-## Value in running Compose
+### Value in running Compose
 
 If you version your compose file together with the source code it guarantees that anyone in the team can run the stack locally, but because Docker Compose integrates with other Docker tools you can also point it at a remote machine, 
 or a cluster of Docker Engines. You can start up a QA environment or even a production stack just as easy as running one locally. And that has huge value for me. 
@@ -141,7 +141,7 @@ or a cluster of Docker Engines. You can start up a QA environment or even a prod
 Imagine when a new colleague joins the team and she has a local environment up and running within fifteen minutes. Or when she has her first feature ready to showcase, she can share the QA environment with the team with a single command. 
 Now this is what I call proper onboarding. 
 
-## Running a stack remotely
+### Running a stack remotely
 
 First, let's create a remote environment with an other Docker tool. Docker Machine allows me to provision easily a VM with Docker Engine installed, be that locally with VirtualBox or remotely on Amazon AWS or Azure.
 
@@ -186,7 +186,7 @@ Once I'm done with the remote work, or got confused which server I'm on, I can e
 eval $(docker-machine env -u)
 ```
 
-## Running multiple flavors at the same time
+### Running multiple flavors at the same time
 At this point I can run my stack locally or remotely, but the static port binding prevents me from running multiple instances at the same time. 
 
 This is a real bummer since I'm working on multiple feature branches at the same time and I want to expose them in various stages of development. 
@@ -213,7 +213,7 @@ I was inspired by the Docker Compose and Machine commands so I also introduced a
 * [remove-env.sh](https://github.com/laszlocph/multi-env/blob/master/remove-env.sh)
 * [list-envs.sh](https://github.com/laszlocph/multi-env/blob/master/list-envs.sh)
 
-## Next steps
+### Next steps
 
 I hope you are as pumped about the screen above as I am. While the script can be made web based, more robust, etc, I achieved what I set out to do. 
 

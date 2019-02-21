@@ -24,7 +24,7 @@ I also decided to share a few of those points in an article. So here it is.
  
 ---
 
-## Tooling is a great culture bearer, invest in it
+### Tooling is a great culture bearer, invest in it
 If there is anything I learned during the years of managing developers is that getting people to change is hard. 
 I mean HARD in all caps, if not impossible.
 
@@ -38,7 +38,7 @@ Picking a problem and a person shouldn’t be so hard, just follow the inside jo
 A lot of damage can be done in one day, and if you timebox the effort, you can be sure of finding a pragmatic solution to your most annoying problem. 
 The only thing left is celebrating the small scripts and promote sharing.
 
-## Educate
+### Educate
 Knowledge is never evenly distributed in your team, plans on the other hand always assume the cutting edge.
  
 You would expect you have Git proficiency in your entire team, and everyone has multitude of scripts to automate their daily work. It's not quite true on the edges.
@@ -48,7 +48,7 @@ Therefor it is crucial to reinforce the knowledge of Git, Continuous Integration
 Tooling hides the complexity, but the listed skills will never be sparred from developers. They are a baseline in a nimble technical organization. 
 Especially as Docker is becoming as ubiquitous as Git.
 
-## Boom, profit!
+### Boom, profit!
 Investing in your release process has multitude of upsides.
 
 * It's good for retention. Developers just want to ship, and see the impact of their work. No developer ever complained about releasing too often. 

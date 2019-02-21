@@ -18,7 +18,7 @@ existing infrastructure, and the chosen Kubernetes vendor. Delivering these part
  
 Having those three in place opens up the cluster for wider usage and my focus can be diverted to the ever ongoing iterations of hardening the setup.
 
-## Rancher's take
+### Rancher's take
 
 Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.
 
@@ -49,7 +49,7 @@ It turned out Rancher creates a LoadBalancer container for each service you defi
 
 While I knew that I have to address routing at some point, I was slightly concerned by this behavior.
 
-## Ingress to the rescue
+### Ingress to the rescue
 
 It was clear that I wanted to have host based routing and offer all my services on standard ports. The [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#name-based-virtual-hosting) abstraction felt like the way to go, and I was pleased that Rancher [supports](https://docs.rancher.com/rancher/v1.3/en/kubernetes/ingress/) it.
 
@@ -87,7 +87,7 @@ spec:
 
 One little Ingress snippet for each service I have, so it can be controlled by the feature team who owns the service and the services would be available on s1.mycompany.com and s2.mycompany.com respectively.
 
-## The Rancher Ingress Controller
+### The Rancher Ingress Controller
 
 The difference between the Ingress and the Ingress controller was not crystal clear for me, but after some digging it materialized for me that the Ingress Controller is a component that listens to Kubernetes lifecycle events, and when an Ingress is defined, deleted or changed it makes the appropriate modifications in the "router" that actually handles the requests.
 
@@ -135,7 +135,7 @@ rules:
 
 But as you can tell, having one giant config for all the routing is really not convenient and prone to errors.
 
-## The Kubernetes Ingress Controller
+### The Kubernetes Ingress Controller
 
 It bothered me a lot, so a few days later I checked out what the vanilla Kubernetes has to offer. 
 
@@ -150,7 +150,7 @@ I had to create a Rancher LoadBalancer by hand to route all traffic to the Ingre
 It still feels like an extra manual step that shuldn't be necessary, but I think of this now as if I created an AWS ELB. At some point the sorrounding infrastructure has to pass traffic to Kube, so I think I'm fine with this.
 The Rancher LB was also the place where I terminate SSL, so the Kube Ingress doesn't deal with it now.
 
-## Unexpected design
+### Unexpected design
 
 I'm not sure what lead the Rancher team pick this unconventional design, I'm sure they have their reasons. 
 

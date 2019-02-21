@@ -12,7 +12,7 @@ excerpt: Why access control is key for a secure multi-tenant Kubernetes deployme
 
 I have a soft spot for early adopters. They are the ones who voice those - sometimes pesky - requirements that push container projects forward, making the cluster more mature and the workflow more tailored for real life usecases.
 
-#### Secrets exposed
+### Secrets exposed
 
 Like on my current Kubernetes project, when a few weeks back an early adopter came to me (hey Jonas!) and raised his concern around secret management: *"Look Laszlo, I'm a bit worried about the keys I'm uploading to Kubernetes. It seems devs from other teams are able to see them. You know, they are kind of important.. they allow access to confidential data"*
 
@@ -20,7 +20,7 @@ He had a point. At that time there was only one shared namespace and developers 
 
 It was time to iterate on the cluster and nail access control.
 
-#### Access control introduced in Kubernetes v1.6
+### Access control introduced in Kubernetes v1.6
 
 The upstream Kubernetes had Role Based Access Control (RBAC) since the 1.6 release in late March, and timing couldn't have been better for Rancher - my distribution of choice - to finally support that major release. No wonder I was so pumped seeing the announcement.
 
@@ -36,7 +36,7 @@ For this article I quickly checked [what's up](https://docs.docker.com/engine/ex
 
 But don't I worry since *"Anyone with the appropriate skills can develop an authorization plugin."* - well, thanks Docker!
 
-#### Access control primitives
+### Access control primitives
 
 Kubernetes [RBAC](https://kubernetes.io/docs/admin/authorization/rbac/){:target="_blank"} allows cluster administrators to selectively grant particular users or service accounts fine-grained access to specific resources on a per-namespace basis.
 
@@ -52,7 +52,7 @@ But luckily Kubernetes also provides sensible defaults for system components and
 
 Another nice property of the Roles that they are additive.
 
-#### The secure and multi-tenant container platform
+### The secure and multi-tenant container platform
 
 Using these primitives I was able to build the secure, multi-tenant container platform that multiple teams can use while not seeing or interfering with each other's deployments or secrets. 
 
