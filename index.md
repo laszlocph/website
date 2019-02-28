@@ -25,11 +25,11 @@ It's not just for the Facebooks and Googles anymore, you can have your Paas in-h
 
 ## Good to meet you
 
-Hi I'm Laszlo Fogas, Cloud consultant.
+Hi I'm Laszlo Fogas, Devops consultant.
 
 The fall of 2016 I set out to start Laszlo Cloud, a consultancy to elevate team cultures through automation and tooling.
 
-As a former engineer and Director of Engineering I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
+As a former engineering director I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
 
 ![Laszlo Fogas](laszlo.jpg){:width="25%"}
 
