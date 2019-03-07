@@ -4,7 +4,7 @@ title: How using cache-from can speed up your Docker builds in DroneCI
 image: images/1500x500.jpg
 link: /how-using-cache-from-can-speed-up-your-docker-builds-in-droneci
 permalink: /how-using-cache-from-can-speed-up-your-docker-builds-in-droneci
-excerpt: About layer caching in general and its problems in a distributed setup. And how --cache-from is able to solve it reliably in DroneCI even when using the plugins/docker plugin to build Docker images.
+excerpt: About layer caching in general and its problems in a distributed setup. And how --cache-from is able to solve it reliably in Drone.io even when using the plugins/docker plugin to build Docker images.
 
 --- 
 
@@ -25,14 +25,14 @@ When building an image, Docker steps through the instructions in your Dockerfile
 
 ### It's a Docker best practice to leverage the layer cache. 
 
-I build my Docker images as the first step of my Drone pipeline - as opposed to building it as the very last step and treating it only as a build artifact - therefor it's important that the layer cache works reliably.
+I build my Docker images as the first step of my Drone pipeline - as opposed to building it as the very last step and treating it only as a build artifact - therefore it's important that the layer cache works reliably.
 
 The good news is that it just works if I have a single Drone agent. However with multiple build agents the layer cache state differs between agents and does not work consistently.
 
 Furthermore if I use the `plugins/docker` plugin to build Docker images, the layer cache does not work at all given its docker-in-docker (dind) architecture.
 
 ### Making the layer cache consistent
-Distributing caches accross agents or mounting the layer cache into a dind setup is a gargantian task. Instead we can use docker build's `--cache-from` option.
+Distributing caches across agents or mounting the layer cache into a dind setup is a gargantuan task. Instead we can use docker build's `--cache-from` option.
 
 With `--cache-from` you can specify a list of images what `docker build` will consider as a source of cached layers. So instead of relying on an unspecified local state you can rely on tagged images in a registry.
 
@@ -104,7 +104,7 @@ steps:
       dry_run: true
 ```
 
-The trick to have branch specific cache sources is to tag the branch images explicitelly.
+The trick to have branch specific cache sources is to tag the branch images explicitly.
 
 Should you build this branch the first time, the `master` image will provide some level of caching. Once you built your branch once, the following builds will have a branch specific cache image.
 
@@ -114,7 +114,7 @@ And yes, you can have any number of images specified in `--cache-from`.
 
 Since you have to pull the `--cache-from` image first from the registry, it can happen that the time you gain with caching the layers you lose on downloading the images. This depends on a few factors, like the size of the image and the time it takes to build it.
 
-It happened to me some cases that my agressive caching strategy made the build slower, so it's worth keeping in mind the network cost and measuring the build time.
+It happened to me some cases that my aggressive caching strategy made the build slower, so it's worth keeping in mind the network cost and measuring the build time.
 
 
 ### How I saved 4 minutes build time of a Ruby app?
@@ -139,7 +139,7 @@ Using cache-from saved this 4 minutes consistently and bundle install only happe
 
 First I wrote about layer caching in general and its problems in a distributed setup.
 
-`--cache-from` is able to solve layer caching reliably in DroneCI even when using the `plugins/docker` plugin to build Docker images.
+`--cache-from` is able to solve layer caching reliably in Drone.io even when using the `plugins/docker` plugin to build Docker images.
 
 As a closing thought I include this oldie from xkcd. If you can save five minutes on a build that is running five times a day, you can easily spend a day or two optimizing it with `--cache-from`. So what are you waiting for?
 

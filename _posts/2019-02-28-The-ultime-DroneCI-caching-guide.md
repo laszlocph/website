@@ -13,7 +13,7 @@ excerpt: hello
 
 Sisyphos was the king of Corinth in the Greek mythology. He was punished by the gods by being forced to roll an immense boulder up a hill only for it to roll down when it nears the top. Repeating this action for eternity.
 
-Installing dependencies in every CI run can be equally futile, hence the need to cache dependencies arrise quickly once there is a basic pipeline running.
+Installing dependencies in every CI run can be equally futile, hence the need to cache dependencies arise quickly once there is a basic pipeline running.
 
 In this article I'm going to demonstrate all practical caching solutions in Drone CI: volume based caches, bucket based caches and using Docker's layer cache as a primary caching mechanism.
 
@@ -43,7 +43,7 @@ volumes:
     path: /tmp/drone/cache/node_modules
 ```
 
-Running this syntethic example, it shows a five seconds speedup:
+Running this synthethic example, it shows a five seconds speedup:
 
 ```
 ➜ ../drone exec --trusted
@@ -68,11 +68,11 @@ The demonstrated caching approach works, however many Drone user prefer using pl
 
 On the Drone plugin site there is a featured volume based cache, it's the `drillster/drone-volume-cache`.
 
-The plugin is [well documented](http://plugins.drone.io/drillster/drone-volume-cache/){:target="\_blank"} and should you have additonal questions, the plugin's source code is [hosted on Github](https://github.com/Drillster/drone-volume-cache/blob/master/cacher.sh){:target="\_blank"}.
+The plugin is [well documented](http://plugins.drone.io/drillster/drone-volume-cache/){:target="\_blank"} and should you have additional questions, the plugin's source code is [hosted on Github](https://github.com/Drillster/drone-volume-cache/blob/master/cacher.sh){:target="\_blank"}.
 
-We have three steps in the drone file after adjusting the previous example to use this volume cache. We wrapped the build step with restore and rebuild steps which are responsible to handle the cache state.
+There are three steps in the drone file after adjusting the previous example to use this volume cache. I wrapped the build step with restore and rebuild steps which are responsible to handle the cache state.
 
-The mount paths also changed. We pointed the Drone host mounts to the `/cache` in container path and the plugin is responsible to copy the cache content to the `node_modules` folder.
+The mount paths also changed. I pointed the Drone host mounts to the `/cache` in-container-path and the plugin is responsible to copy the cache content to the `node_modules` folder.
 
 ```
 kind: pipeline
@@ -142,13 +142,13 @@ I used the `drillster/drone-volume-cache` for a couple months, running approxima
 
 Eventually I forked it and changed it to my own needs. The main driver of that was a weird issue of the cached Ruby gems, sometimes one particular of the restored gems was corrupt.
 
-We suspected that perhaps the concurrent writing of the cache could cause the problem, so I changed the plugin so it first tars up the cache content and then switches the current cache pointer symlink in one atomic step.
+We suspected in the team that perhaps the concurrent writing of the cache could cause the problem, so I changed the plugin so it first tars up the cache content and then switches the current cache pointer symlink in one atomic step.
 
-I can't say for sure that this solve dthe problem, or a Ruby version update we had in those weeks, but the issue was gone.
+I can't say for sure that this solved the problem, or a Ruby version update we had in those weeks, but the issue dissappeared.
 
 All in all the drillster plugin is a good go-to solution if you chose volume based caching. And should you ever need to improve it, the codebase is easy to understand.
 
-### Volume based caching however comes with a limitation
+### Volume based caching however comes with a limitation however
 
 And that is - what you have guessed already - the cached state is only available on a single build agent.
 
@@ -234,7 +234,7 @@ Caching is no silver bullet, but it can help in many cases. Just make sure you m
 
 ### How to use Docker layer caching as the primary caching
 
-For a long time I was building the Docker image as the very last step of my pipeline. Just before deploying it and only when it was necessary.
+For a long time I was building the Docker image as the very last step of my pipeline - just before deploying it.
 
 Besides that I had a volume based cache and it happened that in Ruby projects I ran `bundle install` twice. Once in the CI step and then during `docker build`.
 
@@ -270,7 +270,7 @@ The key for this strategy to work is to set the `cache_from` parameter and provi
 
 The console output shows that first the plugin pulls the listed image from the registry and then includes the `--cache-from` option in the docker build command. At the end you can see that the `npm install` step is using the cache.
 
-If you would take the above snippets, the build would use the cached layers even though you have not built this image before.
+If you would take the above snippets, the build would use the cached layers even though you have not built this image before on your machine.
 
 
 ```
@@ -285,15 +285,15 @@ If you would take the above snippets, the build would use the cached layers even
 [docker-builder:136]  ---> 331dbe3922cb
 ```
 
-I wrote about the usind the Docker layer cache and `--cache-from` in DroneCI in [this article](https://laszlo.cloud/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci){:target="\_blank"}.
+I wrote about the using the Docker layer cache and `--cache-from` in Drone.io in [this article](https://laszlo.cloud/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci){:target="\_blank"}.
 
 And this concludes the fourth approach to caching in Drone.
 
 ### We have seen four approaches to caching
 
+Bellow you can see a comparison table of all the demonstrated strategies.
 
 I started out using the drillster plugin, then went straight to the Docker layer caching approach.
-
 
 Don't be like Sisyphos, pick a caching strategy!
 
