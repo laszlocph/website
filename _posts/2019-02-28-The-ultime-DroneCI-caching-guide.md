@@ -4,7 +4,8 @@ title: The ultimate DroneCI caching guide
 image: images/1500x500.jpg
 link: /the-ultimate-droneci-caching-guide
 permalink: /the-ultimate-droneci-caching-guide
-excerpt: hello
+excerpt: In this article I'm going to demonstrate all practical caching solutions in Drone.io - volume based caches, bucket based caches and using Docker's layer cache as a primary caching mechanism.
+
 ---
 
 ## The ultimate DroneCI caching guide
