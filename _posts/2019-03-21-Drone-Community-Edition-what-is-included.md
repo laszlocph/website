@@ -31,7 +31,7 @@ There is a recent [Discourse thread](https://discourse.drone.io/t/drone-communit
 
 Brad was clear on this one. The source code has the final say of what is part of the drone.io Community Edition.
 
-Since Docker Hub holds the enterprise version going forward, the `drone/drone:1` will have resource limits or it may raise licensing questions that I have no intent to figure out.
+Since Docker Hub holds the enterprise version going forward, the `drone/drone:1` image will have resource limits or it may raise licensing questions that I have no intent to figure out.
 
 Instead I build the code from source to get the pure OSS version: `go build --tags oss github.com/drone/drone/cmd/drone-server`
 
@@ -83,3 +83,4 @@ At least not today. Drone is famous for the clean code and interfaces, I wouldn'
 UPDATE:
 - Also no TLS
 - And only SQLite, no Postgres or MySQL backends
+- The Enterprise license got cleared up in the meantime. Basically Enterprise is free under 15000 builds a year, no questions asked. It is also free above that limit in a bunch of scenarios. If no special case applies to you than above 15000 builds a year it has  aper user pricing model. [Reference](https://discourse.drone.io/t/licensing-and-subscription-faq/3839)
