@@ -80,4 +80,6 @@ Price sensitivity varies a lot, some may run a 16 core node and don't mind the p
 
 At least not today. Drone is famous for the clean code and interfaces, I wouldn't be surprised if community maintained schedulers pop up.
 
-Onwards!
+UPDATE:
+- Also no TLS
+- And only SQLite, no Postgres or MySQL backends
