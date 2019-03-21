@@ -83,4 +83,4 @@ At least not today. Drone is famous for the clean code and interfaces, I wouldn'
 UPDATE:
 - Also no TLS
 - And only SQLite, no Postgres or MySQL backends
-- The Enterprise license got cleared up in the meantime. Basically Enterprise is free under 15000 builds a year, no questions asked. It is also free above that limit in a bunch of scenarios. If no special case applies to you than above 15000 builds a year it has  aper user pricing model. [Reference](https://discourse.drone.io/t/licensing-and-subscription-faq/3839)
+- The Enterprise license got cleared up in the meantime. Basically Enterprise is free under 15000 builds a year, no questions asked. It is also free above that limit in a bunch of scenarios. If no special case applies to you than above 15000 builds a year it has a per-user pricing model. [Reference](https://discourse.drone.io/t/licensing-and-subscription-faq/3839)
