@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: drone
 title: The ultimate DroneCI caching guide
 image: images/1500x500.jpg
 link: /the-ultimate-droneci-caching-guide

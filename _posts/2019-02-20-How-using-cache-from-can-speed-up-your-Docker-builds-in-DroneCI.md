@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: drone
 title: How using cache-from can speed up your Docker builds in DroneCI
 image: images/1500x500.jpg
 link: /how-using-cache-from-can-speed-up-your-docker-builds-in-droneci
