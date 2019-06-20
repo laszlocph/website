@@ -84,3 +84,6 @@ UPDATE:
 - Also no TLS
 - And only SQLite, no Postgres or MySQL backends
 - The Enterprise license got cleared up in the meantime. Basically Enterprise is free under 15000 builds a year, no questions asked. It is also free above that limit in a bunch of scenarios. If no special case applies to you than above 15000 builds a year it has a per-user pricing model. [Reference](https://discourse.drone.io/t/licensing-and-subscription-faq/3839)
+
+UPDATE2:
+I decided to fork 0.8 and add my opinions. Github, Kubernetes, and other goodies in focus. https://github.com/laszlocph/drone-oss-08/
