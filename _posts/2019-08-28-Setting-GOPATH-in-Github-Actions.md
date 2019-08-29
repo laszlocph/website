@@ -4,7 +4,7 @@ title: Setting GOPATH in Github Actions
 image: images/1500x500.jpg
 link: /setting-gopath-in-github-actions
 permalink: /setting-gopath-in-github-actions
-excerpt: Github Actions defaults are not ideal for Golang projects. This article shows how I configures GOPATH in Actions.
+excerpt: Github Actions defaults are not ideal for Golang projects. This article shows how I configured GOPATH in Actions.
 
 
 ---
@@ -23,7 +23,7 @@ It's early days with Github Actions to say for sure, but seemingly the canonical
 
 It gets the job done, but the folder structure and `go env` is not set properly for builds that rely on $GOPATH
 
-```
+```yaml
 name: Go
 on: [push]
 
@@ -59,7 +59,7 @@ Go requires a specific folder structure for the checked out code to be in. Unfor
 
 By default the checked out code is placed under `/home/runner/work/REPOSITORY/REPOSITORY`. This slightly odd path can be changed by parameterizing the checkout action:
 
-```
+```yaml
     - name: Check out code to a GOPATH compatible directory
       uses: actions/checkout@v1
       with:
@@ -73,7 +73,7 @@ Running the debug commands again, the current folder will be `/home/runner/work/
 
 Now that the code is checked out to a folder that matches the layout of a typical GOPATH, we can set the GOPATH variable to the right path.
 
-```
+```yaml
     - name: Test
       run: |
         go test -cover $(go list ./... | grep -v /vendor/)
@@ -87,9 +87,11 @@ This shows that Github Actions is little rough around the edges and not optimize
 
 Onwards!
 
+UPDATE: a second part was published on GOPATH [here](https://laszlo.cloud/setting-gopath-in-github-actions-revisited){:target="\_blank"}.
+
 And for reference, here is my complete pipeline:
 
-```
+```yaml
 name: Go
 on: [push]
 
@@ -135,5 +137,4 @@ jobs:
       run: ./.drone.sh
       env:
         GOPATH: /home/runner/work/woodpecker/go
-
 ```
