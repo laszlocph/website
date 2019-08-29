@@ -131,7 +131,7 @@ First, `actions/setup-go@v1` is not ready yet, and setting $GOPATH manually is c
 
 Second, I'm a big supporter of the Drone.io CI system which to this day has revolutionary architecture. In Drone each step of the pipeline is performed in a specific Docker image. Replicating that behavior with Actions was my desire and I could achieve some of it.
 
-The `jobs.container` field does an okay job setting runtime environment, but it also differs from Drone as there is only one image to be used in the whole job.
+The `jobs.container` field does an okay job setting the runtime environment, but it also differs from Drone as there is only one image to be used in the whole job.
 
 I'm not sure what to think of the Github Actions containerized environment and  Github doesn't seem to be sure either. There are multiple ways to control the runtime as I listed in this article, and the Github tutorials seem to favor the host machine examples, not the container ones.
 
