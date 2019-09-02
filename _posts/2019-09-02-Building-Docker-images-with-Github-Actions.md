@@ -29,7 +29,7 @@ If there is no suitable action to find, defaulting to a run step always does the
 
 A run step can run all the commands that you run on your laptop normally. If the necessary tools are installed of course. 
 
-Luckilly Actions [have it installed](https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions){:target="\_blank"} by default.
+Luckilly Actions [have docker installed](https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions){:target="\_blank"} by default.
 
 See it by running:
 
