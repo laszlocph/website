@@ -23,7 +23,7 @@ All testable with `drone exec`.
 
 ### Using built-in vars to generate a practical Docker image tag
 
-Drone has a set of built in variables that you can use to systematically name your artifacts. You can find most Git and Drone related metadata on the supported list of vars [here](https://docs.drone.io/reference/environ/){:target="\_blank"}.
+Drone has a set of built in variables that you can use to name your artifacts. You can find most Git and Drone related metadata on the supported list of vars [here](https://docs.drone.io/reference/environ/){:target="\_blank"}.
 
 Drone also provides Bash parameter substitution like features to further manipulate the environment variables.
 
