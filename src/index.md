@@ -4,6 +4,7 @@ title: Laszlo Fogas, Devops Consultant
 image: 9ySXeJrr.jpg
 link: /
 excerpt: I'm Laszlo Fogas, Devops Consultant. I help software teams to move their Docker experiments to production. Check out my roadmap for Kubernetes projects!
+js_bundle: homepage
 ---
 
 <h2 class="colorize">Delivering self-service developer experiences</h2>
@@ -36,7 +37,7 @@ As a former engineering director I gained perspective to effectively operate on 
 
 * Reach me at laszlo@laszlo.cloud
 * [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}, [Instagram](https://www.instagram.com/laszlo.cloud/){:target="_blank"}
-* My homebase is in Copenhagen
+* My homebase is in Budapest, but you can often find me in Copenhagen
 
 <div class="testimonial">
 <p>“We basically had a notion of what direction we wanted to move with our platform and Laszlo facilitated that swimmingly. Along the way we got very good coaching about how to evangelize the new service platform and help with presenting it to the dev teams.”</p> - Oscar Elfving, Operations Team Lead at Visma e-conomic A/S

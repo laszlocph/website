@@ -21,20 +21,19 @@
   <meta name="twitter:description" content="{{ page.excerpt }}">
   <meta name="twitter:image" content="{{ site.url }}/{{ page.image }}">
 
-  <title>{{ site.title }} - {{ page.title }}</title>
-  <link rel="stylesheet" href="css/main.css?1">
-  <style>
-    p, ul{
-        font-size: 1.25em;
-    }
-    </style>
-{% include head.html %}
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  {% include head.html %}
 </head>
 <body style="position: relative">
   <div class="container">
     <h1>{{ site.tag_text }}</h1>
     {{ content }}
   </div>
-{% include scripts.html %}
+  {% include scripts.html %}
+  {% if page.js_bundle %}
+    <script type="text/javascript" src="/assets/javascripts/{{ page.js_bundle }}.js" async></script>
+  {% endif %}
 </body>
 </html>
