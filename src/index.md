@@ -28,16 +28,16 @@ It's not just for the Facebooks and Googles anymore, you can have your Paas in-h
 
 Hi I'm Laszlo Fogas, Devops consultant.
 
-The fall of 2016 I set out to start Laszlo Cloud, a consultancy to elevate team cultures through automation and tooling.
+In the fall of 2016 I set out to start Laszlo Cloud, a consultancy to elevate team cultures through automation and tooling.
 
-As a former engineering director I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
+As a former senior engineer and later engineering director I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
 
 ![Laszlo Fogas](laszlo.jpg){:width="25%"}
 
 
 * Reach me at laszlo@laszlo.cloud
 * [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}, [Instagram](https://www.instagram.com/laszlo.cloud/){:target="_blank"}
-* My homebase is in Budapest, but you can often find me in Copenhagen
+* My homebase is Budapest, but you can often find me in Copenhagen
 
 <div class="testimonial">
 <p>“We basically had a notion of what direction we wanted to move with our platform and Laszlo facilitated that swimmingly. Along the way we got very good coaching about how to evangelize the new service platform and help with presenting it to the dev teams.”</p> - Oscar Elfving, Operations Team Lead at Visma e-conomic A/S
