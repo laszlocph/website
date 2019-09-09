@@ -9,11 +9,9 @@ js_bundle: homepage
 
 <h2 class="colorize">Delivering self-service developer experiences</h2>
 
-<ul class="questions">
-  <li>Does it take longer to deploy a new service than writing it?</li>
-  <li>Are you racing for scarce Ops time?</li>
-  <li>Are you spending most of your time supporting developers?</li>
-</ul>
+- Does it take longer to deploy a new service than writing it?
+- Are you racing for scarce Ops time?
+- Are you spending most of your time supporting developers?
 
 These are not uncommon pains during the adoption of microservice architectures.
 
@@ -30,7 +28,9 @@ Hi I'm Laszlo Fogas, Devops consultant.
 
 In the fall of 2016 I set out to start Laszlo Cloud, a consultancy to elevate team cultures through automation and tooling.
 
-As a former senior engineer and later engineering director I gained perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
+As a former senior engineer and later engineering director I gained the perspective to effectively operate on many levels of your organization.
+
+I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
 
 ![Laszlo Fogas](laszlo.jpg){:width="25%"}
 
