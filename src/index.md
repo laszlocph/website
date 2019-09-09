@@ -32,7 +32,7 @@ As a former senior engineer and later engineering director I gained the perspect
 
 I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
 
-![Laszlo Fogas](laszlo.jpg){:width="25%"}
+![Laszlo Fogas](laszlo-web.jpg){:width="25%"}
 
 
 * Reach me at laszlo@laszlo.cloud
