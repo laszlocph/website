@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/hosts.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/Attack-your-cloud-bill" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="In this article I explore an option to build a Cloud agnostic setup for deploying containers. Ultimately achieving greater flexibility and control." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google">
+  <meta name="twitter:description" content="In this article I explore an option to build a Cloud agnostic setup for deploying containers. Ultimately achieving greater flexibility and control.">
+  <meta name="twitter:image" content="/images/hosts.png">
+
+  <title>Laszlo Fogas - Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="attack-your-cloud-bill-a-hybrid-cloud-strategy-with-rancher-aws-and-google">Attack your cloud bill: a hybrid cloud strategy with Rancher, AWS and Google</h2>
+<p>2016-11-28</p>
+
+<p>AWS is a <a href="http://www.recode.net/2016/4/28/11586526/aws-cloud-revenue-growth" target="_blank">10 billion</a> a year business. It’s not surprising at all, the speed of innovation, the plethora of services truly make it the market leader.</p>
+
+<p>I always had an itch though that if only I could carve out some of my workloads and quickly run it on a VPS, or give Google Cloud a chance.</p>
+
+<p>I had very productive bizdev calls with the Google Cloud folks (hey Robin!) and <a href="https://thehftguy.com/2016/11/18/google-cloud-is-50-cheaper-than-aws/" target="_blank">voices of the internet</a> also say that there might be a price advantage of using them. 
+The <a href="https://cloud.google.com/compute/docs/machine-types#custom_machine_types" target="_blank">custom machine types</a> sure look interesting.</p>
+
+<p>There is more to consider than price of course, but if you have the kind of bill, 
+the ability to experiment with hosting can yield monthly an FTE in cloud bill reduction.</p>
+
+<h3 id="cloud-agnostic">Cloud agnostic</h3>
+
+<p>It requires a cloud agnostic setup though.</p>
+
+<p>Luckily it is more viable these days having Docker as the common ground in infrastructure.</p>
+
+<p>In this article I show you how to unify the advantages of AWS and Google’s Cloud Platform, using <a href="http://rancher.com/" target="_blank">Rancher</a> - a thin layer atop of various container scheduler engines - to provide a transparent workflow for deploying on them.</p>
+
+<blockquote>
+  <p>You had the ability for some time in the VM space to abstract cloud providers - <a href="https://www.mendix.com/blog/new-cloud-foundry-based-mendix-cloud-runs-globally-aws/?utm_content=buffer69519&amp;utm_medium=social&amp;utm_source=linkedin.com&amp;utm_campaign=buffer" target="_blank">using CloudFoundry</a> - 
+and other container platforms are also emerging besides Rancher. 
+Like Kubernetes, your very own Paas construction kit, if you prefer that route.</p>
+</blockquote>
+
+<h3 id="secure-foundations">Secure foundations</h3>
+
+<p>I started by laying down foundations for network communication. Luckily AWS is attacking the enterprise market full front, thus provides VPN connection to connect other networks to their cloud.</p>
+
+<p>Following this <a href="https://cloud.google.com/files/CloudVPNGuide-UsingCloudVPNwithAmazonWebServices.pdf">guide from Google (!pdf)</a> it was easy to hook into the <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html">AWS Virtual Private Gateway</a> and have it all managed by the cloud providers for 0.05$ an hour per connection. 
+Calculate with double though as redundant connections are supported out of the box, and you can route traffic back and forth between your subnets.</p>
+
+<p><img src="images/vpn.png" alt="VPN" /></p>
+
+<h3 id="rancher">Rancher</h3>
+
+<p>Rancher’s infrastructure page is a delight for people loving hardware.</p>
+
+<p>Adding hosts to your Swarm, Kubernetes, Mesos or Cattle backed cluster is nothing more than running the rancher-agent container on any node you have access to. Rancher takes care of configuring the cluster for you. Great service if you think of the number of moving parts in Kubernetes for example.</p>
+
+<p>If you prefer you can provide access keys for Rancher and it will spin up nodes on virtually any cloud/VPS provider too.</p>
+
+<p>For this example I used Rancher’s custom orchestration engine, Cattle, and tagged the nodes with their respective cloud provider tag. Later on I will use these labels to control where my stack is deployed.</p>
+
+<p><img src="images/hosts2.png" alt="AWS and Google" /></p>
+
+<p>In this Cattle environment there are two nodes in an AWS private subnet and a single node in Google’s Cloud while the Rancher server is also running in AWS. They are communicating through the Rancher overlay network which requires UDP ports 500 and 4500 to be accessible on the hosts. Thus the AWS security group was configured accordingly. 10.132.0.0/20 is the Google subnet and sg-f5b23593 where the Rancher hosts run in AWS.</p>
+
+<p><img src="images/ports.png" alt="Firewall" /></p>
+
+<h3 id="deploying-your-docker-composeyml">Deploying your docker-compose.yml</h3>
+
+<p>Once ping was running between the nodes across clouds, the fun began.</p>
+
+<p>I regard Docker Compose the centerpiece of the Docker revolution and was a bummer when I realized that Docker Swarm (aka Docker Engine in swarm mode) doesn’t let me control my services through compose files. I was relieved though when all that worked in Rancher out of the box: in Rancher you deploy your <em>stacks</em> through Docker Compose files.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">boot</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">laszlocph/springboot-demo</span>
+  <span class="na">links</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">postgres</span>
+    <span class="pi">-</span> <span class="s">redis</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="s">io.rancher.scheduler.affinity:host_label</span><span class="pi">:</span> <span class="s">cloud=AWS</span>
+<span class="na">postgres</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">postgres</span>
+  <span class="na">environment</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">POSTGRES_DB=..</span>
+    <span class="pi">-</span> <span class="s">POSTGRES_USER=..</span>
+    <span class="pi">-</span> <span class="s">POSTGRES_PASSWORD=...</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="s">io.rancher.scheduler.affinity:host_label</span><span class="pi">:</span> <span class="s">cloud=AWS</span>
+<span class="na">redis</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">redis</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="s">io.rancher.scheduler.affinity:host_label</span><span class="pi">:</span> <span class="s">cloud=AWS</span>
+</code></pre></div></div>
+
+<p>The above is a standard Docker Compose file, with custom labels that control Rancher’s scheduling engine. Hats off Rancher, this is a much nicer integration to the ecosystem than the json files <a href="https://laszlo.cloud/Mastering-test-environments-with-Docker">I had to write for Amazon ECS</a>.</p>
+
+<h3 id="the-final-picture">The final picture</h3>
+
+<p>I deployed my dummy stack two times, once to the AWS nodes, and once to the Google nodes, just by changing the scheduler affinity in the compose file shown above. As you can see the containers in AWS were deployed evenly on the two nodes, while in the single node Google environment they concentrate on the one node available.</p>
+
+<p><img src="images/hosts.png" alt="Deployment landscape" /></p>
+
+<p>I also deployed a load balancer - a Rancher infrastructure service - to serve traffic from the world. I made sure they get scheduled to the node that allows public access on certain ports. Rancher’s overlay network (note the <em>Network agent</em> containers) makes sure that the load balancer can communicate with the other nodes.</p>
+
+<h3 id="further-possibilities">Further possibilities</h3>
+
+<p>I am extremely happy about this setup. While one can enjoy the managed Docker cluster options both from Amazon and Google (<a href="https://aws.amazon.com/ecs/">ECS</a> and <a href="https://cloud.google.com/container-engine/">GCE</a>), standardizing on Docker and orchestrating with Rancher one can achieve great flexibility:</p>
+
+<ul>
+  <li>experimentation with different providers is a good route to savings. Not forgetting that not being locked in to a certain vendor yields significantly better position in negotiations.</li>
+  <li>One can also spin up QA clusters on premise or move certain background workloads to cheap VPS providers (hello <a href="https://www.packet.net/bare-metal/" target="_blank">Packet</a>)</li>
+  <li>also, it opens up new disaster recovery possibilities.</li>
+</ul>
+
+<p>Onwards!</p>
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

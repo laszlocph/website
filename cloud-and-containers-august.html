@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Cloud and Containers - August" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/cloud-and-containers-august" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="August had tremendous amount of container news. CNCF grew a lot in influence and I started thinking  that the only true challenger of AWS's hegemony are the CNCF projects. I'm also pleased to see Microsoft as a true innovator in the container space. And the race is on for Windows based container workloads." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Cloud and Containers - August">
+  <meta name="twitter:description" content="August had tremendous amount of container news. CNCF grew a lot in influence and I started thinking  that the only true challenger of AWS's hegemony are the CNCF projects. I'm also pleased to see Microsoft as a true innovator in the container space. And the race is on for Windows based container workloads.">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
+
+  <title>Laszlo Fogas - Cloud and Containers - August</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="cloud-and-containers---august">Cloud and Containers - August</h2>
+<p>2017-08-31</p>
+
+<p>August had tremendous amount of container news. CNCF grew a lot in influence and I started thinking  that the only true challenger of AWS’s hegemony are the CNCF projects. I’m also pleased to see Microsoft as a true innovator in the container space. And the race is on for Windows based container workloads.</p>
+
+<h3 id="cncf">CNCF</h3>
+
+<p>It’s the Cloud Native Computing Foundation <a href="https://www.cncf.io/">https://www.cncf.io/</a>, home of the major open source projects that shape the tech landscape these days. Think Kubernetes and Prometheus for the two prominent ones, and also worth knowing that both the Docker container runtime and the competeing rkt (“rocket”) are <a href="https://thenewstack.io/separate-votes-cncf-adopts-dockers-containerd-coreos-rkt/">under its wings now</a>.</p>
+
+<p>Plus their projects have excellent communities. Imagine the process it takes to keep the thousand plus contributors of Kubernetes in sync. Not suprisingly, most of their stuff happening publicly on their Slack and Youtube channels. You could listen in their weekly SIG (Special Interest Group) meetings, track roadmaps and all if that’s your cup of tea.</p>
+
+<p>But back to the news now:</p>
+<ul>
+  <li>AWS as the last major cloud provider joined CNCF. AWS fantastic and all, just keep using them as they are the best Cloud platform out there no question. But on the grand scale of things it’s the world vs AWS these days, and the battle might have been already lost. Only community projects and standards can provide competing alternatives to AWS at this point and I’m happy that there is a candidate for doing that - CNCF. So I see this move as something they had to do, not that they wanted to. Nor they will be the key pushers of community projects like Kubernetes. https://www.cncf.io/blog/2017/08/09/cncf-welcome-amazon-web-services/</li>
+  <li>Microsoft <a href="https://www.cncf.io/announcement/2017/07/26/microsoft-joins-cloud-native-computing-foundation-platinum-member/" target="_blank">also joined</a> CNCF, but as you will see bellow they are trully pushing the space forward.</li>
+</ul>
+
+<h3 id="microsoft">Microsoft</h3>
+
+<p>Microsoft had to reinvent itself, and it’s surely a fresh take what they are doing these days. Having an Ubuntu shell integrated in Windows, pushing Visual Studio Code are two nice examples of their new way of doing things.</p>
+
+<p>Plus unlike any other Cloud provider they feature all three leading container orchestrators (Kubernetes, Docker Swarm, Apache Mesos) in their <a href="https://docs.microsoft.com/en-us/azure/container-service/" target="_blank">Azure Container Service</a>. Quite a feet comparing to AWS for example who only has one propreitary solution (ECS).</p>
+
+<ul>
+  <li>Happened late July, but it’s important to showcase the Azure Container Instances. While in all other systems I know you provision VMs to get extra capacity in your container platform, Azure launched a new paradigm, provision containers in a matter of seconds to get that extra juice. You get it in a matter of seconds not minutes - for a hefty price of course, but this is what I’m talking about when I mention “innovation” and “Microsoft” in one sentence.</li>
+</ul>
+
+<p><img src="images/aci-connector-k8s.gif" alt="Azure Container Instances" /></p>
+
+<ul>
+  <li>Another nice move from MS is that they <a href="https://venturebeat.com/2017/08/17/hashicorp-and-microsoft-team-up-on-terraform-infrastructure-provisioning/" target="_blank">teamed up with Hashicorp</a> to bring Terraform as a first class tooling for Azure. I mean how cool is that?! I’m looking at you AWS and Cloud Formation. Again proprietary vs <em>de jure</em> standard.</li>
+</ul>
+
+<h3 id="windows-containers">Windows containers</h3>
+
+<p>Yes, Windows is not under the Microsoft news, strange but you will see why. Windows based workloads are going to unlock the big money, the enterprise money, no wonder that many companies are trying to be the first ones to orchestrate Windows containers.</p>
+
+<ul>
+  <li>While Docker Swarm is not always making into my Twitter feed, this one is a strong signal.
+Docker created their CE and EE versions earlier this year, and now their <a href="https://blog.docker.com/2017/08/docker-enterprise-edition-17-06/" target="_blank">EE version allows companies</a> to have Windows and Linux nodes in the same Docker Swarm cluster, so they can consolidate on containers, in one cluster. In EE of course. Their community edition of Swarm still don’t feature simple access control and they simply <a href="https://docs.docker.com/engine/extend/plugins_authorization/#basic-principles" target="_blank">shortcut</a> that with <em>“Anyone with the appropriate skills can develop an authorization plugin.”</em> - thanks Docker. Role Based Access Control (RBAC) <a href="https://laszlo.cloud/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment" target="_blank">is available in Kubernetes</a> since April this year.</li>
+  <li>Another company - that is not Microsoft - is jumping on Windows containers. <a href="https://www.redhat.com/en/blog/supporting-windows-server-containers-red-hat-openshift" target="_blank">Red Hat</a> although it seems it will be only available once the upstream Kubernetes project solved the issue. 
+Listening in on the Windows SIG Slack myself Windows nodes were planned in beta in September but they may not have the manpower to pull it off. But be assured in 6-9 months Windows containers will be all the rage.</li>
+</ul>
+
+<p>In the meantime Docker EE and Azure being the two options to run hybrid workloads. Again Azure, as their ACS allows you today to launch Windows nodes in your Kubernetes cluster. I tried that myself, and it’s trully as simple as <a href="https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-windows-walkthrough" target="_blank">this page</a> suggests.</p>
+
+<h3 id="learning-materials">Learning materials</h3>
+
+<p>And last but not least two awesome sources of knowledge to get more familiar with Kubernetes:</p>
+
+<ul>
+  <li>Katakoda - <a href="https://www.katacoda.com/courses/kubernetes" target="_blank">Learn Kubernetes using Interactive Browser-Based Scenarios</a></li>
+  <li><a href="https://www.youtube.com/watch?v=9YYeE-bMWv8" target="_blank">TGI Kubernetes</a> a weekly video stream. Wonderful way to pick up knowledge nuggets from the maker of Kubernetes</li>
+</ul>
+
+<p>That was it for August. Onwards!</p>
+
+<p>Laszlo</p>
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

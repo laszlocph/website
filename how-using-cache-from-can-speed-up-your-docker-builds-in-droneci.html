@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="How using cache-from can speed up your Docker builds in DroneCI" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="About layer caching in general and its problems in a distributed setup. And how --cache-from is able to solve it reliably in Drone.io even when using the plugins/docker plugin to build Docker images." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="How using cache-from can speed up your Docker builds in DroneCI">
+  <meta name="twitter:description" content="About layer caching in general and its problems in a distributed setup. And how --cache-from is able to solve it reliably in Drone.io even when using the plugins/docker plugin to build Docker images.">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
+
+  <title>Laszlo Fogas - How using cache-from can speed up your Docker builds in DroneCI</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI</h2>
+<p>2019-02-20</p>
+
+<p>Francis I of France paid 4,000 écus in 1540 for Leonardo da Vinci’s Mona Lisa. On the off chance that a few of you have not kept track of the fluctuations of the écu - 4,000 converted out to about $20,000.</p>
+
+<p>If Francis had kept his feet on the ground and he (and his trustees) had been able to find a 6% after-tax investment, the estate now would be worth something over $1,000,000,000,000,000.00. That’s $1 quadrillion.</p>
+
+<p>The above excerpt is from Warren Buffett’s 1964 shareholder letter where he showed masterfully how powerful compounding benefits are.</p>
+
+<p>Speeding up your CI pipeline can have similar exponential effects.</p>
+
+<h3 id="how-does-docker-layer-caching-speed-up-the-ci-build">How does Docker layer caching speed up the CI build?</h3>
+
+<p>When building an image, Docker steps through the instructions in your Dockerfile, executing each in the order specified. As each instruction is examined, Docker looks for an existing image in its cache that it can reuse rather than building it. This can save a lot of time if the instruction is a slow one like <code class="highlighter-rouge">npm install</code> or <code class="highlighter-rouge">bundle install</code>.</p>
+
+<h3 id="its-a-docker-best-practice-to-leverage-the-layer-cache">It’s a Docker best practice to leverage the layer cache.</h3>
+
+<p>I build my Docker images as the first step of my Drone pipeline - as opposed to building it as the very last step and treating it only as a build artifact - therefore it’s important that the layer cache works reliably.</p>
+
+<p>The good news is that it just works if I have a single Drone agent. However with multiple build agents the layer cache state differs between agents and does not work consistently.</p>
+
+<p>Furthermore if I use the <code class="highlighter-rouge">plugins/docker</code> plugin to build Docker images, the layer cache does not work at all given its docker-in-docker (dind) architecture.</p>
+
+<h3 id="making-the-layer-cache-consistent">Making the layer cache consistent</h3>
+<p>Distributing caches across agents or mounting the layer cache into a dind setup is a gargantuan task. Instead we can use docker build’s <code class="highlighter-rouge">--cache-from</code> option.</p>
+
+<p>With <code class="highlighter-rouge">--cache-from</code> you can specify a list of images what <code class="highlighter-rouge">docker build</code> will consider as a source of cached layers. So instead of relying on an unspecified local state you can rely on tagged images in a registry.</p>
+
+<h3 id="how-to-use-cache-from">How to use –cache-from?</h3>
+
+<p>Let’s take a simple Dockerfile with an apt install step and a <code class="highlighter-rouge">.drone.yml</code> file that uses the <code class="highlighter-rouge">plugins/docker</code> plugin to build the image.</p>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> debian:stable-slim</span>
+
+<span class="k">RUN </span>apt-get update <span class="o">&amp;&amp;</span> apt-get <span class="nb">install</span> <span class="nt">-y</span> <span class="se">\
+</span>    curl <span class="se">\
+</span> <span class="o">&amp;&amp;</span> <span class="nb">rm</span> <span class="nt">-rf</span> /var/lib/apt/lists/<span class="k">*</span>
+</code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">kind</span><span class="pi">:</span> <span class="s">pipeline</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">default</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">docker-builder</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">plugins/docker</span>
+    <span class="na">settings</span><span class="pi">:</span>
+      <span class="na">repo</span><span class="pi">:</span> <span class="s">laszlocloud/cache-from-test</span>
+      <span class="na">tags</span><span class="pi">:</span> <span class="s">latest</span>
+      <span class="na">cache_from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">laszlocloud/cache-from-test:latest"</span>
+      <span class="na">dry_run</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<p>The console output shows that first the plugin pulls the listed image from the registry and then includes the <code class="highlighter-rouge">--cache-from</code> option in the docker build command. At the end you can see that the apt step is using the cache.</p>
+
+<p>If you would take the above snippets, the build would use the cached layers even though you have not built this image before.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ ./drone <span class="nb">exec</span>
+<span class="o">[</span>docker-builder:69] + /usr/local/bin/docker pull laszlocloud/cache-from-test:latest
+<span class="o">[</span>docker-builder:70] latest: Pulling from laszlocloud/cache-from-test
+<span class="o">[</span>docker-builder:77] 0e3d8c77ad65: Pull <span class="nb">complete</span>
+<span class="o">[</span>docker-builder:80] + /usr/local/bin/docker build <span class="nt">--rm</span><span class="o">=</span><span class="nb">true</span> <span class="nt">-f</span> Dockerfile <span class="nt">-t</span> 00000000 <span class="nb">.</span> <span class="nt">--pull</span><span class="o">=</span><span class="nb">true</span> <span class="nt">--cache-from</span> laszlocloud/cache-from-test:latest <span class="nt">--label</span> org.label-schema.schema-version<span class="o">=</span>1.0 <span class="nt">--label</span> org.label-schema.build-date<span class="o">=</span>2019-02-17T14:23:07Z <span class="nt">--label</span> org.label-schema.vcs-ref<span class="o">=</span>00000000 <span class="nt">--label</span> org.label-schema.vcs-url<span class="o">=</span>
+<span class="o">[</span>...]
+<span class="o">[</span>docker-builder:88] Step 2/6 : RUN apt-get update <span class="o">&amp;&amp;</span> apt-get <span class="nb">install</span> <span class="nt">-y</span>     curl  <span class="o">&amp;&amp;</span> <span class="nb">rm</span> <span class="nt">-rf</span> /var/lib/apt/lists/<span class="k">*</span>
+<span class="o">[</span>docker-builder:89]  <span class="nt">---</span><span class="o">&gt;</span> Using cache
+<span class="o">[</span>docker-builder:90]  <span class="nt">---</span><span class="o">&gt;</span> 880ea2ef13d2
+</code></pre></div></div>
+
+<h3 id="how-to-use-cache-from-with-multiple-branches">How to use cache-from with multiple branches?</h3>
+
+<p>The previous example used the <code class="highlighter-rouge">latest</code> image tag which is not a good practice in general and it also makes the caching strategy unpredictable if you use multiple branches.</p>
+
+<p>You can’t be sure which branch was used to build the <code class="highlighter-rouge">latest</code> image. If your branch has a change in your <code class="highlighter-rouge">package.json</code> or <code class="highlighter-rouge">Gemfile</code> and the <code class="highlighter-rouge">latest</code> image is from master, your branch builds will not utilize the cache and do npm or bundle install anyway.</p>
+
+<p>To handle multiple branches we have to adjust <code class="highlighter-rouge">.drone.yml</code>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">kind</span><span class="pi">:</span> <span class="s">pipeline</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">default</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">docker-builder</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">plugins/docker</span>
+    <span class="na">settings</span><span class="pi">:</span>
+      <span class="na">repo</span><span class="pi">:</span> <span class="s">laszlocloud/cache-from-test</span>
+      <span class="na">tags</span><span class="pi">:</span> 
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">${DRONE_BRANCH}"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">${DRONE_BRANCH}-${DRONE_COMMIT}"</span>
+      <span class="na">cache_from</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">laszlocloud/cache-from-test:master"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">laszlocloud/cache-from-test:${DRONE_BRANCH}"</span>
+      <span class="na">dry_run</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<p>The trick to have branch specific cache sources is to tag the branch images explicitly.</p>
+
+<p>Should you build this branch the first time, the <code class="highlighter-rouge">master</code> image will provide some level of caching. Once you built your branch once, the following builds will have a branch specific cache image.</p>
+
+<p>And yes, you can have any number of images specified in <code class="highlighter-rouge">--cache-from</code>.</p>
+
+<h3 id="what-about-time-spent-downloading-those-images">What about time spent downloading those images?</h3>
+
+<p>Since you have to pull the <code class="highlighter-rouge">--cache-from</code> image first from the registry, it can happen that the time you gain with caching the layers you lose on downloading the images. This depends on a few factors, like the size of the image and the time it takes to build it.</p>
+
+<p>It happened to me some cases that my aggressive caching strategy made the build slower, so it’s worth keeping in mind the network cost and measuring the build time.</p>
+
+<h3 id="how-i-saved-4-minutes-build-time-of-a-ruby-app">How I saved 4 minutes build time of a Ruby app?</h3>
+
+<p>I had a large Ruby app with a Dockerfile having the following snippet:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WORKDIR /app
+COPY Gemfile Gemfile.lock /app/
+RUN bundle install
+COPY . ./app/
+</code></pre></div></div>
+
+<p>First it copies <code class="highlighter-rouge">Gemfile</code> then did a <code class="highlighter-rouge">bundle install</code> and only after copied the rest of the source code. With this trick I made sure only a <code class="highlighter-rouge">Gemfile</code> change busts the cache.</p>
+
+<p>The only problem was that <code class="highlighter-rouge">bundle install</code> took four minutes. The layer cache was working reliably when I had a single Drone agent but became an issue once there were more.</p>
+
+<p>Using cache-from saved this 4 minutes consistently and bundle install only happened when the Gemfile really changed. I was happy.</p>
+
+<h3 id="in-a-summary">In a summary</h3>
+
+<p>First I wrote about layer caching in general and its problems in a distributed setup.</p>
+
+<p><code class="highlighter-rouge">--cache-from</code> is able to solve layer caching reliably in Drone.io even when using the <code class="highlighter-rouge">plugins/docker</code> plugin to build Docker images.</p>
+
+<p>As a closing thought I include this oldie from xkcd. If you can save five minutes on a build that is running five times a day, you can easily spend a day or two optimizing it with <code class="highlighter-rouge">--cache-from</code>. So what are you waiting for?</p>
+
+<p><img src="images/times.jpg" alt="Effort roi" /></p>
+
+<h3 id="so-how-much-mona-lisa-worth-today">So how much Mona Lisa worth today?</h3>
+
+<p>I left the story by saying that should Francis I of France invested his money in the market he would have made a gajillion by now. But how much Mona Lisa worth today?</p>
+
+<p>Well, the Mona Lisa was assessed at US$100 million on December 14, 1962. Taking inflation into account, the 1962 value would be around US$830 million in 2019.</p>
+
+<p>And some people say art is a good investment ;)</p>
+
+    <br/>
+    <hr/>
+    <p>Read some more about Actions or Drone:</p>
+
+    <ul>
+      
+        
+          <li>
+            <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+          </li>  
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+
+    <hr/>
+    <br/>
+    <p>I can also notify you if there is a new Drone related article. Won't spam you, I promise.</p>
+    <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='bb30a2ae7497e8dbaf05162b58e3ecc5282a86f6253cc4e12d53849356709a95';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+    <span data-sumome-listbuilder-embed-id="936e7bcc0122906987a873e44345a0faca428e80fe0ba846f5a221d5ddec5417"></span>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Is the one-stop-shop Gitlab CI fits all?" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/gitlab.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/Is-the-one-stop-shop-Gitlab-CI-fits-all" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="I was often scared away by Gitlab's suite approach with their Slack replacement and other bells and whistles I don't need. In this article I try to figure if can I use only the parts that matter to me?" property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Is the one-stop-shop Gitlab CI fits all?">
+  <meta name="twitter:description" content="I was often scared away by Gitlab's suite approach with their Slack replacement and other bells and whistles I don't need. In this article I try to figure if can I use only the parts that matter to me?">
+  <meta name="twitter:image" content="/images/gitlab.png">
+
+  <title>Laszlo Fogas - Is the one-stop-shop Gitlab CI fits all?</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="is-the-one-stop-shop-gitlab-ci-fits-all">Is the one-stop-shop Gitlab CI fits all?</h2>
+<p>2017-07-20</p>
+
+<p>You may have heard me saying that CI doesn’t matter in orchestration projects.</p>
+
+<p>From one side it’s true: they do not make or break the project as the CI server’s role in those projects is nothing more than building the Docker image, pushing that to a registry and call a one liner to deploy. 
+To some extent their job even got simplified since the many custom scripting one needed to achieve rolling or blue green deployments is now standardized in the orchestrator’s codebase.</p>
+
+<p>I do acknowledge though that there are features in modern CI platforms that are game changing:</p>
+
+<ul>
+  <li>Pipeline as code, versioned together with the source code</li>
+  <li>and Dockerized build environments</li>
+</ul>
+
+<p>make the process less brittle and enables Devs to do things that used to require permission or favors from the all mighty Ops.</p>
+
+<p>While in my projects I often keep the CI platform out of scope - I just use what’s available - I wanted to take some modern CI for a spin.
+In this article I jot down my first impressions about Gitlab and its one-stop-shop approach of serving dev teams. Beware, I do have preconceptions.</p>
+
+<h3 id="buying-in-to-an-ecosystem-or-piecing-it-together">Buying in to an ecosystem or piecing it together?</h3>
+
+<p>The above question is often top of my mind recently. While there are certain ecosystems I don’t mind buying into - since the benefits almost make me not think of the lock-in, in most cases I value control over anything else.
+AWS is a good example for the former, and pretty much everything else for the latter.</p>
+
+<p>It’s top of mind for me as I offer Kubernetes deployments which are often considered as a Cloud agnostic approach that provide control and flexibility over cloud providers. Which is a huge thing, but it also comes with a cost. 
+Navigating the quirks of not one, but two cloud providers is certainly a challenge for a small ops team.</p>
+
+<p>Sometimes though, I wish I would be the person who just buys into an ecosystem like Rails, or .Net, or buys a suite or opts for a managed solution. The grass does seem greener there sometimes and I wonder about the real value of all the choices I have.</p>
+
+<h3 id="give-my-control-back">Give my control back!</h3>
+
+<p>Gitlab is one of those suites that seemed greener many times as they offer a self-hosted Github like experience for source code management, a CI server, a Wiki, a task manager and many more.</p>
+
+<p><img src="images/suite.png" alt="All the things" /></p>
+
+<p>But that many more that scared me every time I looked at their marketing videos:</p>
+
+<blockquote>
+  <p>Let’s say you have an idea. And you discuss that on Mattermost, our company chat solution</p>
+</blockquote>
+
+<p>Boom, in a snap they lost me. They want me to use all their crap?? Give my control back!</p>
+
+<h3 id="first-impressions">First impressions</h3>
+
+<p>But yesterday I made an effort to see for myself whats the fuzz about Gitlab, and most importantly: can I use only the parts that matter to me?</p>
+
+<p>My first impressions as bullets in no particular order:</p>
+
+<ul>
+  <li>Nice <a href="https://docs.gitlab.com/omnibus/docker/#run-the-image" target="_blank">one-liner</a> to start it locally with Docker. Just as you’d expect it in 2017</li>
+  <li>Sleek UI, API keys, ssh keys, MFA all there, with nice explanations on the ui</li>
+  <li>Straightforward to create a new project, no different than Github</li>
+  <li>Vanity, but I’d be sad not having the activity card on my public Github profile. Especially as I want <a href="https://commitprint.com/" target="_blank">this</a> in my livingroom</li>
+  <li>Little too white, no strong strokes or contrast really, I guess I will get used to this</li>
+</ul>
+
+<p>If you want to get a feel for it, check out the Gitlab source code on.. well, <a href="https://gitlab.com/gitlab-org/gitlab-ce/" target="_blank">Gitlab</a>. Very Meta.</p>
+
+<h3 id="gitlab-pipelines">Gitlab Pipelines</h3>
+
+<p>All in all, if you used Github before, you will find everything where you expect it to be. Good job Gitlab, for source code management Gitlab is a true alternative for Github. Let’s see if the CI offering is as strong too.</p>
+
+<p>The Pipelines menu item naturally fits the UI. Pipelines belong to source repositories and in a microservice world where services should be backward compatible, their deployment is decoupled too, no need for coordinated deploys of multiple repositories anymore.</p>
+
+<p><img src="images/pipelines.png" alt="VPN" /></p>
+
+<p><br />
+Clicking Pipelines for the first time Gitlab shows probably the best introductory text I’ve seen on both how to get started with Gitlab Pipelines, but also on good CI practices. I found my way around more easily than with CircleCI for example.</p>
+
+<p>I had to create the .gitlab-ci.yml, add a Gitlab Runner and then the project was building on every git push.</p>
+
+<p>If you’ve seen a Travis or Circle CI yaml, Gitlab’s yaml format probably looks familiar. In the example bellow first I define the build Docker image where the project is built (achiving a reproducible build experience), then I call a simple Gradle build command and a Docker push to the registry. That’s about it.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">image</span><span class="pi">:</span> <span class="s">laszlocloud/build-image</span>
+
+<span class="na">before_script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">docker login -u $DOCKER_USER -p $DOCKER_PASS</span>
+    <span class="pi">-</span> <span class="s">docker pull laszlocloud/todomvc-springboot-backend</span>
+
+<span class="na">build</span><span class="pi">:</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">./gradlew clean build</span>
+    <span class="pi">-</span> <span class="s">docker build --rm=false -t laszlocloud/todomvc-springboot-backend:${CI_COMMIT_SHA} .</span>
+    <span class="pi">-</span> <span class="s">docker push laszlocloud/todomvc-springboot-backend:${CI_COMMIT_SHA}</span>
+</code></pre></div></div>
+
+<h3 id="gitlab-runner">Gitlab Runner</h3>
+
+<p>For the build to kick-off I also added a Gitlab Runner to Gitlab, which is basically a worker where the pipeline jobs are executed. 
+<em>“A Runner can be a virtual machine, a VPS, a bare-metal machine, a docker container or even a cluster of containers. GitLab and the Runners communicate through an API, so the only requirement is that the Runner’s machine has Internet access.”</em></p>
+
+<p>See the various Runner types <a href="https://docs.gitlab.com/runner/#selecting-the-executor" target="_blank">here</a>.</p>
+
+<p>Again it was a <a href="https://docs.gitlab.com/runner/install/docker.html#docker-image-installation-and-configuration" target="_blank">Docker one-liner</a> plus a Docker exec to register the Runner with Gitlab</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">--name</span> gitlab-runner <span class="nt">--restart</span> always <span class="se">\</span>
+  <span class="nt">-v</span> /srv/gitlab-runner/config:/etc/gitlab-runner <span class="se">\</span>
+  <span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+  gitlab/gitlab-runner:latest
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">exec</span> <span class="nt">-it</span> gitlab-runner bash
+root@2d333fb8e7a4:/# <span class="nb">sudo </span>gitlab-runner register
+Running <span class="k">in </span>system-mode.                            
+                                                   
+Please enter the gitlab-ci coordinator URL <span class="o">(</span>e.g. https://gitlab.com/<span class="o">)</span>:
+...
+</code></pre></div></div>
+
+<h3 id="the-verdict">The verdict</h3>
+<p>The above didn’t take more than five hours in a summery pace, including the build image I created with Docker and Java installed and tackling an <a href="https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/issues/1986" target="_blank">issue</a> with running Docker builds in the the Docker based Gitlab Runner.</p>
+
+<p>Although I did have dummy repositories prepared and worked with various CIs before I must say the experience was really nice. Everything was where it ought to be.</p>
+
+<p>If I would start up something now I would probably just roll with Gitlab.</p>
+
+<ul>
+  <li>
+    <p>Their features are not too pushy, I didn’t have to go through hoops of they trying to promote parts of their stack I don’t need.</p>
+  </li>
+  <li>
+    <p>The builds were twice as fast as on my free CircleCI plan. On CircleCI the plumbing tasks take awful lot of time resulting my build taking at list two three minutes, while on this Gitlab instance it is almost exactly one minute.</p>
+  </li>
+  <li>
+    <p>Just a random signal: the open source Gnome project is also <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/35287" target="_blank">moving to Gitlab</a>.</p>
+  </li>
+  <li>
+    <p>I find Gitlab’s execution polished. The various install options are documented, and they even make the migration from Github scary easy: it takes a token and clicking one button to migrate all your Github repos.</p>
+  </li>
+</ul>
+
+<p><img src="images/import-all.png" alt="VPN" /></p>
+
+<p><br />
+That’s it for today, but I’m not done yet. I’m super excited about Gitlab’s <a href="https://about.gitlab.com/2016/11/22/introducing-review-apps/" target="_blank">Review apps</a> feature, plus I did see a menu item saying “Environments”. But more on these later.</p>
+
+<p>Onwards!</p>
+
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

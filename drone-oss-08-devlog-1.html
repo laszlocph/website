@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="DroneOSS08 Devlog &#x23;1" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/drone-oss-08-devlog-1" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="These are tricks I gathered over the years using Drone.io environment variables. All testable with `drone exec`." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="DroneOSS08 Devlog &#x23;1">
+  <meta name="twitter:description" content="These are tricks I gathered over the years using Drone.io environment variables. All testable with `drone exec`.">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
+
+  <title>Laszlo Fogas - DroneOSS08 Devlog &#x23;1</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="droneoss08-devlog-1">DroneOSS08 Devlog #1</h2>
+
+<p>2019-04-24</p>
+
+<p>This is the first Devlog entry for the DroneOSS08 project.</p>
+
+<p>DroneOSS08 is hosted on <a href="https://github.com/laszlocph/drone-oss-08/" target="\_blank">Github</a> and it’s a fork of Drone.io version 0.8</p>
+
+<p>This post is a brain dump. To track progress, to not fool myself six months in the project and to fuel some sentimentalism a year from now.</p>
+
+<h3 id="kubernetes-integration">Kubernetes integration</h3>
+
+<p><a href="https://github.com/laszlocph/drone-oss-08/compare/kube?expand=1" target="\_blank">https://github.com/laszlocph/drone-oss-08/compare/kube?expand=1</a></p>
+
+<p>So far so good, but this first part was the easy one. I could reuse the Apache 2.0 licensed code written by @metalmatze and then integrate it in the server. It takes only a few environment variables to enable the Kubernetes engine:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- DRONE_KUBERNETES=true
+- DRONE_KUBERNETES_NAMESPACE=default
+- DRONE_KUBERNETES_STORAGECLASS=example-nfs
+- DRONE_KUBERNETES_VOLUME_SIZE=100Mi
+- KUBECONFIG=/root/.kube/config
+</code></pre></div></div>
+
+<p>I could also test the RWX volume support through storage classes. Did a bunch of measurements as well. NFS is the simplest RWX volume to use but it has bad reputation.</p>
+
+<p>Speed was supposed to be an issue but my first benchmarks were not terrible. A complex <code class="highlighter-rouge">bundle install</code> was taking 2 minutes, same as on my laptop. Drone Cloud was my benchmark which resulted in 2 minutes too, but one time 1:20 only. I have to do more tests, but NFS is not terrible.</p>
+
+<p>Applied some opinions as well, all Drone pods will go into the same Kubernetes namespace. I believe I can solve the naming collision of services.</p>
+
+<h3 id="adoption">Adoption</h3>
+
+<p>I’m happy about adoption. I got green light from my client to install DroneOSS08 for them. Agreed that I have 6 months until the question will be raised again whether purchase Drone 1.0 licenses or stick with the fork.</p>
+
+<p>I guess their reasoning was that 0.8 works well right now and there is no immediate reason to update to 1.0. This of course may change as 1.0 diverge. But I have some time and a large install base to test my fork.</p>
+
+<h3 id="risks">Risks</h3>
+
+<p>The codebase is old. To be more precise the dependencies are many years old and were not kept up to date. I’m afraid of regressions popping up due to updating them.</p>
+
+<p>Like it happened already when I pulled in the Kubernetes Go client. Bunch of things broke, and a test too. I fear this single test failure is just the tip of the iceberg.</p>
+
+<p>Onwards!</p>
+
+    <br/>
+    <hr/>
+    <p>Read some more about Actions or Drone:</p>
+
+    <ul>
+      
+        
+          <li>
+            <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+          </li>  
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+
+    <hr/>
+    <br/>
+    <p>I can also notify you if there is a new Drone related article. Won't spam you, I promise.</p>
+    <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='bb30a2ae7497e8dbaf05162b58e3ecc5282a86f6253cc4e12d53849356709a95';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+    <span data-sumome-listbuilder-embed-id="936e7bcc0122906987a873e44345a0faca428e80fe0ba846f5a221d5ddec5417"></span>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

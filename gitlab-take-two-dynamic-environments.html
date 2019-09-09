@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Gitlab take two - Dynamic environments" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/gitlab.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/gitlab-take-two-dynamic-environments" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="In part one I found Gitlab to be not too pushy about its suite approach, and in part two Gitlab takes my appreciation to the next level. I say just one word - environments." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Gitlab take two - Dynamic environments">
+  <meta name="twitter:description" content="In part one I found Gitlab to be not too pushy about its suite approach, and in part two Gitlab takes my appreciation to the next level. I say just one word - environments.">
+  <meta name="twitter:image" content="/images/gitlab.png">
+
+  <title>Laszlo Fogas - Gitlab take two - Dynamic environments</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="gitlab-take-two---dynamic-environments">Gitlab take two - Dynamic Environments</h2>
+<p>2017-07-25</p>
+
+<p>In part one I found Gitlab to be not too pushy about its suite approach, and its CI to work as advertised. In part two Gitlab takes my appreciation to the next level. I say just one word: environments.</p>
+
+<p>Rewinding a few weeks back, I rediscovered a concept so dear to me: review apps. Review apps are on-demand, throw away test environments. With properties that</p>
+
+<ul>
+  <li>encourage decoupling feature releases</li>
+  <li>enabling automated integration tests</li>
+  <li>reducing the mayhem on release day</li>
+  <li>eliminating the code cut-off completely</li>
+</ul>
+
+<p>I made this video back then to demonstrate the feature on Github - as you can see I was not giving in to Gitlab just yet.</p>
+
+<p><br /></p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ctXMNLg2rpk" frameborder="0" allowfullscreen=""></iframe>
+
+<p><br /></p>
+
+<h3 id="it-takes-one-url">It takes one URL</h3>
+
+<p>What happened in the video behind the scenes is</p>
+
+<ul>
+  <li>A CircleCI job was triggered on commit</li>
+  <li>That job built the code and pushed the Docker image to the registry</li>
+  <li>CircleCI called a custom webhook I built to do the auto deploy to a dynamic environment</li>
+  <li>In that little Python endpoint I called the Rancher container orchestration system to deploy a new instance of the app with the freshly built image</li>
+  <li>Once it was deplyoed I used Github’s <a href="https://developer.github.com/v3/repos/statuses/" target="_blank">Status API</a> to report back the environment’s URL</li>
+</ul>
+
+<p>While it was not a big task, it did take time to piece it together, and using the Status API for dynamic environments does not have the best UX in my opinion.</p>
+
+<p>No surprise I was pumped to see the native support of Environments in Gitlab. Little did I know about the elegance of how Gitlab added the Environments feature.</p>
+
+<p>In essence they did what I did with Github: they built in a place where the URL of the dynamic environment can be stored, plus featured the name value pairs (environment - access URL) in the right places on the UI. Allowing full flexibility with environments, nothing really prescribed about the deployment method, no app server built in or similar.</p>
+
+<h3 id="how-to-dynamic-environment">How to dynamic environment?</h3>
+
+<p>The bellow .gitlab-ci.yml may look familiar from part one.</p>
+
+<p>The additions I made to achieve the dynamic environments is the deploy_review stage.</p>
+
+<script src="https://gist.github.com/laszlocph/0cac604fa56e0ac6e5a2141939162fb4.js"></script>
+
+<p><br />
+The deploy_review stage as its name suggests deploys the images that were built in the build stage. Doing that with a simple curl to the Rancher container orchestration platform, with the stack definition in the payload.</p>
+
+<p>While the payload may seem criptic first sight, it is essentially passing a docker-compose definition to Rancher, with a few deployment specific meta information in the rancher-compose field.</p>
+
+<script src="https://gist.github.com/laszlocph/f2da691257045a13b09e58a31d099db6.js"></script>
+
+<p><br />
+Besides defining the deployment step, the deploy_review stage contains a section about the environment itself: the key-value pair to define the environment name and its URL.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">environment</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">review/$CI_COMMIT_REF_NAME</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">http://$CI_COMMIT_REF_NAME.laszlo.cloud</span>
+</code></pre></div></div>
+
+<p>And that’s it. We use a special Gitlab variable to name the environment as review/&lt;&lt;branchname&gt;&gt;, and Gitlab will show the environment on the UI. No need to predefine the environment in Gitlab. They are trully dynamic.</p>
+
+<h3 id="environments-on-the-gitlab-ui">Environments on the Gitlab UI</h3>
+
+<p>This feature is only brilliant, because of how Gitlab integrates Environments to the UI. Environments prefixed with the same &lt;&lt;prefix&gt;&gt;/ are collapsable in the UI.</p>
+
+<p><img src="images/gitlab-envs.png" alt="Gitlab environments" /></p>
+
+<p><br />
+The environment link is shown both on the Environments screen (above) and on the PR details page as shown bellow.
+<img src="images/environments_mr_review_app.png" alt="Environment URL on MR view" /></p>
+
+<p><br />
+Plus one can view the deployment history of an environment, redeploy or roll back if needed.
+<img src="images/deployments_view.png" alt="Deployment history" /></p>
+
+<p><br />
+More on environments in the <a href="https://docs.gitlab.com/ce/ci/environments.html" target="_blank">Gitlab documentation</a>.</p>
+
+<h3 id="host-based-routing">Host based routing</h3>
+
+<p>While the .gitlab-ci.yml supports variables, there is a <a href="https://docs.gitlab.com/ce/ci/environments.html#limitations" target="_blank">limitation</a> that prevented me from doing the bare minimum for the dynamic environments - just launching a new environment on its own port; I had to set up proper host based routing for the environments in Rancher.</p>
+
+<p>It’s not the end of the world as instead of URLs like http://laszlo.cloud:xxxx I have now easy to remember URLs like</p>
+
+<blockquote>
+  <p>http://&lt;&lt;branchname&gt;&gt;.laszlo.cloud</p>
+</blockquote>
+
+<p>It looks pretty cool.</p>
+
+<p>For that, I used Traefik, a modern reverse proxy where all my Rancher services automatically register. All I had to do is to deploy Traefik from the Rancher service catalog and set a few labels as described <a href="http://rancher.com/traefik-active-load-balancer-on-rancher/" target="_blank">here</a>.</p>
+
+<h3 id="closing-thoughts">Closing thoughts</h3>
+
+<p>It took some time until I found Gitlab’s Dynamic Environments.</p>
+
+<p>I started the pursuit last fall in <a href="/Mastering-test-environments-with-Docker" target="_blank">Mastering test environments with Docker</a> where I rolled with my own command line based solution. Then revistied the topic a month ago and hacked it together for Github. But I think I found the ultimate solution on how to bring together the Pull Requests and the matching Dynamic Environment under one UI.</p>
+
+<p>As for Gitlab, I’m sold. The simplicity of the Environments feature amaze me. Actually I’m thinking it’s not too difficult for Github to follow the lead, nor anyone who wants to extend Github with a browser extension, <a href="https://github.com/sindresorhus/refined-github" target="_blank">Refined Github</a> style.</p>
+
+<p>The Github suite did not enforce anything on me, I like that. This might change of course. They certainly want to make it easy for developers, and that may reach magic levels.</p>
+
+<p>For example with their <a href="https://docs.gitlab.com/ee/ci/autodeploy/index.html" target="_blank">autodeploy effort</a> where they want to infer the deployment method from the source code. In my experience it’s only an illusion until reality kicks in. Things are complex, hiding that for too long is not the right answer. Anyways, let’s wait with the verdict on that one.</p>
+
+<p>Onwards!</p>
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

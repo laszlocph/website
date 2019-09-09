@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Rancher Kubernetes routing" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/rancher.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/Rancher-Kubernetes-routing" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Rancher Kubernetes routing">
+  <meta name="twitter:description" content="Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.">
+  <meta name="twitter:image" content="/rancher.png">
+
+  <title>Laszlo Fogas - Rancher Kubernetes routing</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="rancher-kubernetes-routing">Rancher Kubernetes routing</h2>
+<p>2017-05-31</p>
+
+<p>I identified three major milestones in the Kubernetes projects I had.</p>
+
+<p>Metrics, log aggregation, and routing being the three features that differ from project to project, depending on the 
+existing infrastructure, and the chosen Kubernetes vendor. Delivering these parts are nice wins on the way to get a feature complete infrastructure.</p>
+
+<p>Having those three in place opens up the cluster for wider usage and my focus can be diverted to the ever ongoing iterations of hardening the setup.</p>
+
+<h3 id="ranchers-take">Rancher’s take</h3>
+
+<p>Recently I got to know Rancher’s take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.</p>
+
+<p>To access a Kubernetes service, the only thing I had to do is to create a Kubernetes service with <em>“type: LoadBalancer”</em></p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">bot</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">bot</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="s">80</span>
+      <span class="na">targetPort</span><span class="pi">:</span> <span class="s">80</span>
+  <span class="s">&lt;b&gt;type</span><span class="pi">:</span> <span class="s">LoadBalancer&lt;/b&gt;</span>
+</code></pre></div></div>
+
+<p>By doing so and running “kubectl get svc” an EXTERNAL-IP showed up after a few seconds and I was good to access the service from the browser.</p>
+
+<p>Later when I used internal IPs in my cluster, the described method was still working, as long as the internal IP was the one where my Azure Load Balancer was pointing to.</p>
+
+<p>It felt a bit like magic, but it only started to bother me, when I experienced port collisions for port 80; and when the service IPs were on nodes that were not part of my load balancer pool.</p>
+
+<p>It turned out Rancher creates a LoadBalancer container for each service you define and place them accross all rancher nodes, no matter what their Kubernetes role is. Meaning one point a load balancer was provisioned on my etcd node. Not quite the design I was going for.</p>
+
+<p>While I knew that I have to address routing at some point, I was slightly concerned by this behavior.</p>
+
+<h3 id="ingress-to-the-rescue">Ingress to the rescue</h3>
+
+<p>It was clear that I wanted to have host based routing and offer all my services on standard ports. The <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#name-based-virtual-hosting">Kubernetes Ingress</a> abstraction felt like the way to go, and I was pleased that Rancher <a href="https://docs.rancher.com/rancher/v1.3/en/kubernetes/ingress/">supports</a> it.</p>
+
+<p>I had the idea that the Ingress definitions will look something like this:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">s1-ingress</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">s1.mycompany.com</span>
+    <span class="na">http</span><span class="pi">:</span>
+      <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
+          <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s1</span>
+          <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+</code></pre></div></div>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">s2-ingress</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">s2.mycompany.com</span>
+    <span class="na">http</span><span class="pi">:</span>
+      <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
+          <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s2</span>
+          <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+</code></pre></div></div>
+
+<p>One little Ingress snippet for each service I have, so it can be controlled by the feature team who owns the service and the services would be available on s1.mycompany.com and s2.mycompany.com respectively.</p>
+
+<h3 id="the-rancher-ingress-controller">The Rancher Ingress Controller</h3>
+
+<p>The difference between the Ingress and the Ingress controller was not crystal clear for me, but after some digging it materialized for me that the Ingress Controller is a component that listens to Kubernetes lifecycle events, and when an Ingress is defined, deleted or changed it makes the appropriate modifications in the “router” that actually handles the requests.</p>
+
+<p>Let me try to describe each component’s behavior in Rancher world:</p>
+
+<ul>
+  <li><strong>Ingress</strong>: is a Kubernetes logical abstraction that is nothing more than the piece of yaml I showed above.</li>
+  <li><strong>Ingress Controller</strong>: It’s a container itself that listens to Kubernetes events and creates a “router” for each Ingress definition. It does not handle traffic, it’s simple an event listener.</li>
+  <li><strong>Rancher Load Balancer</strong>: The “router” that the controller creates for each Ingress definition is a Rancher Load Balancer</li>
+</ul>
+
+<p>Since the Rancher Ingress Controller creates a Rancher Load Balancer for every service I was not in a better position than before: port collisions were still an issue, and placement of these LoadBalancers was not in my control.</p>
+
+<p>By re-reading the <a href="https://docs.rancher.com/rancher/v1.3/en/kubernetes/ingress/">Rancher’s documentation</a> I found a somewhat okay solution as I was able to control the placement of the Loadbalancers, plus if I kept all my service entrypoints in one giant Ingress definition I ended up having only one LoadBalancer.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="na">metadata</span><span class="pi">:</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">host-based-ingress</span>
+<span class="na">annotations</span><span class="pi">:</span>
+  <span class="s">io.rancher.scheduler.affinity.host_label</span><span class="pi">:</span> <span class="s2">"</span><span class="s">orchestration=true"</span>
+  <span class="s">allow.http</span><span class="pi">:</span> <span class="s2">"</span><span class="s">false"</span>
+<span class="na">spec</span><span class="pi">:</span>
+<span class="na">tls</span><span class="pi">:</span>
+ <span class="pi">-</span> <span class="na">secretName</span><span class="pi">:</span> <span class="s">mycompany-tls</span>
+<span class="na">rules</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">s1.mycompany.com</span>
+  <span class="na">http</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
+        <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s1</span>
+        <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+<span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">s2.mycompany.com</span>
+  <span class="na">http</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
+        <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s2</span>
+        <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+<span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">s3.mycompany.com</span>
+  <span class="na">http</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
+        <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s3</span>
+        <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+</code></pre></div></div>
+
+<p>But as you can tell, having one giant config for all the routing is really not convenient and prone to errors.</p>
+
+<h3 id="the-kubernetes-ingress-controller">The Kubernetes Ingress Controller</h3>
+
+<p>It bothered me a lot, so a few days later I checked out what the vanilla Kubernetes has to offer.</p>
+
+<p>I knew it can be done as Openshift’s Router worked as I would prefer: having many Ingress definitions that all modify one central router software component (which was HAProxy that case).</p>
+
+<p>At first it wasn’t very comforting as the Kubernetes Ingress doc just points to a Github repository, but it turns out the <a href="https://github.com/kubernetes/ingress/tree/master/controllers/nginx">Nginx based controller</a> they recommend works as I expect it to: the ingress controller was serving the traffic itself, and I could define an Ingress per Service.</p>
+
+<p>I quickly deployed the default backend and the controller and while I was able to follow the virtual host changes within the ingress container, one component was missing. Routing traffic to the Ingress Controller was not solved yet.</p>
+
+<p>I had to create a Rancher LoadBalancer by hand to route all traffic to the Ingress Controller.</p>
+
+<p>It still feels like an extra manual step that shuldn’t be necessary, but I think of this now as if I created an AWS ELB. At some point the sorrounding infrastructure has to pass traffic to Kube, so I think I’m fine with this.
+The Rancher LB was also the place where I terminate SSL, so the Kube Ingress doesn’t deal with it now.</p>
+
+<h3 id="unexpected-design">Unexpected design</h3>
+
+<p>I’m not sure what lead the Rancher team pick this unconventional design, I’m sure they have their reasons.</p>
+
+<p>What turned out to be a show stopper for me is that I either had to deal with port collisions or one giant shared Ingress file. None I’d like to live with long term and it seems the Kubernetes Ingress serves me well.</p>
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

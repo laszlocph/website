@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Docker cluster management on AWS" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/cloudformation.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/Docker-cluster-management-on-AWS" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="In this episode I reuse the well known Docker Compose files from part 2 and run the stack on AWS. I also explore production usage on AWS ECS." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Docker cluster management on AWS">
+  <meta name="twitter:description" content="In this episode I reuse the well known Docker Compose files from part 2 and run the stack on AWS. I also explore production usage on AWS ECS.">
+  <meta name="twitter:image" content="/cloudformation.png">
+
+  <title>Laszlo Fogas - Docker cluster management on AWS</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="docker-cluster-management-on-aws">Docker cluster management on AWS</h2>
+<p>2016-10-21</p>
+
+<hr />
+<p>tldr
+In this episode I reuse the well known Docker Compose files from part 2 and run the stack on AWS. I also explore production usage on AWS ECS.</p>
+
+<hr />
+
+<p>By the end of <a href="Mastering-test-environments-with-Docker">part 2</a> of the series I was able to run any set of services with any feature branch on a remote machine. The setup was quite pleasing to me since the local and test environments were identical and I could showcase the state of development easily for Product Management or QA.</p>
+
+<p>I could reach that point relatively easily since I used only Docker’s built in tooling. They were perfectly integrated and very powerful, thanks to Docker’s <em>batteries included</em> approach.</p>
+
+<p><img src="images/env.png" alt="Tailored environment" /></p>
+
+<p>I was also moaning a bit that I couldn’t point my Docker Compose script to a cluster of Docker Engines in swarm mode, but I generally wasn’t sure about the next steps.</p>
+
+<ul>
+  <li>I could translate my stack described in compose files to the new <em>service</em> concept - introduced in Docker 1.12 - and explore <a href="https://docs.docker.com/engine/swarm/">swarm mode</a></li>
+  <li>and later manage that cluster through <a href="http://rancher.com/">Rancher</a>.</li>
+  <li>I could also try Amazon AWS’s managed cluster solution: <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html">ECS</a></li>
+  <li>or dive into competing stacks like <a href="http://kubernetes.io">Kubernetes</a>, and later on experience with <a href="https://cloud.google.com/container-engine/">Google Cloud’s</a> managed options.</li>
+</ul>
+
+<h3 id="ecs-elastic-container-service">ECS: Elastic Container Service</h3>
+<p>Eventually I opted for ECS since there are already plenty of new concepts to juggle with. Managing my own cluster - while it is intellectually pleasing - seemed like an overkill.</p>
+
+<p>Especially as <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-service.html">AWS provides tooling to reuse my Docker Compose files</a>, and it took only a few changes to fit my work to ECS.</p>
+
+<p>You can check those changes <a href="https://github.com/laszlocph/multi-env/commit/2f2cd6b2069bbc355f63b5945cb979344e338315">here</a>. Basically I had to drop the <em>depends_on</em> definition in favor of <em>links</em>, and extended the compose file with CPU and memory restrictions.</p>
+
+<p>While running compose on ECS for QA environments was a breeze, I had to create AWS flavored service definitions anyway for my production stack. But more on that later.</p>
+
+<h3 id="launching-a-cluster">Launching a cluster</h3>
+
+<p>ECS has a very straightforward <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/create_cluster.html">documentation</a>, and it’s easy to create a cluster with the AWS dashboard based on that.</p>
+
+<p>I generally favor scripts and configuration management tools simply because it’s easier to recreate and automate the work later on. 
+For the sake of fewer moving parts I created my first cluster through the <a href="http://docs.aws.amazon.com/cli/latest/userguide/tutorial-ec2-ubuntu.html">AWS CLI</a> and didn’t use tools like Ansible, Cloudformation or Terraform.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ecs-cli configure <span class="nt">--region</span> eu-west-1 <span class="nt">--cluster</span> cluster01   
+ecs-cli up <span class="nt">--keypair</span> ecs <span class="nt">--capability-iam</span> <span class="nt">--size</span> 2 <span class="nt">--instance-type</span> t2.micro
+</code></pre></div></div>
+
+<p>The above two commands create a complete ECS cluster with all the network infrastructure it requires. It uses a CloudFormation template in the background, where you can validate the actual complexity of the stack.</p>
+
+<p><img src="images/cloudformation.png" alt="Network infrastructure" /></p>
+
+<h3 id="ecs-services-and-tasks">ECS services and tasks</h3>
+
+<p>ECS has two primitives to work with: <em>services</em> and <em>tasks</em>.</p>
+
+<p><em>Tasks</em> basically mirror the service definition section of the Docker Compose file. You define the used Docker image here, exposed ports, volumes and a <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html">bunch of other things</a>.</p>
+
+<p><em>Services</em> represent a higher level of abstraction. You define what task to run, how many instances, what load balancer to use, and you set the auto scaling parameters here too. The ECS <em>service</em> makes sure that the preferred amount of containers run, it starts new containers if one dies, and you also perform rolling updates through the <em>service</em> definition by changing the referenced task. ECS takes care of the redeployment.</p>
+
+<h3 id="compose-up">Compose up</h3>
+
+<p>Once the cluster is running, I start up the environment defined in the docker-compose.yml file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ecs-cli compose service up
+</code></pre></div></div>
+
+<p>It creates the required <em>task</em> definitions from the compose file and also creates a <em>service</em>.</p>
+
+<p>Similarly to Docker Compose, I can check the status, or stop the environment with the <em>ecs-cli compose service ps</em> and <em>ecs-cli compose service stop</em> commands. It also shows where can I access the exposed port.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.../web-python  RUNNING  52.210.151.19:5000-&gt;5000/tcp  ...-multi-env:2
+.../boot        RUNNING                                ...-multi-env:2
+.../redis       RUNNING                                ...-multi-env:2
+</code></pre></div></div>
+
+<p>At this point the service is accessible on the displayed IP, I only have to do a small modification in the AWS Security Group because I use a non standard port. And while I’m there, I make sure that the service is only accessible to me. That you can do by limiting the incoming traffic to your office IP, but I rather suggest to set up VPN  access for higher security.</p>
+
+<p>Since the flow is identical to the flow in part 2, I simply modified the <a href="https://github.com/laszlocph/multi-env/blob/ecs/start-env.sh">start-env</a> script to operate with the <em>ecs-cli</em> commands, and I achieved the same flexibility using an ECS cluster.</p>
+
+<p>Each time I run the script I get a new environment exposed on a random port, on one of the cluster node’s IP.</p>
+
+<p>Full disclosure: this is not full cluster transparency, but it is sufficient for QA environments. I will address this by load balancers in my production setup.</p>
+
+<h3 id="production-setup">Production setup</h3>
+
+<p>There are a few <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html">notable limitations</a> which prevent me from running my production stack directly from compose files:</p>
+
+<ul>
+  <li><em>ecs-cli compose service up</em> puts all my components into one <em>task</em> definition, and all components in a single task are deployed together on the same cluster node.</li>
+  <li>Putting all components in the same <em>task</em> means that I can only scale them together with the means of <em>services</em>. This is way too rigid for production deployment.</li>
+  <li>A <em>task</em> can only take up to 10 components</li>
+  <li>Referencing components by their name through <em>links</em> only work within one <em>task</em> definition. This I have to address with an extra layer of abstraction.</li>
+</ul>
+
+<p>So essentially I’m facing the same problem as with using compose with swarm mode. I have to architect my production layout differently than my local and QA environments.</p>
+
+<p>This may feel like giving up Docker’s main promise, but I argue that the value is in the flexibility I achieved with the local/QA environments by handling the whole stack together.</p>
+
+<p>It’s also time to mention that in those environments I generously overlooked the complex network layout what production setups have. 
+Furthermore some elements of my stack may never be Dockerized for production use. Large scale SQL databases, or managed database services - like RDS or ElastiCache - may not benefit of the agility of containers.</p>
+
+<p>So the task ahead is to create the fine grained version of the <em>service</em> definitions, and solve the problem of <em>Service Discovery</em>.</p>
+
+<h3 id="service-discovery-light">Service Discovery light</h3>
+
+<p>Service Discovery is a problem that became prominent recently in the highly volatile environment of immutable infrastructures. Since services come and go, scale up and down, one can never be sure on what IP address a service is accessible. Putting IP addresses into application configuration files is too rigid to handle the fast changes. The need arise to turn things up side down.</p>
+
+<p>Service discovery tools like <a href="https://github.com/Netflix/eureka">Netflix Eureka</a>, <a href="https://www.consul.io/">Consul</a> become very popular. Essentially every service registers its access information in these components, and the service clients obtain the connection information from these service registries.</p>
+
+<p>In my example though I solve the problem by simply using AWS’s Elastic Load Balancer (ELB) service. Especially as it is <a href="https://aws.amazon.com/about-aws/whats-new/2016/08/amazon-ec2-container-service-now-integrated-with-application-load-balancer-to-support-dynamic-ports-and-path-based-routing/">now aware of ECS services</a>. 
+Services automatically get registered in ELB, so I can be sure that by accessing the service on a given DNS name, my request is routed to one of the containers in an ECS <em>service</em>.</p>
+
+<p>This combined with the new path based routing in ELB, and the ability to run a load balancer on internal networks allows me to not introduce any complex Service Discovery component.</p>
+
+<h3 id="launching-the-production-service">Launching the production service</h3>
+
+<p>I had to provide a few parameters in order to create the load balancer. The subnets are the ones where the ECS cluster nodes are created, and I created a brand new security group for the load balancer. Later on the cluster nodes will only allow connections from the load balancer, while the load balancer takes the ingress traffic.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws elbv2 create-load-balancer <span class="nt">--name</span> elb01 <span class="nt">--subnets</span> subnet-ae0f49ca subnet-573e4221 <span class="nt">--security-groups</span> sg-08e22e6e
+
+aws elbv2 create-target-group <span class="nt">--name</span> target01 <span class="nt">--protocol</span> HTTP <span class="nt">--port</span> 80 <span class="nt">--vpc-id</span> vpc-3803615c
+
+aws elbv2 create-listener <span class="nt">--load-balancer-arn</span> arn:aws:...loadbalancer/app/elb01 <span class="nt">--protocol</span> HTTP <span class="nt">--port</span> 80 <span class="nt">--default-actions</span> <span class="nv">Type</span><span class="o">=</span>forward,TargetGroupArn<span class="o">=</span>arn:aws:...targetgroup/target01
+</code></pre></div></div>
+
+<p>You can find out more about the  <em>target group</em> and <em>listener</em> components in <a href="https://aws.amazon.com/blogs/compute/microservice-delivery-with-amazon-ecs-and-application-load-balancers/">this article</a>.</p>
+
+<p>The last thing I had to prepare is the <em>task</em> and <em>service</em> definition files.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"containerDefinitions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cpu"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"essential"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"laszlocph/spring-boot-dummy:exposed"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"memory"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boot"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"portMappings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"containerPort"</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"hostPort"</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"family"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boot"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"volumes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w"> 
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"cluster"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cluster01"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boot"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"taskDefinition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boot:1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"loadBalancers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"targetGroupArn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:e....:targetgroup/target01/03f4ca3155c8db4a"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"containerName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boot"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"containerPort"</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"desiredCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"clientToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11yzFkCnk6FD8QBtBIYN8GBSqpOYieIk"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecsServiceRole"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deploymentConfiguration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"maximumPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"minimumHealthyPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">  
+</span></code></pre></div></div>
+
+<p>Both were based on a blank definition generated by</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws ecs register-task-definition <span class="nt">--generate-cli-skeleton</span>
+aws ecs create-service <span class="nt">--generate-cli-skeleton</span>
+</code></pre></div></div>
+
+<p>commands respectively, but I also had success using <a href="https://github.com/micahhausler/container-transform">this container transform utility</a> that transforms Docker Compose files to ECS task definitions, or Kubernetes Pods, if that’s what you need.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws ecs register-task-definition <span class="nt">--cli-input-json</span> file://boot-task.json
+aws ecs create-service <span class="nt">--cli-input-json</span> file://boot-service.json
+</code></pre></div></div>
+
+<p>After registering the task and service in ECS, the container instances get registered in the ELB Target Group and the service is available on load balancer’s hostname.</p>
+
+<p><img src="images/nodes.png" alt="Healthy nodes in the cluster" /></p>
+
+<h3 id="rolling-out-updates">Rolling out updates</h3>
+
+<p>Deploying a new version of the service requires to update the service definition. Then the changes are shown in the ECS logs.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws ecs update-service <span class="nt">--cluster</span> cluster01 <span class="nt">--service</span> arn:aws:ecs:eu-west-1:782027979363:service/boot <span class="nt">--task-definition</span> boot:2
+</code></pre></div></div>
+
+<p><img src="images/events.png" alt="Event log" /></p>
+
+<p>Full disclosure: the update took many minutes, but most of the time was spent in draining connections from ELB. The default five minutes can be changed to speed up deployment.</p>
+
+<h3 id="more-services">More services</h3>
+<p>Since a single instance of the load balancer can handle many services - each mapped into a different subpath or port - the only requirement to create a new service is to create the task and service definitions, and to create a new <em>target group</em> for each service that you reference in the service definition. Containers will be automatically registered to the load balancer.</p>
+
+<h3 id="next-steps">Next steps</h3>
+<p>It was a good exercise to create the first service with AWS CLI, mapping all services by hand though is a bit cumbersome. Configuration management tools - where the versioned state of the service is stored - can aid this problem. As a possible next step I will explore either Ansible, Terraform or CloudFormation to manage the stack at a higher level.</p>
+
+<p>Onwards!</p>
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

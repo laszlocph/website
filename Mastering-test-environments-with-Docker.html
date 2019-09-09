@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Mastering test environments with Docker" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/env.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/Mastering-test-environments-with-Docker" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="In this article I show how to use Docker Compose to pick and choose services and branches for any local or QA environment. I also showcase the branch aware build pipeline introduced in Jenkins 2.0." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Mastering test environments with Docker">
+  <meta name="twitter:description" content="In this article I show how to use Docker Compose to pick and choose services and branches for any local or QA environment. I also showcase the branch aware build pipeline introduced in Jenkins 2.0.">
+  <meta name="twitter:image" content="/env.png">
+
+  <title>Laszlo Fogas - Mastering test environments with Docker</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="mastering-test-environments-with-docker">Mastering test environments with Docker</h2>
+<p>2016-10-12</p>
+
+<hr />
+
+<p>tldr
+In this article I show how to use Docker Compose to pick and choose services and branches for any local or QA environment. I also showcase the branch aware build pipeline introduced in Jenkins 2.0.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Uu0v-ZDlYDI" frameborder="0" allowfullscreen=""></iframe>
+
+<hr />
+
+<p>In the <a href="Simple-Jenkins-and-Docker-workflow">first part</a> of the series I addressed three out of four requirements</p>
+
+<ul>
+  <li>we build in an independent environment</li>
+  <li>we version the build environment together with the source code</li>
+  <li>so as we version the build pipeline in the source repository</li>
+</ul>
+
+<p>The last outstanding requirement makes the workflow so exciting to me, the ability to provision an environment with a handpicked set of components and branches unlocks productivity to a great extent.</p>
+
+<h3 id="build-every-branch">Build every branch</h3>
+<p>But first we have to make sure that all branches get built automatically.</p>
+
+<p>Besides the Jenkinsfile, Jenkins has another new feature in 2.0, it is now aware of branches in the source code repository. 
+This nifty feature spares us a ton of boilerplate work as we don’t have to set up new instances of the build pipeline for every branch ourselves.</p>
+
+<p>By picking <em>Multibranch Pipeline</em> on the job creation page we get the same behavior as the <em>Pipeline</em> job, plus Jenkins automatically creates a sub-project for each branch with a Jenkinsfile that it finds in the repository.</p>
+
+<p><img src="images/multibranch.png" alt="Multi-branch support" /></p>
+
+<p>We also got a new item on the side bar to reindex branches on demand. It is able to detect new branches and delete pipelines that belong to deleted ones.</p>
+
+<p><img src="images/branch-indexing.png" alt="Multi-branch support" /></p>
+
+<p>I made one more modification to the pipeline to make it practically useful. In this new final step I push the built Docker container image to a <a href="https://hub.docker.com/r/laszlocph/spring-boot-dummy/tags/">registry</a>. 
+With this step the container becomes available to other processes for verification and deployment.</p>
+
+<h3 id="define-stacks">Define stacks</h3>
+<p>At this point components are built continuously on every branch. As a next step I describe their interrelatedness with <a href="https://docs.docker.com/compose/">Docker Compose</a> and handle them as a logical unit to bring up local and later remote environments.</p>
+
+<p>Docker Compose has a simple yaml syntax, and while it has <a href="https://docs.docker.com/compose/compose-file/">powerful options</a>, it is very easy to define simple stacks.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+ <span class="na">web-python</span><span class="pi">:</span>
+   <span class="na">image</span><span class="pi">:</span> <span class="s">laszlocph/composetest</span>
+   <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5000:5000"</span>
+   <span class="na">depends_on</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">redis</span>
+ <span class="na">boot</span><span class="pi">:</span>
+   <span class="na">image</span><span class="pi">:</span> <span class="s">laszlocph/spring-boot-dummy</span>
+ <span class="na">redis</span><span class="pi">:</span>
+   <span class="na">image</span><span class="pi">:</span> <span class="s">redis</span>
+</code></pre></div></div>
+
+<p>Above I defined three services,</p>
+<ul>
+  <li><em>web-python</em> is based on a dummy webapp, the laszlocph/composetest image that depends on a running redis container</li>
+  <li><em>boot</em> is the well known Spring Boot application from part one.</li>
+  <li><em>redis</em> is just a vanilla Redis container</li>
+</ul>
+
+<p>Running this stack takes nothing more than executing the docker-compose up command. We don’t have to fiddle with individual <em>docker run</em> commands as
+it will start all containers in the right order, with the right volumes and exposed ports just as they are described in the docker-compose file.</p>
+
+<p>Furthermore it defines a Docker network, so the services are able to communicate with each other in separation to other network traffic. 
+They can do that by simply mentioning each other’s name as Compose puts an entry in the containers host file with all available services and their IPs.</p>
+
+<p>Once the services are up you can verify the containers with the <em>docker ps</em> command as they are completely regular containers. Docker Compose seamlessly integrates with other Docker tools.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laszlo@~/multi-env: docker-compose up
+Creating network <span class="s2">"multienv_default"</span> with the default driver
+Creating multienv_boot_1
+Creating multienv_redis_1
+Creating multienv_web-python_1
+Attaching to multienv_boot_1, multienv_redis_1, multienv_web-python_1
+boot_1        | 
+boot_1        |   <span class="nb">.</span>   ____          _            __ _ _
+boot_1        |  /<span class="se">\\</span> / ___<span class="s1">'_ __ _ _(_)_ __  __ _ \ \ \ \
+boot_1        | ( ( )\___ | '</span>_ | <span class="s1">'_| | '</span>_ <span class="se">\/</span> _<span class="sb">`</span> | <span class="se">\ \ \ \</span>
+boot_1        |  <span class="se">\\</span>/  ___<span class="o">)</span>| |_<span class="o">)</span>| | | | | <span class="o">||</span> <span class="o">(</span>_| |  <span class="o">)</span> <span class="o">)</span> <span class="o">)</span> <span class="o">)</span>
+boot_1        |   <span class="s1">'  |____| .__|_| |_|_| |_\__, | / / / /
+boot_1        |  =========|_|==============|___/=/_/_/_/
+boot_1        |  :: Spring Boot ::        (v1.4.0.RELEASE)
+boot_1        | 
+redis_1       | 1:C 12 Oct 09:33:23.093 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+redis_1       |                 _._                                                  
+redis_1       |            _.-``__ ''-._                                             
+redis_1       |       _.-``    `.  `_.  ''-._           Redis 3.2.4 (00000000/0) 64 bit
+redis_1       |   .-`` .-```.  ```\/    _.,_ ''-._                                   
+redis_1       |  (    '</span>      ,       .-<span class="sb">`</span>  | <span class="sb">`</span>,    <span class="o">)</span>     Running <span class="k">in </span>standalone mode
+redis_1       |  |<span class="sb">`</span>-._<span class="sb">`</span>-...-<span class="sb">`</span> __...-.<span class="sb">``</span>-._|<span class="s1">'` _.-'</span>|     Port: 6379
+redis_1       |  |    <span class="sb">`</span>-._   <span class="sb">`</span>._    /     _.-<span class="s1">'    |     PID: 1
+redis_1       |   `-._    `-._  `-./  _.-'</span>    _.-<span class="s1">'                                   
+redis_1       |  |`-._`-._    `-.__.-'</span>    _.-<span class="s1">'_.-'</span>|                                  
+redis_1       |  |    <span class="sb">`</span>-._<span class="sb">`</span>-._        _.-<span class="s1">'_.-'</span>    |           http://redis.io        
+redis_1       |   <span class="sb">`</span>-._    <span class="sb">`</span>-._<span class="sb">`</span>-.__.-<span class="s1">'_.-'</span>    _.-<span class="s1">'                                   
+redis_1       |  |`-._`-._    `-.__.-'</span>    _.-<span class="s1">'_.-'</span>|                                  
+redis_1       |  |    <span class="sb">`</span>-._<span class="sb">`</span>-._        _.-<span class="s1">'_.-'</span>    |                                  
+redis_1       |   <span class="sb">`</span>-._    <span class="sb">`</span>-._<span class="sb">`</span>-.__.-<span class="s1">'_.-'</span>    _.-<span class="s1">'                                   
+redis_1       |       `-._    `-.__.-'</span>    _.-<span class="s1">'                                       
+redis_1       |           `-._        _.-'</span>                                           
+redis_1       |               <span class="sb">`</span>-.__.-<span class="s1">'                                               
+redis_1       | 
+...
+web-python_1  |  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+web-python_1  |  * Restarting with stat
+web-python_1  |  * Debugger is active!
+web-python_1  |  * Debugger pin code: 238-470-859
+
+</span></code></pre></div></div>
+
+<h3 id="operating-docker-compose">Operating Docker Compose</h3>
+
+<p>You can get the true power of Docker Compose from its <a href="https://docs.docker.com/compose/reference/">CLI reference</a>, I only want to highlight a few commands that can get you very far:</p>
+
+<ul>
+  <li><em>docker-compose up -d</em> to run a stack detached</li>
+  <li><em>docker-compose logs -f</em> to tail a stack’s output</li>
+  <li><em>docker-compose ps</em> to see the state of the stack</li>
+  <li><em>docker-compose stop</em> to stop a stack</li>
+  <li><em>docker-compose rm</em> to clean up once you are done</li>
+</ul>
+
+<h3 id="value-in-running-compose">Value in running Compose</h3>
+
+<p>If you version your compose file together with the source code it guarantees that anyone in the team can run the stack locally, but because Docker Compose integrates with other Docker tools you can also point it at a remote machine, 
+or a cluster of Docker Engines. You can start up a QA environment or even a production stack just as easy as running one locally. And that has huge value for me.</p>
+
+<p>Imagine when a new colleague joins the team and she has a local environment up and running within fifteen minutes. Or when she has her first feature ready to showcase, she can share the QA environment with the team with a single command. 
+Now this is what I call proper onboarding.</p>
+
+<h3 id="running-a-stack-remotely">Running a stack remotely</h3>
+
+<p>First, let’s create a remote environment with an other Docker tool. Docker Machine allows me to provision easily a VM with Docker Engine installed, be that locally with VirtualBox or remotely on Amazon AWS or Azure.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-machine create <span class="nt">--driver</span> virtualbox composeHost
+</code></pre></div></div>
+
+<p>Docker Machine - just like Vagrant - pulls in an image and launches a VM in Virtualbox and also provides convenience methods to operate the VM.</p>
+
+<p>Notable commands are:</p>
+
+<ul>
+  <li>docker-machine ls</li>
+  <li>docker-machine ssh <VM name=""></VM></li>
+  <li>docker-machine stop <VM name=""></VM></li>
+  <li>docker-machine rm <VM name=""></VM></li>
+</ul>
+
+<p>Once the new node is running I can point my docker executable to it by running</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">eval</span> <span class="k">$(</span>docker-machine <span class="nb">env </span>composeHost<span class="k">)</span>
+</code></pre></div></div>
+
+<p>From this moment on, every docker command I run is not executed locally, but on the remote host. 
+This may look magical, but what happens in the background is that it sets a few environment variables that is regarded by the docker executable.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laszlo@~: docker-machine <span class="nb">env </span>composeHost
+<span class="nb">export </span><span class="nv">DOCKER_TLS_VERIFY</span><span class="o">=</span><span class="s2">"1"</span>
+<span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span><span class="s2">"tcp://192.168.99.100:2376"</span>
+<span class="nb">export </span><span class="nv">DOCKER_CERT_PATH</span><span class="o">=</span><span class="s2">"/home/laszlo/.docker/machine/machines/composeHost"</span>
+<span class="nb">export </span><span class="nv">DOCKER_MACHINE_NAME</span><span class="o">=</span><span class="s2">"composeHost"</span>
+<span class="c"># Run this command to configure your shell: </span>
+<span class="c"># eval $(docker-machine env composeHost)</span>
+</code></pre></div></div>
+
+<p>While the above clarifies what happens, the outcome is still magical as the docker-compose command will also operate on the remote machine as it relies on standard docker commands. 
+Providing the same interface for local and remote work for no additional cost.</p>
+
+<p>Once I’m done with the remote work, or got confused which server I’m on, I can easily set the environment back to local by calling</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">eval</span> <span class="k">$(</span>docker-machine <span class="nb">env</span> <span class="nt">-u</span><span class="k">)</span>
+</code></pre></div></div>
+
+<h3 id="running-multiple-flavors-at-the-same-time">Running multiple flavors at the same time</h3>
+<p>At this point I can run my stack locally or remotely, but the static port binding prevents me from running multiple instances at the same time.</p>
+
+<p>This is a real bummer since I’m working on multiple feature branches at the same time and I want to expose them in various stages of development. 
+Furthermore there are typically not three but thirty components in my stack, making it a bit slow and resource intensive to spin up new stacks.</p>
+
+<p>While the compose file allows <a href="https://docs.docker.com/compose/extends/">hierarchies</a> of files built on each other, and the usage of <a href="https://docs.docker.com/compose/environment-variables/">variables</a> 
+allow me to expose the same service on different ports, managing that by hand may become cumbersome.</p>
+
+<p>For this reason I built a little tool to handpick what services I need and what feature branch to include in an environment. 
+<a href="https://github.com/laszlocph/composer/blob/master/composer.py">It</a> simply reads the compose file, then the component set can be defined interactively. 
+It writes a new compose file what I can use later to spin up the environment.</p>
+
+<p>The script also fetches the available branches for services where the <em>image</em> element is annotated with the Githup repository URL.</p>
+
+<p><img src="images/env.png" alt="Tailored environment" /></p>
+
+<p>As shown on the above screenshot, I selected all services and picked the <em>new-endpoint</em> branch for the <em>boot</em> component. Then I took the prepared compose file and started a new environment on a remote host by using <a href="https://github.com/laszlocph/multi-env/blob/master/start-env.sh">this script</a>.</p>
+
+<p>I was inspired by the Docker Compose and Machine commands so I also introduced a few convenience scripts myself.</p>
+
+<ul>
+  <li><a href="https://github.com/laszlocph/multi-env/blob/master/env-status.sh">env-status.sh</a></li>
+  <li><a href="https://github.com/laszlocph/multi-env/blob/master/stop-env.sh">stop-env.sh</a></li>
+  <li><a href="https://github.com/laszlocph/multi-env/blob/master/remove-env.sh">remove-env.sh</a></li>
+  <li><a href="https://github.com/laszlocph/multi-env/blob/master/list-envs.sh">list-envs.sh</a></li>
+</ul>
+
+<h3 id="next-steps">Next steps</h3>
+
+<p>I hope you are as pumped about the screen above as I am. While the script can be made web based, more robust, etc, I achieved what I set out to do.</p>
+
+<p>For me Docker lived up to the promise. 
+Especially as the rabbit hole was never too deep. During my research, problems were easy to resolve after half an hour of searching and making sensible choices. 
+Docker is here and can provide real productivity improvements.</p>
+
+<p>I also reached the bleeding edge of the ecosystem. While Docker Compose integrates with all tools, this does not stand for the clustering improvements introduced in version 1.12. 
+More specifically, Compose can be pointed to a cluster and run distributed, but only with Docker Swarm, not with the newly introduced Docker Engine in swarm mode.</p>
+
+<p>Important to highlight that the two are not the same.</p>
+
+<ul>
+  <li><a href="https://docs.docker.com/swarm/overview/">Docker Swarm</a> is the clustering solution that allow many Docker Engines to look like one. 
+It is a bit cumbersome to set up, uses 3rd party components to keep the cluster state (etcd, Consul, Zookeper), but apart from that, it was the way to go until recently.</li>
+  <li><a href="https://docs.docker.com/engine/swarm/">Docker Engine in swarm mode</a> also allows many docker nodes to act like one, but it is much easier to configure as it does not require 3rd party components. 
+It also introduces the <em>service</em> higher level abstraction that allows easy rolling updates, and more intelligent network routing. 
+Sadly Docker Compose can not be pointed at this new clustering solution yet, I’m sure though this will be implemented in coming versions. Especially as Compose has an <a href="https://docs.docker.com/compose/bundles/">experimental feature</a> already doing just that.</li>
+</ul>
+
+<p>There are plenty of next steps ahead of me, clustering is a big topic. My goal is to find a nice way to run production stacks with similar ease as the workflow above. I will also peak into competing platforms and investigate connecting topics.</p>
+
+<p>Onwards!</p>
+
+<p>NEW Part three is out <a href="http://laszlo.cloud/Docker-cluster-management-on-AWS" style="color: red; align: center;">Docker cluster management on AWS</a><br /></p>
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

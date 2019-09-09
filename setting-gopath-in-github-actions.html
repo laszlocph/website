@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Setting GOPATH in Github Actions" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/setting-gopath-in-github-actions" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="Github Actions defaults are not ideal for Golang projects. This article shows how I configured GOPATH in Actions." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Setting GOPATH in Github Actions">
+  <meta name="twitter:description" content="Github Actions defaults are not ideal for Golang projects. This article shows how I configured GOPATH in Actions.">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
+
+  <title>Laszlo Fogas - Setting GOPATH in Github Actions</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="setting-gopath-in-github-actions">Setting GOPATH in Github Actions</h2>
+
+<p>2019-08-28</p>
+
+<p>If you are yet to adopt Go modules, you ought to have GOPATH set in Github Actions to have your builds succeed.</p>
+
+<p>This article shows you a way to set $GOPATH.</p>
+
+<h3 id="first-you-need-go-installed">First you need Go installed</h3>
+
+<p>It’s early days with Github Actions to say for sure, but seemingly the canonical way to install tools on the runner environment is to use the <code class="highlighter-rouge">actions/setup-go@v1</code> Github Action.</p>
+
+<p>It gets the job done, but the folder structure and <code class="highlighter-rouge">go env</code> is not set properly for builds that rely on $GOPATH</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Go</span>
+<span class="na">on</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">push</span><span class="pi">]</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go 1.12</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-go@v1</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">go-version</span><span class="pi">:</span> <span class="s">1.12.4</span>
+    
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Debug</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="no">pwd</span>
+        <span class="no">echo ${GOPATH}</span>
+        <span class="no">echo ${GOROOT}</span>
+</code></pre></div></div>
+
+<p>$GOROOT is set but $GOPATH is not:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/runner/work/woodpecker/woodpecker
+
+/opt/hostedtoolcache/go/1.12.4/x64
+</code></pre></div></div>
+
+<h3 id="controlling-the-checkout-path">Controlling the checkout path</h3>
+
+<p>Go requires a specific folder structure for the checked out code to be in. Unfortunately Github Actions’s checkout path is not matching this layout.</p>
+
+<p>By default the checked out code is placed under <code class="highlighter-rouge">/home/runner/work/REPOSITORY/REPOSITORY</code>. This slightly odd path can be changed by parameterizing the checkout action:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check out code to a GOPATH compatible directory</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v1</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="s">1</span>
+        <span class="na">path</span><span class="pi">:</span> <span class="s">go/src/github.com/laszlocph/woodpecker</span>
+</code></pre></div></div>
+
+<p>Running the debug commands again, the current folder will be <code class="highlighter-rouge">/home/runner/work/woodpecker/go/src/github.com/laszlocph/woodpecker</code> which resembles a valid $GOPATH.</p>
+
+<h3 id="setting-gopath">Setting $GOPATH</h3>
+
+<p>Now that the code is checked out to a folder that matches the layout of a typical GOPATH, we can set the GOPATH variable to the right path.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Test</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="no">go test -cover $(go list ./... | grep -v /vendor/)</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">GOPATH</span><span class="pi">:</span> <span class="s">/home/runner/work/woodpecker/go</span>
+</code></pre></div></div>
+
+<p>After setting this environment variable <code class="highlighter-rouge">go test</code> and other <code class="highlighter-rouge">go</code> commands start working. Unfortunately this variable needs to be set in every step where the Go tooling is used.</p>
+
+<p>This shows that Github Actions is little rough around the edges and not optimized for Go workflows. I’m certain this is going to be improved, like in <a href="https://github.com/actions/setup-go/issues/12" target="\_blank">this</a> issue where the setup-go action is getting better support for GOPATH.</p>
+
+<p>Onwards!</p>
+
+<p>UPDATE: a second part was published on GOPATH <a href="https://laszlo.cloud/setting-gopath-in-github-actions-revisited" target="\_blank">here</a>.</p>
+
+<p>And for reference, here is my complete pipeline:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Go</span>
+<span class="na">on</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">push</span><span class="pi">]</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go 1.12</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-go@v1</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">go-version</span><span class="pi">:</span> <span class="s">1.12.4</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check out code into the Go module directory</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v1</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="s">1</span>
+        <span class="na">path</span><span class="pi">:</span> <span class="s">go/src/github.com/laszlocph/woodpecker</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Debug</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="no">pwd</span>
+        <span class="no">echo ${HOME}</span>
+        <span class="no">echo ${GITHUB_WORKSPACE}</span>
+        <span class="no">echo ${GOPATH}</span>
+        <span class="no">echo ${GOROOT}</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">GOPATH</span><span class="pi">:</span> <span class="s">/home/runner/work/woodpecker/go</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Test</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="no">go get -u golang.org/x/tools/cmd/cover</span>
+        <span class="no">go get -u golang.org/x/net/context</span>
+        <span class="no">go get -u golang.org/x/net/context/ctxhttp</span>
+        <span class="no">go get -u github.com/golang/protobuf/proto</span>
+        <span class="no">go get -u github.com/golang/protobuf/protoc-gen-go</span>
+        <span class="no">go test -cover $(go list ./... | grep -v /vendor/)</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">GOPATH</span><span class="pi">:</span> <span class="s">/home/runner/work/woodpecker/go</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="s">./.drone.sh</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">GOPATH</span><span class="pi">:</span> <span class="s">/home/runner/work/woodpecker/go</span>
+</code></pre></div></div>
+
+    <br/>
+    <hr/>
+    <p>Read some more about Actions or Drone:</p>
+
+    <ul>
+      
+        
+          <li>
+            <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+          </li>  
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+
+    <hr/>
+    <br/>
+    <p>I can also notify you if there is a new Drone related article. Won't spam you, I promise.</p>
+    <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='bb30a2ae7497e8dbaf05162b58e3ecc5282a86f6253cc4e12d53849356709a95';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+    <span data-sumome-listbuilder-embed-id="936e7bcc0122906987a873e44345a0faca428e80fe0ba846f5a221d5ddec5417"></span>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

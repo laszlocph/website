@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="Why access control is key for a secure multi-tenant Kubernetes deployment?" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/kubernetes.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="Why access control is key for a secure multi-tenant Kubernetes deployment?" property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="Why access control is key for a secure multi-tenant Kubernetes deployment?">
+  <meta name="twitter:description" content="Why access control is key for a secure multi-tenant Kubernetes deployment?">
+  <meta name="twitter:image" content="/images/kubernetes.png">
+
+  <title>Laszlo Fogas - Why access control is key for a secure multi-tenant Kubernetes deployment?</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="why-access-control-is-key-for-a-secure-multi-tenant-kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment?</h2>
+<p>2017-07-17</p>
+
+<p>I have a soft spot for early adopters. They are the ones who voice those - sometimes pesky - requirements that push container projects forward, making the cluster more mature and the workflow more tailored for real life usecases.</p>
+
+<h3 id="secrets-exposed">Secrets exposed</h3>
+
+<p>Like on my current Kubernetes project, when a few weeks back an early adopter came to me (hey Jonas!) and raised his concern around secret management: <em>“Look Laszlo, I’m a bit worried about the keys I’m uploading to Kubernetes. It seems devs from other teams are able to see them. You know, they are kind of important.. they allow access to confidential data”</em></p>
+
+<p>He had a point. At that time there was only one shared namespace and developers saw each other’s deployments, nothing preventing them from wrongdoing. Except their morals of course.</p>
+
+<p>It was time to iterate on the cluster and nail access control.</p>
+
+<h3 id="access-control-introduced-in-kubernetes-v16">Access control introduced in Kubernetes v1.6</h3>
+
+<p>The upstream Kubernetes had Role Based Access Control (RBAC) since the 1.6 release in late March, and timing couldn’t have been better for Rancher - my distribution of choice - to finally support that major release. No wonder I was so pumped seeing the announcement.</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">This is fantastic! Rancher v.1.6.3 is out with Role based access control in Kubernetes <a href="https://t.co/FT2AAE4mkp">https://t.co/FT2AAE4mkp</a> <a href="https://twitter.com/Rancher_Labs">@Rancher_Labs</a></p>&mdash; laszlocph (@laszlocph) <a href="https://twitter.com/laszlocph/status/883317597755895808">July 7, 2017</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p><br />
+Access control is quite an important feature if you ask me. When I worked with the Openshift Kubernetes distribution back in January it felt natural that it has the feature, and only recently I learned that upstream Kubernetes, nor my distribution had it at the time.</p>
+
+<p>The only workaround I could provide until now is to physically separate the clusters along the security boundaries. Which is still the best practice for test and production environments: even though one can label nodes and set up namespaces accordingly, life is easier if those environments remain phisically separate.</p>
+
+<p>For this article I quickly checked <a href="https://docs.docker.com/engine/extend/plugins_authorization/" target="_blank">what’s up</a> in the Docker Swarm world: <em>“Docker’s out-of-the-box authorization model is all or nothing. Any user with permission to access the Docker daemon can run any Docker client command.”</em></p>
+
+<p>But don’t I worry since <em>“Anyone with the appropriate skills can develop an authorization plugin.”</em> - well, thanks Docker!</p>
+
+<h3 id="access-control-primitives">Access control primitives</h3>
+
+<p>Kubernetes <a href="https://kubernetes.io/docs/admin/authorization/rbac/" target="_blank">RBAC</a> allows cluster administrators to selectively grant particular users or service accounts fine-grained access to specific resources on a per-namespace basis.</p>
+
+<p>The key primitives are:</p>
+
+<ul>
+  <li>
+    <p>Role and ClusterRole to represent a set of permissions to be granted together on a Kubernetes Namespace or on the whole cluster</p>
+  </li>
+  <li>
+    <p>RoleBinding and ClusterRoleBinding to associate the defined Roles and ClusterRoles to users or Kubernetes ServiceAccounts</p>
+  </li>
+</ul>
+
+<p>The permissions can be fine-grained: granting rights to create, get, list, update, patch, delete any of the Kubernetes API resources, be those Pods, Secrets, NameSpaces, etc.</p>
+
+<p>But luckily Kubernetes also provides sensible defaults for system components and for three common usecases: admin, edit and view, if you don’t want to write your own page long permission set.</p>
+
+<p>Another nice property of the Roles that they are additive.</p>
+
+<h3 id="the-secure-and-multi-tenant-container-platform">The secure and multi-tenant container platform</h3>
+
+<p>Using these primitives I was able to build the secure, multi-tenant container platform that multiple teams can use while not seeing or interfering with each other’s deployments or secrets.</p>
+
+<p>And the icing on the cake was Rancher’s nice touch. Since they already support many authentication providers from Active Directory to Github, I was able to bind the RBAC roles to the Github teams that already existed in my client’s organization. How cool is that?</p>
+
+<p>So the setup as of today follows the following principles:</p>
+
+<ul>
+  <li>Every team gets their own namespace</li>
+  <li>Users are granted permissions to namespaces through their Github team membership</li>
+  <li>People get the default “edit” Role within the namespace</li>
+</ul>
+
+<p>and to further protect the api keys and certificates the following workflow is introduced for secrets:</p>
+
+<ul>
+  <li>Secrets are not part of the application source code</li>
+  <li>Their lifecycle is decoupled from the application by the Kubernetes Secret artifact.</li>
+  <li>The source code is referencing the secrets by their logical name</li>
+  <li>Secrets are prepared in the cluster by cluster admins, prior to deployment</li>
+  <li>Secrets are stored in an encrypted Chef or Ansible Vault</li>
+</ul>
+
+<p>See the details on how to <a href="https://kubernetes.io/docs/concepts/configuration/secret/#overview-of-secrets" target="_blank">define secrets</a> in Kubernetes and what’s their <a href="https://kubernetes.io/docs/concepts/configuration/secret/#security-properties">security properties</a> and associated risks.</p>
+
+<p><br /></p>
+
+<p>Onwards!</p>
+
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

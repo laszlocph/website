@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="A simple Jenkins 2.0 and Docker workflow" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/pipeline.png" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/Simple-Jenkins-and-Docker-workflow" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="A Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version controlled. The end result is a container with code ready to deploy." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="A simple Jenkins 2.0 and Docker workflow">
+  <meta name="twitter:description" content="A Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version controlled. The end result is a container with code ready to deploy.">
+  <meta name="twitter:image" content="/pipeline.png">
+
+  <title>Laszlo Fogas - A simple Jenkins 2.0 and Docker workflow</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="a-simple-jenkins-20-and-docker-workflow">A simple Jenkins 2.0 and Docker workflow</h2>
+<p>2016-10-05</p>
+
+<hr />
+<p>tldr
+In this article I show a Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version 
+controlled. The end result is a container with code ready to deploy.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OV05bg30FoQ" frameborder="0" allowfullscreen=""></iframe>
+
+<hr />
+
+<p>The Docker ecosystem gave me that final push I needed to get started with my consulting career. While I could function as a 
+startup veteran, interim CTO or engineering management consultant I realized that there is something very profound in the 
+maturity of the Docker world i should double down on. I was amazed by how converged and mature the ecosystem is and adopting Docker
+is not something for 2017, it’s for the here and now. Since I’m a freelance consultant since this Monday, and it is already 
+Wednesday, I should start sharing, shouldn’t I?</p>
+
+<h3 id="the-power-of-releasing-often">The power of releasing often</h3>
+<p>Last Friday, I left <a href="https://www.falcon.io/">Falcon.io</a> after five years. That naturally puts me in a very reflective mood, not that I don’t reflect much in general anyway… But this article is not one of <em>those</em>. What should concern you though is that after making an 
+inventory of what worked well in that five years, one thing stood out.</p>
+
+<p>The investment we put early on into our automated CI and Sandbox environment payed off big time. It allowed developers to provision 
+their own sandbox environment with handpicked set of branches from all components, and to release their own feature in separation to all 
+others. And that’s clever. Clever, since there is nothing engineers like more than shipping, seeing the impact they have, getting feedback on their work is a motivator like nothing else.</p>
+
+<p>Now, I’m excited to have a more modern take on that workflow utilizing Docker and modern CI tools. A lot happened since we launched 
+our homegrown VM based tooling.</p>
+
+<h3 id="modern-requirements">Modern requirements</h3>
+<p>One requirement stands still: the ability to provision an environment with handpicked components and branches, be that locally, or on a 
+QA environment.</p>
+
+<p>My other requirements are:</p>
+
+<ul>
+  <li>ability to have the build pipeline versioned in the source code repository</li>
+  <li>ability to build in an independent environment</li>
+  <li>and versioning that build environment together with the source code</li>
+</ul>
+
+<p>Why these? Because they give more control to the developer. The environment will be the same locally and on the CI server, 
+and factors out the need to talk with an operations engineer. While I have a sweet spot for operations engineers, they really 
+shouldn’t be bothered with <em>a certain a Ruby gem that is needed on the CI server</em>.</p>
+
+<p>The separation of roles and responsibilities become more clear between dev and ops this way, the ops people can move from being 
+gatekeepers  (having root access to install <em>that Ruby gem</em>), to enablers. They make sure that plenty of computing power is provisioned 
+to the CI environment, and.. well, that’s all.</p>
+
+<h3 id="an-opinionated-take">An opinionated take</h3>
+<p>As I see it, the only blocker to get started with Docker, is the paralyzing amount of choice. There is simply too many good options to 
+choose from. If there are 10 components with 3 good choices for each, you do the math why there’s a thousands choices you have to 
+make to reach nirvana.</p>
+
+<p>In this article - and the many ones that will follow - I give an opinionated take of a working solution. While my choices are often hard
+ to quantify, I will provide some reasoning, and I promise you that I always go towards simplicity. Albeit I pick things simple to me, 
+ or to my team. I’m only pragmatic in my own universe.</p>
+
+<h3 id="jenkins-20">Jenkins 2.0</h3>
+
+<p>This choice may seem a bit old school in the abundance of services like <a href="http://drone.io">drone.io</a>, <a href="http://circle.ci">circle.ci</a>, 
+<a href="http://concourse.ci">concourse.ci</a>, <a href="nope">this.ci</a>, <a href="neither this one">that.ci</a> (you pick which one of these are actually a CI 
+solution), you can’t ignore the ubiquity of Jenkins. For me, the fact that I know it, and the promise of 2.0 being a drop-in replacement of previous versions makes it a simple choice.</p>
+
+<p>In version 2.0 it introduces the Jenkinsfile: a <a href="https://jenkins.io/doc/pipeline/">Groovy based DSL</a> to describe the build pipeline, ticking the box on one of my 
+requirements. The other two boxes can also be ticked by integrating Docker into the Jenkins workflow, albeit with some plumbing. I’m going to showcase the necessary plumbing in this article.</p>
+
+<h3 id="running-jenkins-in-docker">Running Jenkins in Docker</h3>
+
+<p>First and for most, let’s get fancy and run Jenkins itself in Docker. To make it easy for you to 
+try, and to gain experience for the times when your ops team is ready hosting it.</p>
+
+<p>For this purpose I extended the <a href="https://github.com/jenkinsci/docker">base Docker image for Jenkins</a> with sudo capabilities. Other than this little change it’s the vanilla Jenkins experience.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:laszlocph/jenkins-with-sudo.git
+<span class="nb">cd </span>jenkins-with-sudo
+docker build <span class="nt">-t</span> laszlocph/jenkins-with-sudo:latest <span class="nb">.</span>
+
+docker run <span class="nt">-it</span> <span class="nt">--rm</span> <span class="nt">--network</span><span class="o">=</span>host <span class="nt">-v</span> jenkins_home:/var/jenkins_home <span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="nt">-v</span> <span class="k">$(</span>which docker<span class="k">)</span>:/usr/bin/docker laszlocph/jenkins-with-sudo:latest
+</code></pre></div></div>
+
+<p>Once Jenkins is up, chose the default plugin set, and continue as the <em>admin</em> user. You can find the login 
+credentials in the startup log.</p>
+
+<h3 id="running-docker-in-docker">Running Docker in Docker?</h3>
+<p>Let me explain the arguments of the <em>docker run</em> command.</p>
+
+<p>The first <em>-v</em> option provides a persistent volume for Jenkins to store the job definitions and workspaces. You could mount here a 
+specific location yourself, but I recommend not to hassle with plethora of file permission problems it brings, but let Docker create you this volume at first run.</p>
+
+<p>The other <em>-v</em> options are more interesting. We are mounting the local Docker socket and Docker executable into the container. While this
+may seem hackish, it is actually the least intrusive way to allow a Docker container to start new containers. These new containers will 
+run on the host’s Docker daemon, making them siblings of the Jenkins container.</p>
+
+<p>For alternatives, reasoning and consequences see <a href="https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/">this</a> and 
+<a href="http://container-solutions.com/running-docker-in-jenkins-in-docker/">this</a> article. Trust me, having read those you will find 
+this solution quite nifty.</p>
+
+<h3 id="dockerfiles">Dockerfiles</h3>
+<p>For testing I prepared a small Spring Boot application (yes, Java) with two Dockerfiles. The <em>Dockerfile</em> in the <em>docker</em> folder is 
+representing the runtime image of the application.</p>
+
+<pre><code class="language-Dockerfile">FROM anapsix/alpine-java
+
+WORKDIR spring-boot-dummy
+ADD spring-boot-dummy-0.1.0.jar .
+
+CMD java -jar spring-boot-dummy-0.1.0.jar
+</code></pre>
+
+<p>It copies the single fat <em>.jar</em> file to the container, then executes it with a simple <em>java -jar</em>. You can testdrive it yourself with the 
+provided <em>build-image.sh</em>, and validate it on <a href="http://localhost:8080">http://localhost:8080</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:laszlocph/spring-boot-dummy.git
+<span class="nb">cd </span>spring-boot-dummy
+sh build-image.sh
+docker run <span class="nt">-it</span> <span class="nt">--rm</span> <span class="nt">--network</span><span class="o">=</span>host laszlocph/spring-boot-dummy
+</code></pre></div></div>
+
+<p>The <em>Dockerfile</em> in the root is the build environment. While for Java projects dependencies might not collide, Python and 
+other projects benefit greatly from an independent build environments.</p>
+
+<pre><code class="language-Dockerfile">FROM anapsix/alpine-java:8_jdk
+
+WORKDIR spring-boot-dummy
+ADD . .
+CMD sleep 1h
+</code></pre>
+
+<p>All needed dependencies for our simple Java app are provided in the SDK or are fetched by Gradle, so the only thing we have to do to 
+compile our project is taking a small Java SDK image and adding all our files to the image. Then we let it sleep for an hour.</p>
+
+<p>Wait, what?</p>
+
+<p><a href="http://unix.stackexchange.com/a/270996">Yes</a>, the image will not do anything itself, just provides the necessary dependencies. We will interact with it from the Jenkins workflow.</p>
+
+<h3 id="jenkinsfile">Jenkinsfile</h3>
+
+<p><a href="https://github.com/laszlocph/spring-boot-dummy/blob/master/Jenkinsfile">My example pipeline</a> contains three stages:</p>
+<ul>
+  <li>the first one to prepares the Build container image</li>
+  <li>the second runs the actual build inside that container</li>
+  <li>the last one takes the artifact and build the production container image.</li>
+</ul>
+
+<p><img src="images/pipeline.png" alt="Pipeline" /></p>
+
+<h3 id="interacting-with-the-build-container">Interacting with the Build container</h3>
+
+<p>The key in this pipeline is the second step where I start up the Build container and run the app specific build script with 
+the <em>docker exec</em> command.</p>
+
+<p>Remember, all the Build container does is sleeping. It does that to be around even after the build script finished
+generating the build artifacts. We can take that artifact further in the pipeline and stop the build container.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+sh <span class="s2">"sudo docker exec </span><span class="k">${</span><span class="nv">CONTAINER_ID</span><span class="k">}</span><span class="s2"> ./gradlew build"</span>
+sh <span class="s2">"sudo docker cp </span><span class="k">${</span><span class="nv">CONTAINER_ID</span><span class="k">}</span><span class="s2">:/spring-boot-dummy/build/libs/spring-boot-dummy-0.1.0.jar docker/spring-boot-dummy-0.1.0.jar"</span>
+sh <span class="s2">"sudo docker stop </span><span class="k">${</span><span class="nv">CONTAINER_ID</span><span class="k">}</span><span class="s2">"</span>
+sh <span class="s2">"sudo docker rm </span><span class="k">${</span><span class="nv">CONTAINER_ID</span><span class="k">}</span><span class="s2">"</span>
+...
+</code></pre></div></div>
+
+<h3 id="to-see-it-in-action">To see it in action</h3>
+
+<p>Simply navigate to the <a href="http://localhost:8080/view/All/newJob">New Item</a> page, provide an 
+adequate name to your project and click <em>Pipeline</em> from the various presets.</p>
+
+<p>On the configuration page edit the <em>Pipeline</em> group by selecting the <em>Pipeline script from SCM</em> option and configure the SCM url to git@github.com:laszlocph/spring-boot-dummy.git</p>
+
+<p>Save it and click the <em>Build now</em> button. You should see all the steps executing successfully.</p>
+
+<h3 id="next-steps">Next steps</h3>
+<p>What we just did is remarkable from many aspects.</p>
+
+<ul>
+  <li>We incorporated Docker into our Jenkins workflow as all the builds run now in a designated Docker container.</li>
+  <li>furthermore, both the build and runtime environments are specified in simple text files and they live together with the source code. This enables developers to fully
+control the build and runtime experience.</li>
+</ul>
+
+<p>My next step is to continue on this path, and make this workflow aware of multiple system components, allowing developers 
+to pick any component with any set of branches to provision a local, test, or even production environment.</p>
+
+<p>Onwards!</p>
+
+<p>Check out part two <a href="http://laszlo.cloud/Mastering-test-environments-with-Docker" style="color: red; align: center;">Mastering test environments with Docker</a><br /></p>
+
+    <br/>
+    <hr/>
+    <p>Read some more:</p>
+
+    <ul>
+      
+      <li>
+        <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+      </li>
+      
+      <li>
+        <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+      </li>
+      
+      <li>
+        <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+      </li>
+      
+      <li>
+        <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+      </li>
+      
+      <li>
+        <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+      </li>
+      
+      <li>
+        <a href="/cloud-and-containers-august">Cloud and Containers - August (2017-08-31)</a>
+      </li>
+      
+      <li>
+        <a href="/gitlab-take-two-dynamic-environments">Gitlab take two - Dynamic environments (2017-07-25)</a>
+      </li>
+      
+      <li>
+        <a href="/Is-the-one-stop-shop-Gitlab-CI-fits-all">Is the one-stop-shop Gitlab CI fits all? (2017-07-20)</a>
+      </li>
+      
+      <li>
+        <a href="/Why-access-control-is-key-for-a-secure-multi-tenant-Kubernetes-deployment">Why access control is key for a secure multi-tenant Kubernetes deployment? (2017-07-17)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-routing">Rancher Kubernetes routing (2017-05-31)</a>
+      </li>
+      
+      <li>
+        <a href="/Rancher-Kubernetes-persistence-with-GlusterFS">Rancher Kubernetes persistence with GlusterFS (2017-05-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Attack-your-cloud-bill">Attack your cloud bill - A hybrid cloud strategy with Rancher, AWS and Google (2016-11-28)</a>
+      </li>
+      
+      <li>
+        <a href="/I-get-it-Laszlo-but-how-do-I-get-started">I get it Laszlo, but how do I get started? (2016-10-26)</a>
+      </li>
+      
+      <li>
+        <a href="/Docker-cluster-management-on-AWS">Docker cluster management on AWS (2016-10-21)</a>
+      </li>
+      
+      <li>
+        <a href="/Mastering-test-environments-with-Docker">Mastering test environments with Docker (2016-10-12)</a>
+      </li>
+      
+      <li>
+        <a href="/Simple-Jenkins-and-Docker-workflow">A simple Jenkins 2.0 and Docker workflow (2016-10-05)</a>
+      </li>
+      
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>

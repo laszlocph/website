@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="The ultimate DroneCI caching guide" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/9ySXeJrr.jpg" property="og:image">
+  <meta content="/the-ultimate-droneci-caching-guide" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="In this article I demonstrate all practical caching solutions in Drone.io - volume based caches, bucket based caches and using Docker's layer cache as a primary caching mechanism." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="The ultimate DroneCI caching guide">
+  <meta name="twitter:description" content="In this article I demonstrate all practical caching solutions in Drone.io - volume based caches, bucket based caches and using Docker's layer cache as a primary caching mechanism.">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
+
+  <title>Laszlo Fogas - The ultimate DroneCI caching guide</title>
+  <link rel="stylesheet" href="css/main.css">
+<meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1781114255487972'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1781114255487972&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<script src="https://use.fontawesome.com/62289b0a87.js"></script>
+
+
+</head>
+<body style="position: relative">
+  <div class="container">
+    <h1><a href="./">Laszlo Fogas</a></h1>
+    <img src="images/1500x500.jpg"/>
+
+    <h2 id="the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide</h2>
+
+<p>2019-02-28</p>
+
+<p>Sisyphos was the king of Corinth in the Greek mythology. He was punished by the gods by being forced to roll an immense boulder up a hill only for it to roll down when it nears the top. Repeating this action for eternity.</p>
+
+<p>Installing dependencies in every CI run can be equally futile, hence the need to cache dependencies arise quickly once there is a basic pipeline running.</p>
+
+<p>In this article I’m going to demonstrate all practical caching solutions in Drone CI: volume based caches, bucket based caches and using Docker’s layer cache as a primary caching mechanism.</p>
+
+<p>Let’s jump in with a naive volume based cache.</p>
+
+<h3 id="how-to-quickly-set-up-volume-based-caching">How to quickly set up volume based caching</h3>
+
+<p>Once a repository is set to “Trusted” in Drone, the bellow pipeline will mount the <code class="highlighter-rouge">/tmp/drone/cache/node_modules</code> host path to the <code class="highlighter-rouge">node_modules</code> folder in your Drone step. It will also retain its content between pipeline runs.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: node
+  volumes:
+  - name: cache
+    path: /drone/src/node_modules
+  commands:
+  - 'echo ''{"devDependencies": {"@angular/cli": "^7.3.3" }}'' &gt; package.json'
+  - npm install
+
+volumes:
+- name: cache
+  host:
+    path: /tmp/drone/cache/node_modules
+</code></pre></div></div>
+
+<p>Running this synthethic example, it shows a five seconds speedup:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ ../drone exec --trusted
+[build:0] + echo '{"devDependencies": {"@angular/cli": "^7.3.3" }}' &gt; package.json
+[build:1] + npm install
+[build:7]
+[build:8] added 295 packages from 179 contributors and audited 17414 packages in 9.827s
+[build:9] found 0 vulnerabilities
+[build:10]
+
+➜ ../drone exec --trusted
+[build:0] + echo '{"devDependencies": {"@angular/cli": "^7.3.3" }}' &gt; package.json
+[build:1] + npm install
+[build:7]
+[build:8] audited 17414 packages in 5.002s
+[build:9] found 0 vulnerabilities
+</code></pre></div></div>
+
+<p>The demonstrated caching approach works, however many Drone user prefer using plugins for specific tasks.</p>
+
+<h3 id="using-the-drillsterdrone-volume-cache-plugin">Using the <code class="highlighter-rouge">drillster/drone-volume-cache</code> plugin</h3>
+
+<p>On the Drone plugin site there is a featured volume based cache, it’s the <code class="highlighter-rouge">drillster/drone-volume-cache</code>.</p>
+
+<p>The plugin is <a href="http://plugins.drone.io/drillster/drone-volume-cache/" target="\_blank">well documented</a> and should you have additional questions, the plugin’s source code is <a href="https://github.com/Drillster/drone-volume-cache/blob/master/cacher.sh" target="\_blank">hosted on Github</a>.</p>
+
+<p>There are three steps in the drone file after adjusting the previous example to use this volume cache. I wrapped the build step with restore and rebuild steps which are responsible to handle the cache state.</p>
+
+<p>The mount paths also changed. I pointed the Drone host mounts to the <code class="highlighter-rouge">/cache</code> in-container-path and the plugin is responsible to copy the cache content to the <code class="highlighter-rouge">node_modules</code> folder.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kind: pipeline
+name: default
+
+steps:
+- name: restore-cache
+  image: drillster/drone-volume-cache
+  settings:
+    restore: true
+    mount:
+      - ./node_modules
+  volumes:
+  - name: cache
+    path: /cache
+
+- name: build
+  image: node
+  commands:
+  - 'echo ''{"devDependencies": {"@angular/cli": "^7.3.3" }}'' &gt; package.json'
+  - npm install
+
+- name: rebuild-cache
+  image: drillster/drone-volume-cache
+  settings:
+    rebuild: true
+    mount:
+      - ./node_modules
+  volumes:
+  - name: cache
+    path: /cache
+
+volumes:
+- name: cache
+  host:
+    path: /tmp/drone/cache
+</code></pre></div></div>
+
+<p>I ran this pipeline twice and a similar 5 second speedup is realized. First, the cache is empty and by the second run the plugin found the cache content and it restored it to the mount path.</p>
+
+<p>In the example below I cleared <code class="highlighter-rouge">node_modules</code> in the working directory to make sure that the modules are populated from the cache. If I don’t run <code class="highlighter-rouge">rm -rf</code>, local <code class="highlighter-rouge">drone exec</code> runs can be confusing as it’s difficult to be certain who put the content in the <code class="highlighter-rouge">node_modules</code> folder.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ sudo rm -rf node_modules &amp;&amp; ../drone exec --trusted
+[restore-cache:0] No cache for ./node_modules
+[build:0] + echo '{"devDependencies": {"@angular/cli": "^7.3.3" }}' &gt; package.json
+[build:1] + npm install
+[build:7]
+[build:8] added 295 packages from 179 contributors and audited 17414 packages in 12.237s
+[build:9] found 0 vulnerabilities
+[build:10]
+[rebuild-cache:0] Rebuilding cache for folder ./node_modules...
+➜ sudo rm -rf node_modules &amp;&amp; ../drone exec --trusted
+[restore-cache:0] Restoring cache for folder ./node_modules...
+[build:0] + echo '{"devDependencies": {"@angular/cli": "^7.3.3" }}' &gt; package.json
+[build:1] + npm install
+[build:7]
+[build:8] audited 17414 packages in 5.143s
+[build:9] found 0 vulnerabilities
+[build:10]
+[rebuild-cache:0] Rebuilding cache for folder ./node_modules...
+</code></pre></div></div>
+
+<h3 id="my-experience-with-the-drillsterdrone-volume-cache-plugin">My experience with the drillster/drone-volume-cache plugin</h3>
+
+<p>I used the <code class="highlighter-rouge">drillster/drone-volume-cache</code> for a couple months, running approximately 50 daily builds with it.</p>
+
+<p>Eventually I forked it and changed it to my own needs. The main driver of that was a weird issue of the cached Ruby gems, sometimes one particular of the restored gems was corrupt.</p>
+
+<p>We suspected in the team that perhaps the concurrent writing of the cache could cause the problem, so I changed the plugin so it first tars up the cache content and then switches the current cache pointer symlink in one atomic step.</p>
+
+<p>I can’t say for sure that this solved the problem, or a Ruby version update we had in those weeks, but the issue dissappeared.</p>
+
+<p>All in all the drillster plugin is a good go-to solution if you chose volume based caching. And should you ever need to improve it, the codebase is easy to understand.</p>
+
+<h3 id="volume-based-caching-however-comes-with-a-limitation-however">Volume based caching however comes with a limitation however</h3>
+
+<p>And that is - what you have guessed already - the cached state is only available on a single build agent.</p>
+
+<p>You may try to synchronize the cache between your agents, or you may accept the inconsistency.</p>
+
+<p>Or you can store the cache in a central location, in a bucket.</p>
+
+<h3 id="distribute-caching-with-buckets">Distribute caching with buckets</h3>
+
+<p>There are <a href="http://plugins.drone.io/tags/cache/" target="\_blank">two</a> bucket based cache plugins that cover two major cloud providers: Amazon S3 and Google Cloud. I demonstrate the one for <a href="http://plugins.drone.io/drone-plugins/drone-s3-cache/" target="\_blank">Amazon S3</a> here.</p>
+
+<p>The semantics are similar as before, here is the adjusted pipeline:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kind: pipeline
+name: default
+
+steps:
+- name: restore
+  image: plugins/s3-cache
+  settings:
+    pull: true
+    root: cachetest1.laszlo.cloud
+    # region: "us-east-1"
+    access_key:
+      from_secret: aws_access_key_id
+    secret_key:
+      from_secret: aws_secret_access_key
+    restore: true
+
+- name: build
+  image: node
+  commands:
+  - 'echo ''{"devDependencies": {"@angular/cli": "^7.3.3" }}'' &gt; package.json'
+  - npm install
+
+- name: rebuild
+  image: plugins/s3-cache
+  settings:
+    pull: true
+    root: cachetest1.laszlo.cloud
+    # region: "us-east-1"
+    access_key:
+      from_secret: aws_access_key_id
+    secret_key:
+      from_secret: aws_secret_access_key
+    rebuild: true
+    mount:
+      - node_modules
+    when:
+      event: push
+</code></pre></div></div>
+
+<p>The plugin configuration is not intuitive. It uses the <code class="highlighter-rouge">root</code> field for the bucket name and there is no official example of how to use the plugin with Amazon S3. It supports other S3 compatible bucket solutions - like minio - and the plugin documentation only showcases the setup of those.</p>
+
+<p>Nevertheless if the <code class="highlighter-rouge">aws_*</code> secrets are correct, and the <code class="highlighter-rouge">root</code> field is set, it will cache everything from the <code class="highlighter-rouge">mount</code> path and places it under the bucket in the <code class="highlighter-rouge">[root]/&lt;owner&gt;/&lt;repo&gt;/&lt;branch&gt;/</code> naming scheme. This schema can be redefined with the <code class="highlighter-rouge">path</code> field.</p>
+
+<p>I don’t have experience running this plugin for an extended period, but after the initial hurdles of locating the <code class="highlighter-rouge">root</code> parameter, it does what it says.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ sudo rm -rf node_modules &amp;&amp; ../drone exec --trusted --secret-file ../dummysecrets
+[restore:4] time="2019-02-27T19:29:13Z" level=info msg="Restoring cache at /cachetest1.laszlo.cloud/master/archive.tar"
+[restore:7] time="2019-02-27T19:29:35Z" level=info msg="Downloaded 69 MB from server"
+[restore:8] time="2019-02-27T19:29:35Z" level=info msg="Cache restored"
+[build:0] + echo '{"devDependencies": {"@angular/cli": "^7.3.3" }}' &gt; package.json
+[build:1] + npm install
+[build:7]
+[build:8] audited 17414 packages in 4.606s
+[build:9] found 0 vulnerabilities
+[build:10]
+[rebuild:8] time="2019-02-27T19:29:52Z" level=info msg="Putting file in cachetest1.laszlo.cloud at master/archive.tar"
+[rebuild:9] time="2019-02-27T19:31:31Z" level=info msg="Uploaded 69 MB to server"
+[rebuild:10] time="2019-02-27T19:31:31Z" level=info msg="Cache rebuilt"
+</code></pre></div></div>
+
+<h3 id="what-about-the-network-overhead-of-downloading-cache-files-from-buckets">What about the network overhead of downloading cache files from buckets?</h3>
+
+<p>If you ran the above snippet you saw that it saved the five seconds that we saw can be saved, but downloading and then uploading 69MBs takes lot longer than that.</p>
+
+<p>While this is an artificial example only, sometimes caching made my build slower, simply because what I gained with not installing packages was lost on network transfer.</p>
+
+<p>Caching is no silver bullet, but it can help in many cases. Just make sure you measure the effect.</p>
+
+<h3 id="how-to-use-docker-layer-caching-as-the-primary-caching">How to use Docker layer caching as the primary caching</h3>
+
+<p>For a long time I was building the Docker image as the very last step of my pipeline - just before deploying it.</p>
+
+<p>Besides that I had a volume based cache and it happened that in Ruby projects I ran <code class="highlighter-rouge">bundle install</code> twice. Once in the CI step and then during <code class="highlighter-rouge">docker build</code>.</p>
+
+<p>A colleague of mine mocked me just long enough that I took a chance on his idea. What if I build the Docker image first, and then run the subsequent build tests and other steps within that image?</p>
+
+<p>Following this approach the well known example looks like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kind: pipeline
+name: default
+
+steps:
+- name: prep
+  image: node
+  volumes:
+  - name: cache
+    path: /drone/src/node_modules
+  commands:
+  - 'echo ''{"devDependencies": {"@angular/cli": "^7.3.3" }}'' &gt; package.json'
+  - 'echo ''FROM node\nCOPY package.json .\nRUN npm install'' &gt; Dockerfile
+
+- name: docker-builder
+  image: plugins/docker
+  settings:
+    repo: laszlocloud/image-first-test
+    tags: latest
+    cache_from: "laszlocloud/image-first-test:latest"
+    dry_run: true
+</code></pre></div></div>
+
+<p>The key for this strategy to work is to set the <code class="highlighter-rouge">cache_from</code> parameter and provide a list of Docker images that <code class="highlighter-rouge">docker build</code> will consider as layer cache sources.</p>
+
+<p>The console output shows that first the plugin pulls the listed image from the registry and then includes the <code class="highlighter-rouge">--cache-from</code> option in the docker build command. At the end you can see that the <code class="highlighter-rouge">npm install</code> step is using the cache.</p>
+
+<p>If you would take the above snippets, the build would use the cached layers even though you have not built this image before on your machine.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[prep:0] + echo '{"devDependencies": {"@angular/cli": "^7.3.3" }}' &gt; package.json
+[prep:1] + echo 'FROM node
+[prep:2] COPY package.json .
+[prep:3] RUN npm install' &gt; Dockerfile
+[docker-builder:70] latest: Pulling from laszlocloud/image-first-test
+[docker-builder:115] Status: Downloaded newer image for laszlocloud/image-first-test:latest
+[docker-builder:116] + /usr/local/bin/docker build --rm=true -f Dockerfile -t 00000000 . --pull=true --cache-from laszlocloud/image-first-test:latest --label [docker-builder:134] Step 3/7 : RUN npm install
+[docker-builder:135]  ---&gt; Using cache
+[docker-builder:136]  ---&gt; 331dbe3922cb
+</code></pre></div></div>
+
+<p>I wrote about the using the Docker layer cache and <code class="highlighter-rouge">--cache-from</code> in Drone.io in <a href="https://laszlo.cloud/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci" target="\_blank">this article</a>.</p>
+
+<p>And this concludes the fourth approach to caching in Drone.</p>
+
+<h3 id="we-have-seen-four-approaches-to-caching">We have seen four approaches to caching</h3>
+
+<p>Bellow you can see a comparison table of all the demonstrated strategies.</p>
+
+<p>I started out using the drillster plugin, then went straight to the Docker layer caching approach.</p>
+
+<p>Don’t be like Sisyphos, pick a caching strategy!</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th style="text-align: left">Pro</th>
+      <th style="text-align: left">Con</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Naive volume mounts</td>
+      <td style="text-align: left">easy to get started</td>
+      <td style="text-align: left">- difficult to maintain as each pipeline will have its own flavor of caching<br />- inconsistent on multiple agents <br />- doesn’t work on cloud.drone.io</td>
+    </tr>
+    <tr>
+      <td>drillster/drone-volume-cache</td>
+      <td style="text-align: left"><br />- clean source code<br />- easy to extend</td>
+      <td style="text-align: left"><br />- inconsistent on multiple agents <br />- doesn’t work on cloud.drone.io</td>
+    </tr>
+    <tr>
+      <td>S3 buckets</td>
+      <td style="text-align: left">- works with multiple agents<br /> - works on cloud.drone.io</td>
+      <td style="text-align: left">- setup is not intuitive<br />- network transfer can be long</td>
+    </tr>
+    <tr>
+      <td>Docker –cache-from</td>
+      <td style="text-align: left">- if you ship Docker images, you don’t have to cache twice<br />- reproducible builds<br />- works with multiple agents<br /> - works on cloud.drone.io</td>
+      <td style="text-align: left">- network transfer can be long<br />- building the image first does not come natural</td>
+    </tr>
+  </tbody>
+</table>
+
+    <br/>
+    <hr/>
+    <p>Read some more about Actions or Drone:</p>
+
+    <ul>
+      
+        
+          <li>
+            <a href="/builing-docker-images-with-github-actions">Builing Docker images with Github Actions (2019-09-02)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions-revisited">Setting GOPATH in Github Actions - revisited (2019-08-29)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/setting-gopath-in-github-actions">Setting GOPATH in Github Actions (2019-08-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-oss-08-devlog-1">DroneOSS08 Devlog &#x23;1 (2019-04-24)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-environment-variables-three-tips">Drone Environment Variables - Three tips (2019-03-26)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/drone-community-edition-what-is-included">Drone Community Edition - what is included? (2019-03-21)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/the-ultimate-droneci-caching-guide">The ultimate DroneCI caching guide (2019-02-28)</a>
+          </li>  
+        
+      
+        
+          <li>
+            <a href="/how-using-cache-from-can-speed-up-your-docker-builds-in-droneci">How using cache-from can speed up your Docker builds in DroneCI (2019-02-20)</a>
+          </li>  
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+
+    <hr/>
+    <br/>
+    <p>I can also notify you if there is a new Drone related article. Won't spam you, I promise.</p>
+    <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='bb30a2ae7497e8dbaf05162b58e3ecc5282a86f6253cc4e12d53849356709a95';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+    <span data-sumome-listbuilder-embed-id="936e7bcc0122906987a873e44345a0faca428e80fe0ba846f5a221d5ddec5417"></span>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','nxlen');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+
+</body>
+</html>
