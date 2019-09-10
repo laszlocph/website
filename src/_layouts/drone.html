@@ -22,34 +22,47 @@
   <meta name="twitter:image" content="{{ site.url }}/{{ page.image }}">
 
   <title>{{ page.title }} - {{ site.title }}</title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   {% include head.html %}
 </head>
 <body style="position: relative">
-  <div class="container">
-    <h1><a href="./">{{ site.tag_text }}</a></h1>
-    <img src="images/1500x500.jpg"/>
-
-    {{ content }}
-    <br/>
-    <hr/>
-    <p>Read some more about Actions or Drone:</p>
-
-    <ul>
-      {% for post in site.posts%}
-        {% if post.layout == "drone" %}
-          <li>
-            <a href="{{ post.url }}">{{ post.title }} ({{ post.date | date: "%Y-%m-%d" }})</a>
-          </li>  
-        {% endif %}
-      {% endfor %}
-    </ul>
-
-    <hr/>
-    <br/>
-    <p>I can also notify you if there is a new Drone related article. Won't spam you, I promise.</p>
-    <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='bb30a2ae7497e8dbaf05162b58e3ecc5282a86f6253cc4e12d53849356709a95';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-    <span data-sumome-listbuilder-embed-id="936e7bcc0122906987a873e44345a0faca428e80fe0ba846f5a221d5ddec5417"></span>
+  <div class="container mx-auto max-w-6xl p-4">
+    <div class="flex">
+      <div class="hidden md:block md:w-3/12"></div>
+      <div class="w-full md:w-6/12 max-w-xl">
+        <h1><a href="./">{{ site.tag_text }}</a></h1>
+        <img src="images/1500x500.jpg"/>
+      </div>
+      <div class="hidden md:block md:w-3/12"></div>
+    </div>
+    <div class="flex">
+      <div class="hidden md:block md:w-3/12"></div>
+      <div class="w-full md:w-6/12 max-w-xl">
+        {{ content }}
+        <br/>
+        <hr/>
+        <p>Read some more about Actions or Drone:</p>
+        <ul>
+          {% for post in site.posts%}
+            {% if post.layout == "drone" %}
+              <li>
+                <a href="{{ post.url }}">{{ post.title }} ({{ post.date | date: "%Y-%m-%d" }})</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <hr/>
+        <br/>
+        <p>I can also notify you if there is a new Drone related article. Won't spam you, I promise.</p>
+        <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='bb30a2ae7497e8dbaf05162b58e3ecc5282a86f6253cc4e12d53849356709a95';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+        <span data-sumome-listbuilder-embed-id="936e7bcc0122906987a873e44345a0faca428e80fe0ba846f5a221d5ddec5417"></span>
+      </div>
+      <div class="hidden md:block md:w-3/12">
+      <div class="bg-gray-400 h-24">
+      </div>
+      </div>
+    </div>
   </div>
 {% include scripts.html %}
 </body>
