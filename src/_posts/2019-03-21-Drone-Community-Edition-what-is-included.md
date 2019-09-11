@@ -1,5 +1,6 @@
 ---
-layout: drone
+layout: default
+tag: drone
 title: Drone Community Edition - what is included?
 image: images/1500x500.jpg
 link: /drone-community-edition-what-is-included

@@ -1,5 +1,6 @@
 ---
-layout: drone
+layout: default
+tag: actions
 title: Builing Docker images with Github Actions
 image: images/1500x500.jpg
 link: /builing-docker-images-with-github-actions

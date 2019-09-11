@@ -1,5 +1,6 @@
 ---
-layout: drone
+layout: default
+tag: actions
 title: Setting GOPATH in Github Actions
 image: images/1500x500.jpg
 link: /setting-gopath-in-github-actions

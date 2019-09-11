@@ -1,5 +1,6 @@
 ---
-layout: drone
+layout: default
+tag: drone
 title: Drone Environment Variables - Three tips
 image: images/1500x500.jpg
 link: /drone-environment-variables-three-tips

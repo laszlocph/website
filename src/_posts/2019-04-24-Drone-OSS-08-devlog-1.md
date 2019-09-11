@@ -1,5 +1,6 @@
 ---
-layout: drone
+layout: default
+tag: drone
 title: DroneOSS08 Devlog &#x23;1
 image: images/1500x500.jpg
 link: /drone-oss-08-devlog-1
