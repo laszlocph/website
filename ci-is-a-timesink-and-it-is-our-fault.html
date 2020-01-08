@@ -92,7 +92,7 @@
 
 <p>I have also seen secret management being stuffed in CI.</p>
 
-<p>CI’s have an okay process for managing secrets and we use this to manage secrets that are used in the pipeline. Sometimes we also use this facility to inject application secrets from the CI pipeline and if you think about it, CI has nothing to do with those secrets. But since CI has the facilities, and it  is often the only tool in our disposal where we can properly manage secrets, we manage application secrets from the CI pipeline.</p>
+<p>CI’s have an okay process for managing secrets and we use this to manage secrets that are used in the pipeline. Sometimes we also use this facility to manage application secrets from the CI pipeline. If you think about it, CI has nothing to do with those secrets. But since CI has the facilities, and it  is often the only tool in our disposal where we can properly manage secrets, we manage application secrets from the CI pipeline.</p>
 
 <p>These are usually not big issues, but sometimes it becomes a real problem.</p>
 
@@ -108,7 +108,7 @@
 
 <p>Or should you need advanced secret rotation logic like some of the secret vaults have today? I don’t even know how to achieve that in a CI job.</p>
 
-<p>These are growing pains in CI job maintenance, but where can we look for solution?</p>
+<p>These are growing pains in CI job maintenance.</p>
 
 <h3 id="where-can-we-look-for-a-solution">Where can we look for a solution?</h3>
 
@@ -117,7 +117,7 @@
 <h3 id="java-build-systems-went-through-a-similar-situation-in-the-mid-00s">Java build systems went through a similar situation in the mid 00s</h3>
 <p>Ant was the build system of the time. A procedural, flexible tool where you can iteratively enhance your script as your project grew.</p>
 
-<p>At the time even the folder structure of Java projects was different in every project and a great deal of time was spent in moving files, setting buildpaths and so forth. And once you hit a build error, all you had was a line number where the Ant script failed, you had to dig up the Ant script’s source code and start debugging line by line. Sounds familiar, doesn’t it?</p>
+<p>At the time even the folder structure of Java projects was different in every project and a great deal of time was spent in moving files, setting buildpaths and so forth. And once you hit a build error, all you had was a line number where the Ant script failed, so you had to dig up the Ant script’s source code and start debugging line by line. Sounds familiar, doesn’t it?</p>
 
 <p>Then came Maven with a lot of opinions, conventions and declarativeness. Its primary goal was to <em>“allow a developer to comprehend the complete state of a development effort in the shortest period of time”</em>.</p>
 
@@ -128,7 +128,7 @@
 
 <p>What Netlify did well was to bring a bunch of opinions and good defaults so Javascript, Python and other projects build by default, no pipeline yaml was required.</p>
 
-<p>In both examples, adding opinions and enforcing conventions on the projects simplified the configuration of the projects, and lessened the maintenance need over time.</p>
+<p>In both examples, adding opinions and enforcing conventions simplified the configuration of the projects, and lessened the maintenance need over time.</p>
 
 <h3 id="but-hey-i-like-that-ci-is-so-simple-and-flexible">But hey! I like that CI is so simple and flexible.</h3>
 
@@ -144,9 +144,9 @@
 
 <p>Just as in the GPU vs CPU analogy I think we can achieve a more efficient state and division of work, if we find a proper place for the functionality that today we just latch on CI.</p>
 
-<p>In a follow up article I’m going to write on how we can break up CI’s role. In the meantime, you can follow me on Twitter and get notified when that article is out. I’m <a href="https://twitter.com/laszlocph" target="\_blank">@laszlocph</a>.</p>
-
 <p>Onwards!</p>
+
+<p>In a follow up article I’m going to write on how we can break up CI’s role. In the meantime, you can follow me on Twitter and get notified when that article is out. I’m <a href="https://twitter.com/laszlocph" target="\_blank">@laszlocph</a>.</p>
 
       </div>
       <div class="hidden md:block md:w-3/12 p-6 pl-8 font-sans text-sm text-gray-600">
