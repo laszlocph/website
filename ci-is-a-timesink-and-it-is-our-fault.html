@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Hi I'm Laszlo Fogas, Devops consultant. My mission is elevating team cultures through automation and tooling. As a former engineering director I gained the perspective to effectively operate on many levels of your organization. I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta content="CI is a timesink, and it is our fault" property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/laszlo.jpg" property="og:image">
+  <meta content="/ci-is-a-timesink-and-it-is-our-fault" property="og:url">
+  <meta content="Laszlo Fogas" property="og:site_name">
+  <meta content="We made CI this generic task engine that it is today. This article highlights why CI is often tedious to maintain and looks for inspiration to solve the problem." property="og:description">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laszlocph">
+  <meta name="twitter:creator" content="@laszlocph">
+  <meta name="twitter:title" content="CI is a timesink, and it is our fault">
+  <meta name="twitter:description" content="We made CI this generic task engine that it is today. This article highlights why CI is often tedious to maintain and looks for inspiration to solve the problem.">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
+
+  <title>CI is a timesink, and it is our fault - Laszlo Fogas</title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css?2">
+  <meta name="google-site-verification" content="rRfVaMDPujw_KMAWJY0A3P6wZ3uP8pg2_-Bp0nAbLqg" />
+
+</head>
+<body style="position: relative">
+  <div class="container mx-auto max-w-6xl p-4">
+    <div class="flex">
+      <div class="hidden md:block md:w-3/12"></div>
+      <div class="w-full md:w-6/12 max-w-xl">
+        <h1><a href="./">Laszlo Fogas</a></h1>
+        <img src="images/1500x500.jpg"/>
+      </div>
+      <div class="hidden md:block md:w-3/12"></div>
+    </div>
+    <div class="flex">
+      <div class="hidden md:block md:w-3/12"></div>
+      <div class="w-full md:w-6/12 max-w-xl">
+        <h2 id="ci-is-a-timesink-and-it-is-our-fault">CI is a timesink, and it is our fault</h2>
+
+<p>2020-01-08</p>
+
+<p>We think of GPUs as powerful beasts that are 10 or 100 times faster than CPUs. We see graphics and AI benchmarks proving this every single time.</p>
+
+<p>I remember the day when I installed my first graphics card, the 3dfx Voodoo Banshee in my PC and instantly Quake 2 ran not just faster but way smoother as well. It felt like magic. CPUs looked slow and tedious in comparison.</p>
+
+<p>Later I learned that GPUs are rather primitive, doing only a fraction of what CPUs can do, but they are really good at their job.</p>
+
+<h3 id="what-is-cis-job-anyway">What is CI’s job anyway?</h3>
+
+<p>CI or build servers came to existence in the early 2000s when extreme programming techniques and agile was introduced.</p>
+
+<p>Progressive developers wanted to integrate their code daily thus they needed to automate the build and run it on a server. Also, they wanted to make their build self testing, so they can make sure that the automated build is functionally correct. The build server was born.</p>
+
+<p>It had two responsibilities:</p>
+<ul>
+  <li>to build the project and generate an artifact in an automated fashion</li>
+  <li>and to verify this build</li>
+</ul>
+
+<p>This clean cut responsibility of the build server only got more fuzzy over time as we added more and more functionality to our build pipelines. Making CI a timesink.</p>
+
+<h3 id="but-why-does-this-added-functionality-make-ci-a-timesink">But why does this added functionality make CI a timesink?</h3>
+
+<p>Because it requires CI to be a general purpose task engine integrated to every other system we have. We made CI the glue that it is today.</p>
+
+<p>We codified our processes and culture in CI, and as every team has different processes, our CI jobs are different from team to team, from project to project.</p>
+
+<p>CI servers are powerful and flexible, but we also made them difficult to maintain as we overloaded them with various responsibilities.</p>
+
+<h3 id="how-are-we-overloading-our-ci-pipelines-exactly">How are we overloading our CI pipelines exactly?</h3>
+
+<p>As a consultant I like to advocate for drone.io as the CI engine of choice - or more recently my Drone fork, called Woodpecker. And when I do that I’m often faced with the question if it has a plugin for X.</p>
+
+<p>My answer is along the lines of “everything that can be scripted can be run on CI”, plus Drone or Woodpecker has the most simple plugin architecture where you can literally pack your shell script in a Docker image and use it as a plugin with all benefits of declarativness in the pipeline.</p>
+
+<p>And because it’s so easy, we often extend CI with various functions.</p>
+
+<h3 id="examples-of-how-we-extend-ci-with-various-functions">Examples of how we extend CI with various functions</h3>
+
+<p>One example for extending CI’s responsibilities is deployment.</p>
+
+<p>We have different deployment targets, we have different strategies for deployment and rollback, and we also have different environments. This often results in custom deploy and cleanup steps scattered into many steps in the pipeline.</p>
+
+<p>Another example for latching on CI is notifications.</p>
+
+<p>We typically notify Slack in various build events. Sometimes we notify task managers as well or external jobs that need to run once the CI job finished.</p>
+
+<p>I have also seen secret management being stuffed in CI.</p>
+
+<p>CI’s have an okay process for managing secrets and we use this to manage secrets that are used in the pipeline. Sometimes we also use this facility to inject application secrets from the CI pipeline and if you think about it, CI has nothing to do with those secrets. But since CI has the facilities, and it  is often the only tool in our disposal where we can properly manage secrets, we manage application secrets from the CI pipeline.</p>
+
+<p>These are usually not big issues, but sometimes it becomes a real problem.</p>
+
+<h3 id="when-is-it-becoming-a-problem">When is it becoming a problem?</h3>
+
+<p>It can become a problem when you move between projects. You can never be sure how the pipeline works exactly as even pipelines of the same team vary slightly between projects. Even if you built the pipeline yourself, after some time you forget the nuances you had to implement to make the build work.</p>
+
+<p>Then when you face an issue, you have no other way to debug than to scan every line of the pipeline or print debug statements. Finding a misconfigured environment variable or a rouge <code class="highlighter-rouge">export MY_VAR=xxx</code> is often not trivial.</p>
+
+<p>Pipelines with many responsibilities also becoming a problem when you try to extend one of the aspects of the build.</p>
+
+<p>If you want a more advanced deployment logic, review app cleanup, rollbacks or blue-green deployments, the single step deploy that was glued at the end of the pipeline easily becomes five steps or more.</p>
+
+<p>Or should you need advanced secret rotation logic like some of the secret vaults have today? I don’t even know how to achieve that in a CI job.</p>
+
+<p>These are growing pains in CI job maintenance, but where can we look for solution?</p>
+
+<h3 id="where-can-we-look-for-a-solution">Where can we look for a solution?</h3>
+
+<p>We can look for a solution - or at least inspiration - in other projects or systems that have dealt with overlapping responsibilities before.</p>
+
+<h3 id="java-build-systems-went-through-a-similar-situation-in-the-mid-00s">Java build systems went through a similar situation in the mid 00s</h3>
+<p>Ant was the build system of the time. A procedural, flexible tool where you can iteratively enhance your script as your project grew.</p>
+
+<p>At the time even the folder structure of Java projects was different in every project and a great deal of time was spent in moving files, setting buildpaths and so forth. And once you hit a build error, all you had was a line number where the Ant script failed, you had to dig up the Ant script’s source code and start debugging line by line. Sounds familiar, doesn’t it?</p>
+
+<p>Then came Maven with a lot of opinions, conventions and declarativeness. Its primary goal was to <em>“allow a developer to comprehend the complete state of a development effort in the shortest period of time”</em>.</p>
+
+<p>Maven had conventions and supported only a single folder structure and build steps. It argued that all Java projects have to build, test and install their artifacts. No variations, but conventions everywhere. It quickly took the Java space and it still has a large fraction of the market today.</p>
+
+<h3 id="netlify-has-to-be-a-source-of-inspiration-as-well">Netlify has to be a source of inspiration as well</h3>
+<p>Netlify is a CI system in essence for static or single page web applications. It’s a Saas solution and it integrates vertically all things we need to do if we want to deploy our app: TLS, hosting, builds, everything. It’s popularity inevitably comes from the fact that it does everything for you in its selected niche, but in essence it’s a CI engine with the very same technical foundations as our general purpose CI engines.</p>
+
+<p>What Netlify did well was to bring a bunch of opinions and good defaults so Javascript, Python and other projects build by default, no pipeline yaml was required.</p>
+
+<p>In both examples, adding opinions and enforcing conventions on the projects simplified the configuration of the projects, and lessened the maintenance need over time.</p>
+
+<h3 id="but-hey-i-like-that-ci-is-so-simple-and-flexible">But hey! I like that CI is so simple and flexible.</h3>
+
+<p>I hear you, and this is why I also like CI. I like the iterative approach of how we build pipelines. It’s dead simple to do and the feedback loop is short. We can have a good feeling about the steady improvements we make.</p>
+
+<p>My point is that it comes with a cost: the things that we also loath in CI. It’s often tedious, integrations break and debugging them is not a time well spent.</p>
+
+<h3 id="debugging-ci-is-often-a-time-not-well-spent">Debugging CI is often a time not well spent</h3>
+
+<p>It’s important for me to repeat that <em>we</em> made CI this generic task engine that CI is today.</p>
+
+<p>I admit that we don’t have many alternatives today and CI poses itself a good enough place to put these functionalities. But the cost it comes with is worth talking about. We are giving up efficiency and innovation if we stick to the general purpose CI engines as we know them today.</p>
+
+<p>Just as in the GPU vs CPU analogy I think we can achieve a more efficient state and division of work, if we find a proper place for the functionality that today we just latch on CI.</p>
+
+<p>In a follow up article I’m going to write on how we can break up CI’s role. In the meantime, you can follow me on Twitter and get notified when that article is out. I’m <a href="https://twitter.com/laszlocph" target="\_blank">@laszlocph</a>.</p>
+
+<p>Onwards!</p>
+
+      </div>
+      <div class="hidden md:block md:w-3/12 p-6 pl-8 font-sans text-sm text-gray-600">
+        <div class="sticky top-0 pt-4">
+  <p class="uppercase"><strong>On this page</strong></p>
+  <ul id="toc" class="list-none w-48 pl-0">
+  <li class="mb-3"><a href="#what-is-cis-job-anyway" class="font-sans text-sm text-gray-600">What is CI’s job anyway?</a></li>
+  <li class="mb-3"><a href="#but-why-does-this-added-functionality-make-ci-a-timesink" class="font-sans text-sm text-gray-600">But why does this added functionality make CI a timesink?</a></li>
+  <li class="mb-3"><a href="#how-are-we-overloading-our-ci-pipelines-exactly" class="font-sans text-sm text-gray-600">How are we overloading our CI pipelines exactly?</a></li>
+  <li class="mb-3"><a href="#examples-of-how-we-extend-ci-with-various-functions" class="font-sans text-sm text-gray-600">Examples of how we extend CI with various functions</a></li>
+  <li class="mb-3"><a href="#when-is-it-becoming-a-problem" class="font-sans text-sm text-gray-600">When is it becoming a problem?</a></li>
+  <li class="mb-3"><a href="#where-can-we-look-for-a-solution" class="font-sans text-sm text-gray-600">Where can we look for a solution?</a></li>
+  <li class="mb-3"><a href="#java-build-systems-went-through-a-similar-situation-in-the-mid-00s" class="font-sans text-sm text-gray-600">Java build systems went through a similar situation in the mid 00s</a></li>
+  <li class="mb-3"><a href="#netlify-has-to-be-a-source-of-inspiration-as-well" class="font-sans text-sm text-gray-600">Netlify has to be a source of inspiration as well</a></li>
+  <li class="mb-3"><a href="#but-hey-i-like-that-ci-is-so-simple-and-flexible" class="font-sans text-sm text-gray-600">But hey! I like that CI is so simple and flexible.</a></li>
+  <li class="mb-3"><a href="#debugging-ci-is-often-a-time-not-well-spent" class="font-sans text-sm text-gray-600">Debugging CI is often a time not well spent</a></li>
+</ul>
+
+  <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="document.body.scrollTop=0;document.documentElement.scrollTop=0;">
+      Back to top
+  </button>
+</div>
+      </div>
+    </div>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84825803-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="/assets/javascripts/homepage.js" async></script>
+</body>
+</html>
