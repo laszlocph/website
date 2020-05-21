@@ -8,9 +8,9 @@
 
   <meta content="A simple Jenkins 2.0 and Docker workflow" property="og:title">
   <meta content="website" property="og:type">
-  <meta content="https://laszlo.cloud/pipeline.png" property="og:image">
-  <meta content="https://laszlo.cloud/laszlo.jpg" property="og:image">
-  <meta content="https://laszlo.cloud/Simple-Jenkins-and-Docker-workflow" property="og:url">
+  <meta content="/pipeline.png" property="og:image">
+  <meta content="/laszlo.jpg" property="og:image">
+  <meta content="/Simple-Jenkins-and-Docker-workflow" property="og:url">
   <meta content="Laszlo Fogas" property="og:site_name">
   <meta content="A Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version controlled. The end result is a container with code ready to deploy." property="og:description">
 
@@ -19,7 +19,7 @@
   <meta name="twitter:creator" content="@laszlocph">
   <meta name="twitter:title" content="A simple Jenkins 2.0 and Docker workflow">
   <meta name="twitter:description" content="A Docker based workflow in Jenkins 2.0 with both the CI pipeline and the build environment version controlled. The end result is a container with code ready to deploy.">
-  <meta name="twitter:image" content="https://laszlo.cloud/pipeline.png">
+  <meta name="twitter:image" content="/pipeline.png">
 
   <title>A simple Jenkins 2.0 and Docker workflow - Laszlo Fogas</title>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
@@ -118,7 +118,7 @@ try, and to gain experience for the times when your ops team is ready hosting it
 <span class="nb">cd </span>jenkins-with-sudo
 docker build <span class="nt">-t</span> laszlocph/jenkins-with-sudo:latest <span class="nb">.</span>
 
-docker run <span class="nt">-it</span> <span class="nt">--rm</span> <span class="nt">--network</span><span class="o">=</span>host <span class="nt">-v</span> jenkins_home:/var/jenkins_home <span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="nt">-v</span> <span class="k">$(</span>which docker<span class="k">)</span>:/usr/bin/docker laszlocph/jenkins-with-sudo:latest
+docker run <span class="nt">-it</span> <span class="nt">--rm</span> <span class="nt">--network</span><span class="o">=</span>host <span class="nt">-v</span> jenkins_home:/var/jenkins_home <span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="nt">-v</span> <span class="si">$(</span>which docker<span class="si">)</span>:/usr/bin/docker laszlocph/jenkins-with-sudo:latest
 </code></pre></div></div>
 
 <p>Once Jenkins is up, chose the default plugin set, and continue as the <em>admin</em> user. You can find the login 
@@ -253,16 +253,9 @@ to pick any component with any set of branches to provision a local, test, or ev
       </div>
     </div>
   </div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://rat.gimlet.io/script.js" site="SWFGFITA" defer></script>
+<!-- / Fathom -->
 
 <script type="text/javascript" src="/assets/javascripts/homepage.js" async></script>
 </body>

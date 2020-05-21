@@ -8,9 +8,9 @@
 
   <meta content="Setting GOPATH in Github Actions" property="og:title">
   <meta content="website" property="og:type">
-  <meta content="https://laszlo.cloud/images/1500x500.jpg" property="og:image">
-  <meta content="https://laszlo.cloud/laszlo.jpg" property="og:image">
-  <meta content="https://laszlo.cloud/setting-gopath-in-github-actions" property="og:url">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/laszlo.jpg" property="og:image">
+  <meta content="/setting-gopath-in-github-actions" property="og:url">
   <meta content="Laszlo Fogas" property="og:site_name">
   <meta content="Github Actions defaults are not ideal for Golang projects. This article shows how I configured GOPATH in Actions." property="og:description">
 
@@ -19,7 +19,7 @@
   <meta name="twitter:creator" content="@laszlocph">
   <meta name="twitter:title" content="Setting GOPATH in Github Actions">
   <meta name="twitter:description" content="Github Actions defaults are not ideal for Golang projects. This article shows how I configured GOPATH in Actions.">
-  <meta name="twitter:image" content="https://laszlo.cloud/images/1500x500.jpg">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
 
   <title>Setting GOPATH in Github Actions - Laszlo Fogas</title>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
@@ -63,16 +63,16 @@
     <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
     <span class="na">steps</span><span class="pi">:</span>
 
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go 1.12</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go </span><span class="m">1.12</span>
       <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-go@v1</span>
       <span class="na">with</span><span class="pi">:</span>
         <span class="na">go-version</span><span class="pi">:</span> <span class="s">1.12.4</span>
     
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Debug</span>
       <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="no">pwd</span>
-        <span class="no">echo ${GOPATH}</span>
-        <span class="no">echo ${GOROOT}</span>
+        <span class="s">pwd</span>
+        <span class="s">echo ${GOPATH}</span>
+        <span class="s">echo ${GOROOT}</span>
 </code></pre></div></div>
 
 <p>$GOROOT is set but $GOPATH is not:</p>
@@ -91,7 +91,7 @@
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check out code to a GOPATH compatible directory</span>
       <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v1</span>
       <span class="na">with</span><span class="pi">:</span>
-        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="s">1</span>
+        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="m">1</span>
         <span class="na">path</span><span class="pi">:</span> <span class="s">go/src/github.com/laszlocph/woodpecker</span>
 </code></pre></div></div>
 
@@ -103,7 +103,7 @@
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Test</span>
       <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="no">go test -cover $(go list ./... | grep -v /vendor/)</span>
+        <span class="s">go test -cover $(go list ./... | grep -v /vendor/)</span>
       <span class="na">env</span><span class="pi">:</span>
         <span class="na">GOPATH</span><span class="pi">:</span> <span class="s">/home/runner/work/woodpecker/go</span>
 </code></pre></div></div>
@@ -127,7 +127,7 @@
     <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
     <span class="na">steps</span><span class="pi">:</span>
 
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go 1.12</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go </span><span class="m">1.12</span>
       <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-go@v1</span>
       <span class="na">with</span><span class="pi">:</span>
         <span class="na">go-version</span><span class="pi">:</span> <span class="s">1.12.4</span>
@@ -135,27 +135,27 @@
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check out code into the Go module directory</span>
       <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v1</span>
       <span class="na">with</span><span class="pi">:</span>
-        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="s">1</span>
+        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="m">1</span>
         <span class="na">path</span><span class="pi">:</span> <span class="s">go/src/github.com/laszlocph/woodpecker</span>
 
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Debug</span>
       <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="no">pwd</span>
-        <span class="no">echo ${HOME}</span>
-        <span class="no">echo ${GITHUB_WORKSPACE}</span>
-        <span class="no">echo ${GOPATH}</span>
-        <span class="no">echo ${GOROOT}</span>
+        <span class="s">pwd</span>
+        <span class="s">echo ${HOME}</span>
+        <span class="s">echo ${GITHUB_WORKSPACE}</span>
+        <span class="s">echo ${GOPATH}</span>
+        <span class="s">echo ${GOROOT}</span>
       <span class="na">env</span><span class="pi">:</span>
         <span class="na">GOPATH</span><span class="pi">:</span> <span class="s">/home/runner/work/woodpecker/go</span>
 
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Test</span>
       <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="no">go get -u golang.org/x/tools/cmd/cover</span>
-        <span class="no">go get -u golang.org/x/net/context</span>
-        <span class="no">go get -u golang.org/x/net/context/ctxhttp</span>
-        <span class="no">go get -u github.com/golang/protobuf/proto</span>
-        <span class="no">go get -u github.com/golang/protobuf/protoc-gen-go</span>
-        <span class="no">go test -cover $(go list ./... | grep -v /vendor/)</span>
+        <span class="s">go get -u golang.org/x/tools/cmd/cover</span>
+        <span class="s">go get -u golang.org/x/net/context</span>
+        <span class="s">go get -u golang.org/x/net/context/ctxhttp</span>
+        <span class="s">go get -u github.com/golang/protobuf/proto</span>
+        <span class="s">go get -u github.com/golang/protobuf/protoc-gen-go</span>
+        <span class="s">go test -cover $(go list ./... | grep -v /vendor/)</span>
       <span class="na">env</span><span class="pi">:</span>
         <span class="na">GOPATH</span><span class="pi">:</span> <span class="s">/home/runner/work/woodpecker/go</span>
 
@@ -182,16 +182,9 @@
       </div>
     </div>
   </div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://rat.gimlet.io/script.js" site="SWFGFITA" defer></script>
+<!-- / Fathom -->
 
 <script type="text/javascript" src="/assets/javascripts/homepage.js" async></script>
 </body>

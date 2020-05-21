@@ -8,9 +8,9 @@
 
   <meta content="Rancher Kubernetes routing" property="og:title">
   <meta content="website" property="og:type">
-  <meta content="https://laszlo.cloud/rancher.png" property="og:image">
-  <meta content="https://laszlo.cloud/laszlo.jpg" property="og:image">
-  <meta content="https://laszlo.cloud/Rancher-Kubernetes-routing" property="og:url">
+  <meta content="/rancher.png" property="og:image">
+  <meta content="/laszlo.jpg" property="og:image">
+  <meta content="/Rancher-Kubernetes-routing" property="og:url">
   <meta content="Laszlo Fogas" property="og:site_name">
   <meta content="Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked." property="og:description">
 
@@ -19,7 +19,7 @@
   <meta name="twitter:creator" content="@laszlocph">
   <meta name="twitter:title" content="Rancher Kubernetes routing">
   <meta name="twitter:description" content="Recently I got to know Rancher's take on how traffic is routed to my Kubernetes services. I picked Rancher in the beginning of the project because it offered a working cluster with little effort. Routing being one of the things that just worked.">
-  <meta name="twitter:image" content="https://laszlo.cloud/rancher.png">
+  <meta name="twitter:image" content="/rancher.png">
 
   <title>Rancher Kubernetes routing - Laszlo Fogas</title>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
@@ -65,8 +65,8 @@ existing infrastructure, and the chosen Kubernetes vendor. Delivering these part
     <span class="na">app</span><span class="pi">:</span> <span class="s">bot</span>
   <span class="na">ports</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
-      <span class="na">port</span><span class="pi">:</span> <span class="s">80</span>
-      <span class="na">targetPort</span><span class="pi">:</span> <span class="s">80</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+      <span class="na">targetPort</span><span class="pi">:</span> <span class="m">80</span>
   <span class="s">&lt;b&gt;type</span><span class="pi">:</span> <span class="s">LoadBalancer&lt;/b&gt;</span>
 </code></pre></div></div>
 
@@ -97,7 +97,7 @@ existing infrastructure, and the chosen Kubernetes vendor. Delivering these part
       <span class="na">paths</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
           <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s1</span>
-          <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+          <span class="na">servicePort</span><span class="pi">:</span> <span class="m">80</span>
 </code></pre></div></div>
 
 <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
@@ -111,7 +111,7 @@ existing infrastructure, and the chosen Kubernetes vendor. Delivering these part
       <span class="na">paths</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
           <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s2</span>
-          <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+          <span class="na">servicePort</span><span class="pi">:</span> <span class="m">80</span>
 </code></pre></div></div>
 
 <p>One little Ingress snippet for each service I have, so it can be controlled by the feature team who owns the service and the services would be available on s1.mycompany.com and s2.mycompany.com respectively.</p>
@@ -148,19 +148,19 @@ existing infrastructure, and the chosen Kubernetes vendor. Delivering these part
     <span class="na">paths</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
         <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s1</span>
-        <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+        <span class="na">servicePort</span><span class="pi">:</span> <span class="m">80</span>
 <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">s2.mycompany.com</span>
   <span class="na">http</span><span class="pi">:</span>
     <span class="na">paths</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
         <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s2</span>
-        <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+        <span class="na">servicePort</span><span class="pi">:</span> <span class="m">80</span>
 <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">s3.mycompany.com</span>
   <span class="na">http</span><span class="pi">:</span>
     <span class="na">paths</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">backend</span><span class="pi">:</span>
         <span class="na">serviceName</span><span class="pi">:</span> <span class="s">s3</span>
-        <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+        <span class="na">servicePort</span><span class="pi">:</span> <span class="m">80</span>
 </code></pre></div></div>
 
 <p>But as you can tell, having one giant config for all the routing is really not convenient and prone to errors.</p>
@@ -205,16 +205,9 @@ The Rancher LB was also the place where I terminate SSL, so the Kube Ingress doe
       </div>
     </div>
   </div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://rat.gimlet.io/script.js" site="SWFGFITA" defer></script>
+<!-- / Fathom -->
 
 <script type="text/javascript" src="/assets/javascripts/homepage.js" async></script>
 </body>

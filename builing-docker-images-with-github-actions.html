@@ -8,9 +8,9 @@
 
   <meta content="Builing Docker images with Github Actions" property="og:title">
   <meta content="website" property="og:type">
-  <meta content="https://laszlo.cloud/images/1500x500.jpg" property="og:image">
-  <meta content="https://laszlo.cloud/laszlo.jpg" property="og:image">
-  <meta content="https://laszlo.cloud/builing-docker-images-with-github-actions" property="og:url">
+  <meta content="/images/1500x500.jpg" property="og:image">
+  <meta content="/laszlo.jpg" property="og:image">
+  <meta content="/builing-docker-images-with-github-actions" property="og:url">
   <meta content="Laszlo Fogas" property="og:site_name">
   <meta content="Github Actions defaults are not ideal for Golang projects. This article shows how I configured GOPATH in Actions." property="og:description">
 
@@ -19,7 +19,7 @@
   <meta name="twitter:creator" content="@laszlocph">
   <meta name="twitter:title" content="Builing Docker images with Github Actions">
   <meta name="twitter:description" content="Github Actions defaults are not ideal for Golang projects. This article shows how I configured GOPATH in Actions.">
-  <meta name="twitter:image" content="https://laszlo.cloud/images/1500x500.jpg">
+  <meta name="twitter:image" content="/images/1500x500.jpg">
 
   <title>Builing Docker images with Github Actions - Laszlo Fogas</title>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
@@ -75,7 +75,7 @@
 
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Debug</span>
       <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="no">docker version</span>
+        <span class="s">docker version</span>
 </code></pre></div></div>
 
 <h3 id="building-and-pushing-images-to-docker-hub">Building and pushing images to Docker Hub</h3>
@@ -91,13 +91,13 @@
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Checkout</span>
       <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v1</span>
       <span class="na">with</span><span class="pi">:</span>
-        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="s">1</span>
+        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="m">1</span>
 
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Docker build</span>
       <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="no">docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"</span>
-        <span class="no">docker build -t laszlocloud/actions-test .</span>
-        <span class="no">docker push laszlocloud/actions-test</span>
+        <span class="s">docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"</span>
+        <span class="s">docker build -t laszlocloud/actions-test .</span>
+        <span class="s">docker push laszlocloud/actions-test</span>
       <span class="na">env</span><span class="pi">:</span>
         <span class="na">DOCKER_USERNAME</span><span class="pi">:</span> <span class="s">${{ secrets.DOCKER_USERNAME }}</span>
         <span class="na">DOCKER_PASSWORD</span><span class="pi">:</span> <span class="s">${{ secrets.DOCKER_PASSWORD }}</span>
@@ -126,16 +126,9 @@
       </div>
     </div>
   </div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84825803-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://rat.gimlet.io/script.js" site="SWFGFITA" defer></script>
+<!-- / Fathom -->
 
 <script type="text/javascript" src="/assets/javascripts/homepage.js" async></script>
 </body>
