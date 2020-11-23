@@ -3,47 +3,32 @@ layout: index
 title: Laszlo Fogas, Devops Consultant
 image: 9ySXeJrr.jpg
 link: /
-excerpt: I'm Laszlo Fogas, Devops Consultant. I help software teams to move their Docker experiments to production. Check out my roadmap for Kubernetes projects!
+excerpt: Laszlo Fogas, a self employed DevOps consultant going into products
 js_bundle: homepage
 ---
 
-<h2 class="colorize">Delivering self-service developer experiences</h2>
-
-- Does it take longer to deploy a new service than writing it?
-- Are you racing for scarce Ops time?
-- Are you spending most of your time supporting developers?
-
-These are not uncommon pains during the adoption of microservice architectures.
-
-With the recent innovation in Cloud Native technologies though, it doesn't have to be like this. Container orchestrators like Kubernetes and CI/CD innovators make it possible to build a self-service platform for your developers.
-
-<h2>So your developers don't need permission nor support to put their services in front of customers.</h2>
-
-It's not just for the Facebooks and Googles anymore, you can have your Paas in-house catering for the self-service developer, tailored to your IT landscape. So developers can focus on innovation; after all developers like nothing else more than shipping.
-
-
 ## Good to meet you
 
-Hi I'm Laszlo Fogas, Devops consultant.
-
-In the fall of 2016 I set out to start Laszlo Cloud, a consultancy to elevate team cultures through automation and tooling.
+Hi I'm Laszlo Fogas, independent Devops consultant.
 
 As a former senior engineer and later engineering director I gained the perspective to effectively operate on many levels of your organization.
 
-I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition. I believe if technology and project management is backing up each other, change is possible.
+I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition.
+
+I'm also the maker of several DevOps products that can give you an internal developer platform on day one of our engagement.
 
 ![Laszlo Fogas](laszlo-web.png){:width="25%"}
 
 
 * Reach me at laszlo@laszlo.cloud
-* [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}, [Instagram](https://www.instagram.com/laszlo.cloud/){:target="_blank"}
+* [LinkedIn](https://dk.linkedin.com/in/laszlofogas){:target="_blank"}, [Twitter](https://twitter.com/laszlocph){:target="_blank"}, [Github](https://github.com/laszlocph){:target="_blank"}
 * My homebase is Budapest, but you can often find me in Copenhagen
 
 <div class="testimonial">
 <p>“We basically had a notion of what direction we wanted to move with our platform and Laszlo facilitated that swimmingly. Along the way we got very good coaching about how to evangelize the new service platform and help with presenting it to the dev teams.”</p> - Oscar Elfving, Operations Team Lead at Visma e-conomic A/S
 </div>
 
-## You can also follow my research on Cloud and Container technologies:
+## My Blog:
 <ul>
   {% for post in site.posts%}
   <li>
@@ -51,7 +36,3 @@ I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastruc
   </li>
   {% endfor %}
 </ul>   
-
-<div class="testimonial">
-<p>“Extremely knowledgeable about containerization and orchestration. I felt like I had a good overview of what was done along the way and that we would not be reliant on Laszlo after the contract ends.”</p> - Oscar Elfving, Operations Team Lead at Visma e-conomic A/S
-</div>
