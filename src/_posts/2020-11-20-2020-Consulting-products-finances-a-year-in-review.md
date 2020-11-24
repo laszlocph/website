@@ -106,3 +106,5 @@ I will also support that throughout the year, and will cover my clients ad-hoc c
 With this approach my clients get more value for less money, but they can still feel the safety net that I used to provide as a full-time devops consultant. I will also have more revenue for 2021, and by the end of the year my software assets will mature even more. Perhaps even allowing low touch product sales over the internet.
 
 Onwards to 2021!
+
+ps.: follow me on Twitter if you are interested in my next steps. I’m [@laszlocph](https://twitter.com/laszlocph){:target="_blank"}
