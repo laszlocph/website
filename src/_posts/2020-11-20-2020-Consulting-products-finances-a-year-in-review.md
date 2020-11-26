@@ -24,11 +24,11 @@ Drone 1.0 was a major change from 0.8. Large part of it has been rewritten, it g
 
 Woodpecker is dear to my heart, even though I don't consider it strategic at this point. It was a driver to level up my Golang and React skills, and me getting into the vendor side of the software business. I felt empowered by its source code, discovered Golang's simplicity and it was a good reason to pick up frontend chops.
 
-Woodpecker seems to have a small niche, and gets a Github star a week. It is almost at a hundred stars, and getting Pull Requests by a handful of people. I still think that Woodpecker is a fully capable CI engine and I think it will be alive for years to come.
+Woodpecker seems to have a small niche, and gets a Github star a week. It is almost at a hundred stars, and getting Pull Requests by a handful of people. I still think that Woodpecker is a fully capable CI engine and it will be alive for years to come.
 
 However, I find the CI space quite uninspiring. Even its latest contender, Github Actions just builds on the status quo, and in many aspects made the status quo stink even more. But Woodpecker could be some point a starting point if I decide to enter the space again.
 
-I still think about it from time to time. Especially about adding conventions to CI to make it less of a time sink ([read my ramblings about CI in this post from earlier this year](/ci-is-a-timesink-and-it-is-our-fault){:target="_blank"}).
+I think about it from time to time. Especially about adding conventions to CI to make it less of a time sink ([read my ramblings about CI in this post from earlier this year](/ci-is-a-timesink-and-it-is-our-fault){:target="_blank"}).
 
 #### 1clickinfra.com
 
@@ -38,7 +38,7 @@ I still think about it from time to time. Especially about adding conventions to
 
 I launched it late august this year, and gets around 150-200 unique visitors a month and have 15 signups. I constantly add more components to it and I actively promote it on meetups. So far it is getting interest and I'm hopeful to crank up the usage in the coming months once word of mouth picks up and the product is getting into the no-brainer value add category.
 
-It nicely augments my consulting business as well as the artifacts it gives to users is identical to the work I deliver to my customers in the first weeks of our engagement. I'm hoping to strengthen my consulting offering by being able to provide this head start, and also sell enterprise packages to companies who enjoyed 1-Click Infra in their test environments.
+It nicely augments my consulting business, as the artifacts it gives to users is identical to the work I deliver to my customers in the first weeks of our engagement. I'm hoping to strengthen my consulting offering by being able to provide this head start, and also sell enterprise packages to companies who enjoyed 1-Click Infra in their test environments.
 
 #### OneChart.dev
 
@@ -58,11 +58,11 @@ Currently it is installed at a single company serving 10 developers and all thei
 
 The product direction was also proven over the past year. Gimlet appeared on paper November 2019, released in April 2020, and in the meantime several industry players moved in a similar direction. Rancher's Fleet has the same  gitops approach to manage environments, Google's Application Manager is similar in managing applications. And GitOps got mainstream this year too.
 
-While I feel validated by my users, and there is an industry trend I can  piggyback on, I have yet to gain traction on my inbound lead channels. I had zero inbound requests out of 500 unique website visitors.
+While I feel validated by my users, and there is an industry trend I can  piggyback on, I have yet to gain traction on my inbound lead channels. I had zero inbound requests out of thousand unique website visitors.
 
 I also had minimal success in my direct sales efforts. I managed to run a few trials over the summer, but none of them were really ready to dedicate the time for a proper evaluation. In general I also felt shitty during my sales efforts. I knew I had a great product, but didn't find a way to convey that in an easy message that runs home with my prospects.
 
-But Gimlet is not going away, on the contrary. I'm doubling down on it in 2021, with a different packaging.
+But Gimlet is not going away, on the contrary. I'm doubling down on it in 2021, with an opensource packaging.
 
 But first a bit of finances, as having this many bets on the table doesn't come for free.
 
@@ -97,14 +97,14 @@ It is certainly a longer path than just writing software and selling 400USD a mo
 
 With Gimlet I found it difficult to sell expensive monthly subscriptions, with consulting however I managed to sell many times of that amount, while essentially developing Gimlet in-house for my clients. Or actually much worse, Gimlet implemented in CI, with glue.
 
-Irony aside, I understand that buying something this expensive from someone you don't know much can be scary, especially if you can't talk to him on your daily scrum. So I try to mix the two approaches a bit.
+Irony aside, I understand that it can be scary to buy something this expensive from someone you don't know, especially if you can't talk to him on your daily scrum. So I try to mix the two approaches a bit.
 
-Let my 2020 be the model for my 2021 sales efforts: with my products, the Gimlet universe, I can provide much of the Kubernetes tooling and deployment needs of B2B SaaS companies up to 50 devs, all on day one.
+Let my 2020 be the model for my 2021 sales efforts: with my products, the Gimlet universe, I can provide much of the Kubernetes tooling and deployment needs of B2B SaaS companies up to fifty devs, all on day one.
 
-I will also support that throughout the year, and will cover my clients ad-hoc cloud consultancy needs. And I will be available on their daily scrum.
+I will also support it throughout the year, and will cover my clients ad-hoc cloud consultancy needs. Meaning I will be available on their daily scrum.
 
-With this approach my clients get more value for less money, but they can still feel the safety net that I used to provide as a full-time devops consultant. I will also have more revenue for 2021, and by the end of the year my software assets will mature even more. Perhaps even allowing low touch product sales over the internet.
+With this approach my clients get more value for less money, and they will have the safety net that I used to provide as a full-time devops consultant. I will also have more revenue for 2021, and by the end of the year my software assets will mature even more. Perhaps even allowing low touch product sales over the internet.
 
 Onwards to 2021!
 
-ps.: follow me on Twitter if you are interested in my next steps. I’m [@laszlocph](https://twitter.com/laszlocph){:target="_blank"}
+ps.: If you think my path is interesting, please like the social media post that led you to this blog entry. It will help my 2021 sales, and opensource product development.
