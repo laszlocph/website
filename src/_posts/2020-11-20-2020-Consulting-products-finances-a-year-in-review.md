@@ -4,7 +4,7 @@ title: "2020: consulting, products, finances - a year in review"
 image: images/revenue-cropped.png
 link: /2020-consulting-products-finances-a-year-in-review
 permalink: /2020-consulting-products-finances-a-year-in-review
-excerpt: 2020 has been a transition year in my consulting business. In this post I make an inventory of all software assets I have control of,then I look at the costs of independent product development by comparing my revenue to previous years
+excerpt: 2020 has been a transition year in my consulting business. In this post I make an inventory of all software assets I have control of, then I look at the costs of independent product development by comparing my revenue to previous years
 
 ---
 
