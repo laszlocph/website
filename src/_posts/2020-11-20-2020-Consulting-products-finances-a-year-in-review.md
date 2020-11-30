@@ -36,7 +36,7 @@ I think about it from time to time. Especially about adding conventions to CI to
 
 1-Click Infra configures logging, metrics, HTTP routing, security and also gives you a git based workflow to keep the components up to date.
 
-I launched it late august this year, and gets around 150-200 unique visitors a month and have 15 signups. I constantly add more components to it and I actively promote it on meetups. So far it is getting interest and I'm hopeful to crank up the usage in the coming months once word of mouth picks up and the product is getting into the no-brainer value add category.
+I launched it late August this year, and gets around 150-200 unique visitors a month and have 15 signups. I constantly add more components to it and I actively promote it on meetups. So far it is getting interest and I'm hopeful to crank up the usage in the coming months once word of mouth picks up and the product is getting into the no-brainer value add category.
 
 It nicely augments my consulting business, as the artifacts it gives to users is identical to the work I deliver to my customers in the first weeks of our engagement. I'm hoping to strengthen my consulting offering by being able to provide this head start, and also sell enterprise packages to companies who enjoyed 1-Click Infra in their test environments.
 
@@ -52,15 +52,15 @@ I really do hope it gets picked up once the Gimlet universe around it unfolds.
 
 #### Gimlet
 
-[Gimlet](https://gimlet.io/){:target="_blank"} is my largest product. It is an internal developer platform that covers Kubernetes deployment and rollback automation, and an application focused UI. All that based on gitops.
+[Gimlet](https://gimlet.io/){:target="_blank"} is my largest product. It is an internal developer platform that covers Kubernetes deployment and rollback automation, and an application focused UI. All that based on GitOps.
 
 Currently it is installed at a single company serving 10 developers and all their deployment needs. It is generally well received and also proven to be on good technical foundation.
 
-The product direction was also proven over the past year. Gimlet appeared on paper November 2019, released in April 2020, and in the meantime several industry players moved in a similar direction. Rancher's Fleet has the same  gitops approach to manage environments, Google's Application Manager is similar in managing applications. And GitOps got mainstream this year too.
+The product direction was also proven over the past year. Gimlet appeared on paper November 2019, released in April 2020, and in the meantime several industry players moved in a similar direction. Rancher's Fleet has the same  GitOps approach to manage environments, Google's Application Manager is similar in managing applications. And GitOps got mainstream this year too.
 
 While I feel validated by my users, and there is an industry trend I can  piggyback on, I have yet to gain traction on my inbound lead channels. I had zero inbound requests out of thousand unique website visitors.
 
-I also had minimal success in my direct sales efforts. I managed to run a few trials over the summer, but none of them were really ready to dedicate the time for a proper evaluation. In general I also felt shitty during my sales efforts. I knew I had a great product, but didn't find a way to convey that in an easy message that runs home with my prospects.
+I also had minimal success in my direct sales efforts. I managed to run a few trials over the summer, but none of them were really ready to dedicate the time for a proper evaluation. I also felt uncomfortable during my sales efforts. I knew I had a great product, but didn't find a way to convey that in an easy message that runs home with my prospects.
 
 But Gimlet is not going away, on the contrary. I'm doubling down on it in 2021, with an opensource packaging.
 
@@ -95,7 +95,7 @@ Alright so after spending all this money, how can I really transition to product
 
 It is certainly a longer path than just writing software and selling 400USD a month licenses, like I planned with Gimlet. It may happen, but I'm actually looking to leverage a little bit of consulting in 2021.
 
-With Gimlet I found it difficult to sell expensive monthly subscriptions, with consulting however I managed to sell many times of that amount, while essentially developing Gimlet in-house for my clients. Or actually much worse, Gimlet implemented in CI, with glue.
+With Gimlet I found it difficult to sell expensive monthly subscriptions. However, in my consulting practice, I managed to sell many times that amount while essentially developing Gimlet in-house for my clients. Or actually much worse, Gimlet implemented in CI, with glue.
 
 Irony aside, I understand that it can be scary to buy something this expensive from someone you don't know, especially if you can't talk to him on your daily scrum. So I try to mix the two approaches a bit.
 
