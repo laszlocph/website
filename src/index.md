@@ -15,7 +15,7 @@ As a former senior engineer and later engineering director I gained the perspect
 
 I feel home in developer advocacy, building CI/CD pipelines and Cloud infrastructure, up to stakeholder management. This gives me the secret sauce for driving the DevOps transition.
 
-I'm also the maker of several DevOps products that can give you an internal developer platform on day one of our engagement: [Gimlet](https://gimlet.io){:target="_blank"} and [1clickinfra.com](https://1clickinfra.com){:target="_blank"}
+I'm also the maker of [Gimlet](https://gimlet.io){:target="_blank"}. a devopd product that can give you an internal developer platform on day one of our engagement.
 
 ![Laszlo Fogas](laszlo-web.png){:width="25%"}
 
